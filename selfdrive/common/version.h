@@ -1,1 +1,1 @@
-#define COMMA_VERSION "0.8.8-dp-1"
+#define COMMA_VERSION "0.8.8-DP1-Aragon"

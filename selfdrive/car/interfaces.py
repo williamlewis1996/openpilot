@@ -25,6 +25,7 @@ class CarInterfaceBase():
   def __init__(self, CP, CarController, CarState):
     self.CP = CP
     self.VM = VehicleModel(CP)
+    self.disengage_on_gas = False
 
     self.frame = 0
     self.steer_warning = 0
@@ -132,10 +133,12 @@ class CarInterfaceBase():
     self.steer_warning = self.steer_warning + 1 if cs_out.steerWarning else 0
     self.steering_unpressed = 0 if cs_out.steeringPressed else self.steering_unpressed + 1
 
-    # Handle permanent and temporary steering faults
+    # dp
     if (cs_out.leftBlinker or cs_out.rightBlinker) and self.dragonconf.dpLateralMode == 0:
       events.add(EventName.manualSteeringRequiredBlinkersOn)
-    elif cs_out.steerError:
+
+    # Handle permanent and temporary steering faults
+    if cs_out.steerError:
       events.add(EventName.steerUnavailable)
     elif cs_out.steerWarning:
       # only escalate to the harsher alert after the condition has
@@ -152,11 +155,12 @@ class CarInterfaceBase():
       pass
     elif self.dragonconf.dpAllowGas:
       if cs_out.brakePressed and (not self.CS.out.brakePressed or not cs_out.standstill):
-        events.add(EventName.pedalPressed)
-    else:
-      if (cs_out.gasPressed and (not self.CS.out.gasPressed) and cs_out.vEgo > gas_resume_speed) or \
-              (cs_out.brakePressed and (not self.CS.out.brakePressed or not cs_out.standstill)):
-        events.add(EventName.pedalPressed)
+        if (cs_out.lkasEnabled):
+          cs_out.disengageByBrake = True
+        if (cs_out.cruiseState.enabled):
+          events.add(EventName.pedalPressed)
+        else:
+          events.add(EventName.silentPedalPressed)
 
     # we engage when pcm is active (rising edge)
     if pcm_enable:
