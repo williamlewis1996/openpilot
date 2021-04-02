@@ -109,6 +109,14 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     wideRoadCameraError @102;
     localizerMalfunction @103;
 
+    #spektor
+    manualSteeringRequired @105;
+    manualLongitudinalRequired @106;
+    silentPedalPressed @107;
+    silentButtonEnable @108;
+    silentBrakeHold @109;
+    silentWrongGear @110;
+
     driverMonitorLowAccDEPRECATED @68;
     radarCanErrorDEPRECATED @15;
     radarCommIssueDEPRECATED @67;
@@ -131,16 +139,17 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     startupOneplusDEPRECATED @82;
 
     #dp
-    preLaneChangeLeftALC @105;
-    preLaneChangeRightALC @106;
-    manualSteeringRequired @107;
-    manualSteeringRequiredBlinkersOn @108;
     leadCarMoving @109;
+    preLaneChangeLeftALC @111;
+    preLaneChangeRightALC @112;
+    manualSteeringRequired @113;
+    manualSteeringRequiredBlinkersOn @114;
+    leadCarMoving @115;
 
     # timebomb assist
-    timebombWarn @110;
-    timebombBypassing @111;
-    timebombBypassed @112;
+    timebombWarn @116;
+    timebombBypassing @117;
+    timebombBypassed @118;
   }
 }
 
@@ -206,9 +215,14 @@ struct CarState {
   leftBlindspot @33 :Bool; # Is there something blocking the left lane change
   rightBlindspot @34 :Bool; # Is there something blocking the right lane change
 
-  # dp
-  lkMode @37 :Bool;
-  stopSteering @38 :Bool; # timebomb - stopSteering
+  # spektor part 2
+  lkasEnabled @37 :Bool;
+  leftBlinkerOn @38 :Bool;
+  rightBlinkerOn @39 :Bool;
+  disengageByBrake @40 :Bool;
+  automaticLaneChange @41 :Bool;
+  belowLaneChangeSpeed @42 :Bool;
+  accEnabled @43 :Bool;
 
   struct WheelSpeeds {
     # optional wheel speeds

@@ -25,6 +25,7 @@ class CarInterfaceBase():
   def __init__(self, CP, CarController, CarState):
     self.CP = CP
     self.VM = VehicleModel(CP)
+    self.disengage_on_gas = False
 
     self.frame = 0
     self.steer_warning = 0
@@ -109,9 +110,8 @@ class CarInterfaceBase():
       events.add(EventName.doorOpen)
     if cs_out.seatbeltUnlatched:
       events.add(EventName.seatbeltNotLatched)
-    if self.dragonconf.dpGearCheck and cs_out.gearShifter != GearShifter.drive and (extra_gears is None or
-         cs_out.gearShifter not in extra_gears):
-        events.add(EventName.wrongGear)
+    if not self.dragonconf.dpAtl and self.dragonconf.dpGearCheck and cs_out.gearShifter != GearShifter.drive and cs_out.gearShifter not in extra_gears and not (cs_out.gearShifter == GearShifter.unknown and self.CS.out.gearShifter != GearShifter.unknown):
+      events.add(EventName.wrongGear) #test
     if cs_out.gearShifter == GearShifter.reverse:
       events.add(EventName.reverseGear)
     if not cs_out.cruiseState.available and not self.dragonconf.dpAtl:
@@ -152,11 +152,12 @@ class CarInterfaceBase():
       pass
     elif self.dragonconf.dpAllowGas:
       if cs_out.brakePressed and (not self.CS.out.brakePressed or not cs_out.standstill):
-        events.add(EventName.pedalPressed)
-    else:
-      if (cs_out.gasPressed and (not self.CS.out.gasPressed) and cs_out.vEgo > gas_resume_speed) or \
-              (cs_out.brakePressed and (not self.CS.out.brakePressed or not cs_out.standstill)):
-        events.add(EventName.pedalPressed)
+        if (cs_out.lkasEnabled):
+          cs_out.disengageByBrake = True
+        if (cs_out.cruiseState.enabled):
+          events.add(EventName.pedalPressed)
+        else:
+          events.add(EventName.silentPedalPressed)
 
     # we engage when pcm is active (rising edge)
     if pcm_enable:
