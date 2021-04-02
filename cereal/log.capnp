@@ -669,7 +669,7 @@ struct ControlsState @0x97ff69c53601abf1 {
   mapValidDEPRECATED @49 :Bool;
   jerkFactorDEPRECATED @12 :Float32;
   steerOverrideDEPRECATED @20 :Bool;
-  steeringAngleDesiredDegDEPRECATED @29 :Float32;
+  steeringAngleDesiredDeg @29 :Float32;
 }
 
 struct ModelDataV2 {
@@ -872,6 +872,8 @@ struct LateralPlan @0xe1e9318e2ae8b51e {
   psis @26 :List(Float32);
   curvatures @27 :List(Float32);
   curvatureRates @28 :List(Float32);
+
+  lanelessMode @29 :Bool;
 
   enum Desire {
     none @0;

@@ -30,6 +30,16 @@
 #define COLOR_RED_ALPHA(x) nvgRGBA(201, 34, 49, x)
 #define COLOR_YELLOW nvgRGBA(218, 202, 37, 255)
 #define COLOR_RED nvgRGBA(201, 34, 49, 255)
+#define COLOR_OCHRE nvgRGBA(218, 111, 37, 255)
+#define COLOR_OCHRE_ALPHA(x) nvgRGBA(218, 111, 37, x)
+#define COLOR_GREEN nvgRGBA(0, 255, 0, 255)
+#define COLOR_GREEN_ALPHA(x) nvgRGBA(0, 255, 0, x)
+#define COLOR_BLUE nvgRGBA(0, 0, 255, 255)
+#define COLOR_BLUE_ALPHA(x) nvgRGBA(0, 0, 255, x)
+#define COLOR_ORANGE nvgRGBA(255, 175, 3, 255)
+#define COLOR_ORANGE_ALPHA(x) nvgRGBA(255, 175, 3, x)
+#define COLOR_YELLOW_ALPHA(x) nvgRGBA(218, 202, 37, x)
+#define COLOR_GREY nvgRGBA(191, 191, 191, 1)
 
 typedef cereal::CarControl::HUDControl::AudibleAlert AudibleAlert;
 
@@ -70,8 +80,10 @@ const Alert CONTROLS_UNRESPONSIVE_ALERT = {"TAKE CONTROL IMMEDIATELY", "Controls
 const int CONTROLS_TIMEOUT = 5;
 
 const int bdr_s = 30;
+const int bdr_is = 30;
 const int header_h = 420;
 const int footer_h = 280;
+const int laneless_btn_touch_pad = 80;
 
 const int UI_FREQ = 20;   // Hz
 
@@ -83,9 +95,9 @@ typedef enum UIStatus {
 } UIStatus;
 
 const QColor bg_colors [] = {
-  [STATUS_DISENGAGED] =  QColor(0x17, 0x33, 0x49, 0xc8),
-  [STATUS_ENGAGED] = QColor(0x17, 0x86, 0x44, 0xf1),
-  [STATUS_WARNING] = QColor(0xDA, 0x6F, 0x25, 0xf1),
+  [STATUS_DISENGAGED] =  QColor(0x39, 0x39, 0x39, 0xc8),
+  [STATUS_ENGAGED] = QColor(0x0, 0xFF, 0x0, 0xf1),
+  [STATUS_WARNING] = QColor(0xE, 0x17, 0x1F, 0xf1),
   [STATUS_ALERT] = QColor(0xC9, 0x22, 0x31, 0xf1),
 };
 
@@ -105,6 +117,33 @@ typedef struct UIScene {
 
   cereal::PandaState::PandaType pandaType;
 
+  int laneless_mode;
+  Rect laneless_btn_touch_rect;
+
+  int lead_status;
+  float lead_d_rel;
+  float lead_v_rel;
+  float angleSteers;
+  bool brakePressed;
+  float angleSteersDes;
+  bool recording;
+  float gpsAccuracyUblox;
+  float altitudeUblox;
+  int engineRPM;
+  int dashcamX;
+  int dashcamY;
+  float aEgo;
+  float steeringTorqueEps;
+  bool steeringPressed;
+  bool enabled;
+  float pidStateOutput;
+  int satelliteCount;
+  bool computerBraking;
+  
+  cereal::CarState::Reader car_state;
+  cereal::ControlsState::Reader controls_state;
+  cereal::LateralPlan::Reader lateral_plan;
+
   // modelV2
   float lane_line_probs[4];
   float road_edge_stds[2];
@@ -120,6 +159,18 @@ typedef struct UIScene {
   float light_sensor, accel_sensor, gyro_sensor;
   bool started, ignition, is_metric, longitudinal_control, end_to_end;
   uint64_t started_frame;
+
+  struct _LateralPlan
+  {
+    float laneWidth;
+
+    float dProb;
+    float lProb;
+    float rProb;
+
+    bool lanelessModeStatus;
+  } lateralPlan;
+
 } UIScene;
 
 typedef struct UIState {

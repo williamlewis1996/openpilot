@@ -1,12 +1,14 @@
 import math
 import numpy as np
-from common.numpy_fast import interp
+from common.numpy_fast import interp, interp2d
 from common.realtime import sec_since_boot
 from selfdrive.modeld.constants import T_IDXS
 from selfdrive.controls.lib.radar_helpers import _LEAD_ACCEL_TAU
 from selfdrive.controls.lib.lead_mpc_lib import libmpc_py
 from selfdrive.controls.lib.drive_helpers import MPC_COST_LONG, CONTROL_N
+from selfdrive.controls.lib.follow_helpers import STOPPING_DISTANCE, get_distance_cost, get_follow_profile
 from selfdrive.swaglog import cloudlog
+
 
 MPC_T = list(np.arange(0,1.,.2)) + list(np.arange(1.,10.6,.6))
 
@@ -20,6 +22,8 @@ class LeadMpc():
     self.prev_lead_x = 0.0
     self.new_lead = False
 
+    self.v_rel = 0.0
+    self.distance_cost_last = MPC_COST_LONG.DISTANCE
     self.last_cloudlog_t = 0.0
     self.n_its = 0
     self.duration = 0
@@ -46,6 +50,17 @@ class LeadMpc():
     self.cur_state[0].v_ego = v_safe
     self.cur_state[0].a_ego = a_safe
 
+  def update_follow_profile(self, CS):
+    if CS.vEgo < CITY_SPEED:
+      query = BRAKING if CS.vEgo < BRAKING_SPEED else CS.readdistancelines
+      self.profile = PROFILES_CITY.get(query, DEFAULT_PROFILE)
+    else:
+      query = CS.readdistancelines
+      self.profile = PROFILES_HWY.get(query, DEFAULT_PROFILE)
+
+  def distance_cost(self, TR):
+    return interp(TR, COSTS_TR, COSTS_DISTANCE)
+
   def update(self, CS, radarstate, v_cruise):
     v_ego = CS.vEgo
     if self.lead_id == 0:
@@ -58,7 +73,7 @@ class LeadMpc():
     self.cur_state[0].x_ego = 0.0
 
     if lead is not None and lead.status:
-      x_lead = lead.dRel
+      x_lead = max(0, lead.dRel - STOPPING_DISTANCE) # increase stopping distance to car by X [m]
       v_lead = max(0.0, lead.vLead)
       a_lead = lead.aLeadK
 
@@ -66,7 +81,7 @@ class LeadMpc():
         v_lead = 0.0
         a_lead = 0.0
 
-      self.a_lead_tau = lead.aLeadTau
+      self.a_lead_tau = self.a_lead_tau = max(lead.aLeadTau, (a_lead ** 2 * math.pi) / (2 * (v_lead + 0.01) ** 2))
       self.new_lead = False
       if not self.prev_lead_status or abs(x_lead - self.prev_lead_x) > 2.5:
         self.libmpc.init_with_simulation(v_ego, x_lead, v_lead, a_lead, self.a_lead_tau)
@@ -82,11 +97,20 @@ class LeadMpc():
       self.cur_state[0].x_l = 50.0
       self.cur_state[0].v_l = v_ego + 10.0
       a_lead = 0.0
+      v_lead = 0.0
       self.a_lead_tau = _LEAD_ACCEL_TAU
 
-    # Calculate mpc
+    # Calculate conditions
+    self.v_rel = v_lead - v_ego
+    profile = get_follow_profile(CS)
+    TR = interp2d((-self.v_rel, v_ego), profile.speeds, profile.arrs)
+    distance_cost = get_distance_cost(TR)
+    if distance_cost != self.distance_cost_last:
+      self.libmpc.change_costs(MPC_COST_LONG.TTC, distance_cost, MPC_COST_LONG.ACCELERATION, MPC_COST_LONG.JERK)
+      self.distance_cost_last = distance_cost
+
     t = sec_since_boot()
-    self.n_its = self.libmpc.run_mpc(self.cur_state, self.mpc_solution, self.a_lead_tau, a_lead)
+    self.n_its = self.libmpc.run_mpc(self.cur_state, self.mpc_solution, self.a_lead_tau, a_lead, TR)
     self.v_solution = interp(T_IDXS[:CONTROL_N], MPC_T, self.mpc_solution.v_ego)
     self.a_solution = interp(T_IDXS[:CONTROL_N], MPC_T, self.mpc_solution.a_ego)
     self.j_solution = interp(T_IDXS[:CONTROL_N], MPC_T[:-1], self.mpc_solution.j_ego)

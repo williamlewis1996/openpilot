@@ -52,6 +52,12 @@ class Controls:
   def __init__(self, sm=None, pm=None, can_sock=None):
     config_realtime_process(4 if TICI else 3, Priority.CTRL_HIGH)
 
+    self.accel_pressed = False
+    self.decel_pressed = False
+    self.accel_pressed_last = 0.
+    self.decel_pressed_last = 0.
+    self.fastMode = False
+    
     # Setup sockets
     self.pm = pm
     if self.pm is None:
@@ -118,7 +124,7 @@ class Controls:
     self.AM = AlertManager()
     self.events = Events()
 
-    self.LoC = LongControl(self.CP, self.CI.compute_gb)
+    self.LoC = LongControl(self.CP)
     self.VM = VehicleModel(self.CP)
 
     if self.CP.steerControlType == car.CarParams.SteerControlType.angle:
@@ -138,6 +144,7 @@ class Controls:
     self.soft_disable_timer = 0
     self.v_cruise_kph = 255
     self.v_cruise_kph_last = 0
+    self.cruiseState_enabled_last = False
     self.mismatch_counter = 0
     self.can_error_counter = 0
     self.last_blinker_frame = 0
@@ -147,8 +154,6 @@ class Controls:
     self.events_prev = []
     self.current_alert_types = [ET.PERMANENT]
     self.logged_comm_issue = False
-    self.v_target = 0.0
-    self.a_target = 0.0
 
     # TODO: no longer necessary, aside from process replay
     self.sm['liveParameters'].valid = True
@@ -302,7 +307,7 @@ class Controls:
           self.events.add(EventName.noGps)
       if not self.sm.all_alive(self.camera_packets):
         self.events.add(EventName.cameraMalfunction)
-      if self.sm['modelV2'].frameDropPerc > 20:
+      if self.sm['modelV2'].frameDropPerc > 30:
         self.events.add(EventName.modeldLagging)
       if self.sm['liveLocationKalman'].excessiveResets:
         self.events.add(EventName.localizerMalfunction)
@@ -363,9 +368,34 @@ class Controls:
 
     self.v_cruise_kph_last = self.v_cruise_kph
 
+    cur_time = self.sm.frame * DT_CTRL
+
     # if stock cruise is completely disabled, then we can use our own set speed logic
     if not self.CP.pcmCruise:
-      self.v_cruise_kph = update_v_cruise(self.v_cruise_kph, CS.buttonEvents, self.enabled)
+      for b in CS.buttonEvents:
+        if b.pressed:
+          if b.type == car.CarState.ButtonEvent.Type.accelCruise:
+            self.accel_pressed = True
+            self.accel_pressed_last = cur_time
+          elif b.type == car.CarState.ButtonEvent.Type.decelCruise:
+            self.decel_pressed = True
+            self.decel_pressed_last = cur_time
+        else:
+          if b.type == car.CarState.ButtonEvent.Type.accelCruise:
+            self.accel_pressed = False
+          elif b.type == car.CarState.ButtonEvent.Type.decelCruise:
+            self.decel_pressed = False
+
+      self.v_cruise_kph = update_v_cruise(self.v_cruise_kph if self.is_metric else int(round((float(self.v_cruise_kph) * 0.6233 + 0.0995))), CS.buttonEvents, self.enabled and CS.cruiseState.enabled, cur_time, self.accel_pressed,self.decel_pressed, self.accel_pressed_last,self.decel_pressed_last,self.fastMode)
+      self.v_cruise_kph = self.v_cruise_kph if self.is_metric else int(round((float(round(self.v_cruise_kph))-0.0995)/0.6233))
+
+      if(self.accel_pressed or self.decel_pressed):
+        if self.v_cruise_kph_last != self.v_cruise_kph:
+          self.accel_pressed_last = cur_time
+          self.decel_pressed_last = cur_time
+          self.fastMode = True
+      else:
+        self.fastMode = False          
     elif self.CP.pcmCruise and CS.cruiseState.enabled:
       self.v_cruise_kph = CS.cruiseState.speed * CV.MS_TO_KPH
 
@@ -425,7 +455,17 @@ class Controls:
           else:
             self.state = State.enabled
           self.current_alert_types.append(ET.ENABLE)
-          self.v_cruise_kph = initialize_v_cruise(CS.vEgo, CS.buttonEvents, self.v_cruise_kph_last)
+          if not self.CP.pcmCruise:
+            if CS.cruiseState.enabled:
+              self.v_cruise_kph = initialize_v_cruise(CS.vEgo, CS.buttonEvents, self.v_cruise_kph_last)
+          else:
+            self.v_cruise_kph = initialize_v_cruise(CS.vEgo, CS.buttonEvents, self.v_cruise_kph_last)
+
+    if not self.CP.pcmCruise:
+      if CS.cruiseState.enabled and not self.cruiseState_enabled_last:
+        self.v_cruise_kph = initialize_v_cruise(CS.vEgo, CS.buttonEvents, self.v_cruise_kph_last)
+
+      self.cruiseState_enabled_last = CS.cruiseState.enabled
 
     # Check if actuators are enabled
     self.active = self.state == State.enabled or self.state == State.softDisabling
@@ -459,8 +499,9 @@ class Controls:
       self.LoC.reset(v_pid=CS.vEgo)
 
     if not self.joystick_mode:
-      # Gas/Brake PID loop
-      actuators.gas, actuators.brake, self.v_target, self.a_target = self.LoC.update(self.active, CS, self.CP, long_plan)
+      # accel PID loop
+      pid_accel_limits = self.CI.get_pid_accel_limits(self.CP, CS.vEgo, self.v_cruise_kph * CV.KPH_TO_MS)
+      actuators.accel = self.LoC.update(self.active, CS, self.CP, long_plan, pid_accel_limits)
 
       # Steering PID loop and lateral MPC
       desired_curvature, desired_curvature_rate = get_lag_adjusted_curvature(self.CP, CS.vEgo,
@@ -472,8 +513,7 @@ class Controls:
     else:
       lac_log = log.ControlsState.LateralDebugState.new_message()
       if self.sm.rcv_frame['testJoystick'] > 0 and self.active:
-        gb = clip(self.sm['testJoystick'].axes[0], -1, 1)
-        actuators.gas, actuators.brake = max(gb, 0), max(-gb, 0)
+        actuators.accel = 4.0*clip(self.sm['testJoystick'].axes[0], -1, 1)
 
         steer = clip(self.sm['testJoystick'].axes[1], -1, 1)
         # max angle is 45 for angle-based cars
@@ -488,7 +528,7 @@ class Controls:
     angle_control_saturated = self.CP.steerControlType == car.CarParams.SteerControlType.angle and \
       abs(actuators.steeringAngleDeg - CS.steeringAngleDeg) > STEER_ANGLE_SATURATION_THRESHOLD
 
-    if angle_control_saturated and not CS.steeringPressed and self.active:
+    if angle_control_saturated and not CS.steeringPressed and self.active and not (CS.leftBlinker or CS.rightBlinker):
       self.saturated_count += 1
     else:
       self.saturated_count = 0
@@ -520,21 +560,11 @@ class Controls:
     CC.enabled = self.enabled
     CC.actuators = actuators
 
-    CC.cruiseControl.override = True
     CC.cruiseControl.cancel = not self.CP.pcmCruise or (not self.enabled and CS.cruiseState.enabled)
     if self.joystick_mode and self.sm.rcv_frame['testJoystick'] > 0 and self.sm['testJoystick'].buttons[0]:
       CC.cruiseControl.cancel = True
 
-    # TODO remove car specific stuff in controls
-    # Some override values for Honda
-    # brake discount removes a sharp nonlinearity
-    brake_discount = (1.0 - clip(actuators.brake * 3., 0.0, 1.0))
-    speed_override = max(0.0, (self.LoC.v_pid + CS.cruiseState.speedOffset) * brake_discount)
-    CC.cruiseControl.speedOverride = float(speed_override if self.CP.pcmCruise else 0.0)
-    CC.cruiseControl.accelOverride = float(self.CI.calc_accel_override(CS.aEgo, self.a_target,
-                                                                       CS.vEgo, self.v_target))
-
-    CC.hudControl.setSpeed = float(self.v_cruise_kph * CV.KPH_TO_MS)
+    CC.hudControl.setSpeed = float(self.v_cruise_kph) * CV.KPH_TO_MS
     CC.hudControl.speedVisible = self.enabled
     CC.hudControl.lanesVisible = self.enabled
     CC.hudControl.leadVisible = self.sm['longitudinalPlan'].hasLead
@@ -609,6 +639,22 @@ class Controls:
     controlsState.startMonoTime = int(start_time * 1e9)
     controlsState.forceDecel = bool(force_decel)
     controlsState.canErrorCounter = self.can_error_counter
+    controlsState.steeringAngleDesiredDeg = actuators.steeringAngleDeg
+    
+    if Params().get_bool('CivicSpeedAdjustment'):
+      # 2018 Honda Civic Speed Offset
+      if self.v_cruise_kph != 255:
+        controlsState.vCruise = controlsState.vCruise * 1.0076 
+        # Civics convert to km/h to mph using weird rounding logic, this means speed is always slightly slower.
+        # The following offset is the smallest amount required to line things up on the actual car dash.
+        # Otherwise the car will go 59 set at 60, 69 set at 70, 79 set at 80, and so on.
+        # //
+        # Note: Openpilot MAX speed reading may be out of sync at higher speeds.
+        # This is a sacrifice to get the car back in alignment and does not actually affect the real set speed.
+    else:
+      if self.v_cruise_kph != 255:
+        controlsState.vCruise = controlsState.vCruise * 1.0000
+
 
     if self.joystick_mode:
       controlsState.lateralControlState.debugState = lac_log

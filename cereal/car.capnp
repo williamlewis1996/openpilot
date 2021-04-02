@@ -111,6 +111,14 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     highCpuUsage @105;
 
     driverMonitorLowAccDEPRECATED @68;
+    manualSteeringRequired @106;
+    manualLongitudinalRequired @107;
+    silentPedalPressed @108;
+    silentButtonEnable @109;
+    silentBrakeHold @110;
+    silentWrongGear @111;
+    parkGear @112;
+
     radarCanErrorDEPRECATED @15;
     radarCommIssueDEPRECATED @67;
     gasUnavailableDEPRECATED @3;
@@ -188,6 +196,16 @@ struct CarState {
 
   # clutch (manual transmission only)
   clutchPressed @28 :Bool;
+
+  lkasEnabled @38 :Bool;
+  leftBlinkerOn @39 :Bool;
+  rightBlinkerOn @40 :Bool;
+  disengageByBrake @41 :Bool;
+  automaticLaneChange @42 :Bool;
+  belowLaneChangeSpeed @43 :Bool;
+  accEnabled @44 :Bool;
+  readdistancelines @45 :Int16;
+  engineRPM @46 :Float32;
 
   # which packets this state came from
   canMonoTimes @12: List(UInt64);
@@ -299,7 +317,7 @@ struct CarControl {
 
   struct Actuators {
     # range from 0.0 - 1.0
-    gas @0: Float32;
+    gasDEPRECATED @0: Float32;
     brake @1: Float32;
     # range from -1.0 - 1.0
     steer @2: Float32;
@@ -380,10 +398,10 @@ struct CarParams {
 
   steerMaxBP @11 :List(Float32);
   steerMaxV @12 :List(Float32);
-  gasMaxBP @13 :List(Float32);
-  gasMaxV @14 :List(Float32);
-  brakeMaxBP @15 :List(Float32);
-  brakeMaxV @16 :List(Float32);
+  gasMaxBPDEPRECATED @13 :List(Float32);
+  gasMaxVDEPRECATED @14 :List(Float32);
+  brakeMaxBPDEPRECATED @15 :List(Float32);
+  brakeMaxVDEPRECATED @16 :List(Float32);
 
   # things about the car in the manual
   mass @17 :Float32;            # [kg] curb weight: all fluids no cargo
@@ -416,8 +434,8 @@ struct CarParams {
   steerControlType @34 :SteerControlType;
   radarOffCan @35 :Bool; # True when radar objects aren't visible on CAN
   minSpeedCan @51 :Float32; # Minimum vehicle speed from CAN (below this value drops to 0)
-  stoppingBrakeRate @52 :Float32; # brake_travel/s while trying to stop
-  startingBrakeRate @53 :Float32; # brake_travel/s while releasing on restart
+  stoppingDecelRate @52 :Float32; # m/s^2/s while trying to stop
+  startingAccelRate @53 :Float32; # m/s^2/s while trying to start
 
   steerActuatorDelay @36 :Float32; # Steering wheel actuator delay in seconds
   openpilotLongitudinalControl @37 :Bool; # is openpilot doing the longitudinal control?
@@ -441,7 +459,9 @@ struct CarParams {
     kpV @1 :List(Float32);
     kiBP @2 :List(Float32);
     kiV @3 :List(Float32);
-    kf @4 :Float32;
+    kdBP @4 :List(Float32) = [0.];
+    kdV @5 :List(Float32) = [0.];
+    kf @6 :Float32;
   }
 
   struct LongitudinalPIDTuning {
@@ -449,8 +469,10 @@ struct CarParams {
     kpV @1 :List(Float32);
     kiBP @2 :List(Float32);
     kiV @3 :List(Float32);
-    deadzoneBP @4 :List(Float32);
-    deadzoneV @5 :List(Float32);
+    kdBP @4 :List(Float32) = [0.];
+    kdV @5 :List(Float32) = [0.];
+    deadzoneBP @6 :List(Float32);
+    deadzoneV @7 :List(Float32);
   }
 
   struct LateralINDITuning {

@@ -6,6 +6,7 @@ from common.realtime import sec_since_boot
 from selfdrive.controls.lib.longitudinal_mpc_lib import libmpc_py
 from selfdrive.controls.lib.drive_helpers import LON_MPC_N
 from selfdrive.modeld.constants import T_IDXS
+from common.params import Params
 
 
 class LongitudinalMpc():
@@ -14,8 +15,8 @@ class LongitudinalMpc():
     self.last_cloudlog_t = 0.0
     self.ts = list(range(10))
     self.status = True
-    self.min_a = -1.2
-    self.max_a = 1.2
+    self.min_a = -3.2
+    self.max_a = 3.2 if Params().get_bool('CommaPedalEnhancements') else 0.4
 
 
   def reset_mpc(self):

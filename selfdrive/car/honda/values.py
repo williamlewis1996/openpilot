@@ -1,11 +1,12 @@
 from cereal import car
 from selfdrive.car import dbc_dict
+from common.params import Params
 
 Ecu = car.CarParams.Ecu
 VisualAlert = car.CarControl.HUDControl.VisualAlert
 
 class CarControllerParams():
-  ACCEL_MAX = 1.6
+  ACCEL_MAX = 3.2 if Params().get_bool('CommaPedalEnhancements') else 0.8
 
   def __init__(self, CP):
     self.BRAKE_MAX = 1024//4
@@ -22,12 +23,15 @@ class CarControllerParams():
     self.NIDEC_MAX_ACCEL_V = [0.5, 2.4, 1.4, 0.6]
     self.NIDEC_MAX_ACCEL_BP = [0.0, 4.0, 10., 20.]
 
-
-    self.BOSCH_ACCEL_LOOKUP_BP = [-1., 0., 0.6]
-    self.BOSCH_ACCEL_LOOKUP_V = [-3.5, 0., 2.]
-    self.BOSCH_GAS_LOOKUP_BP = [0., 0.6]
+    self.BOSCH_GAS_LOOKUP_BP = [0., 2.0]  # 2m/s^2
     self.BOSCH_GAS_LOOKUP_V = [0, 2000]
 
+    if Params().get_bool('SmoothStop'):
+      self.STOPPING_SPEED = 0.05
+      self.STARTING_SPEED = 0.05
+    else:
+      self.STOPPING_SPEED = 0.3
+      self.STARTING_SPEED = 0.3
 
 # Car button codes
 class CruiseButtons:
@@ -36,7 +40,11 @@ class CruiseButtons:
   CANCEL = 2
   MAIN = 1
 
-# See dbc files for info on values
+class CruiseSetting:
+  DISTANCE_ADJ = 3
+  LKAS_BUTTON = 1
+
+# See dbc files for info on values"
 VISUAL_HUD = {
   VisualAlert.none: 0,
   VisualAlert.fcw: 1,
@@ -357,6 +365,7 @@ FW_VERSIONS = {
       b'39990-TBG-A030\x00\x00',
       b'39990-TEA-T020\x00\x00',
       b'39990-TEG-A010\x00\x00',
+      b'39990-TEG,A010\x00\x00', # modified japan firmware
     ],
     (Ecu.srs, 0x18da53f1, None): [
       b'77959-TBA-A030\x00\x00',
@@ -489,6 +498,15 @@ FW_VERSIONS = {
       b'39990-TGG-J510\x00\x00',
       b'39990-TGL-E130\x00\x00',
       b'39990-TGN-E120\x00\x00',
+      b'39990-TBA,C020\x00\x00',
+      b'39990-TBA,C120\x00\x00',
+      b'39990-TEA,T820\x00\x00',
+      b'39990-TEZ,T020\x00\x00',
+      b'39990-TGG,A020\x00\x00',
+      b'39990-TGG,A120\x00\x00',
+      b'39990-TGG,J510\x00\x00',
+      b'39990-TGL,E130\x00\x00',
+      b'39990-TGN,E120\x00\x00',
     ],
     (Ecu.srs, 0x18da53f1, None): [
       b'77959-TBA-A060\x00\x00',
@@ -784,6 +802,7 @@ FW_VERSIONS = {
       b'36161-TPA-E050\x00\x00',
       b'36161-TPG-A030\x00\x00',
       b'36161-TPG-A040\x00\x00',
+      b'36161-TPG-A050\x00\x00',
     ],
     (Ecu.combinationMeter, 0x18da60f1, None): [
       b'78109-TMB-H220\x00\x00',
@@ -1266,6 +1285,6 @@ SPEED_FACTOR = {
   CAR.HRV: 1.025,
 }
 
-OLD_NIDEC_LONG_CONTROL = set([CAR.ODYSSEY, CAR.ACURA_RDX, CAR.CRV, CAR.HRV])
+HONDA_NIDEC_ALT_PCM_ACCEL = set([CAR.ODYSSEY])
 HONDA_BOSCH = set([CAR.ACCORD, CAR.ACCORDH, CAR.CIVIC_BOSCH, CAR.CIVIC_BOSCH_DIESEL, CAR.CRV_5G, CAR.CRV_HYBRID, CAR.INSIGHT, CAR.ACURA_RDX_3G])
 HONDA_BOSCH_ALT_BRAKE_SIGNAL = set([CAR.ACCORD, CAR.CRV_5G, CAR.ACURA_RDX_3G])

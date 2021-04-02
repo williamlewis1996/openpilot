@@ -69,10 +69,59 @@ TogglesPanel::TogglesPanel(QWidget *parent) : QWidget(parent) {
                                                  this);
   toggles.append(record_toggle);
   toggles.append(new ParamControl("EndToEndToggle",
-                                  "\U0001f96c Disable use of lanelines (Alpha) \U0001f96c",
-                                  "In this mode openpilot will ignore lanelines and just drive how it thinks a human would.",
+                                  "Dynamic Lane Profile Button",
+                                  "In this mode openpilot will change models automatically or based on the button while onroad.",
                                   "../assets/offroad/icon_road.png",
                                   this));
+
+  toggles.append(new ParamControl("NudgelessALC",
+                                "Nudgeless Automatic Lane Change",
+                                "When above 30mph or 48km/h, openpilot will attempt a lane change when the blinkers are activated instead of waiting for the driver to nudge the wheel. Be cautious when using this feature.",
+                                "../assets/offroad/icon_openpilot.png",
+                                this));
+                      
+  toggles.append(new ParamControl("CommaPedalEnhancements",
+                                "Comma Pedal: Tuning Adjustments",
+                                "Specific adjustments to the comma pedal to optomize the tuning. Includes faster acceleration.",
+                                "../assets/offroad/icon_openpilot.png",
+                                this));
+
+  toggles.append(new ParamControl("ChillTune",
+                                "Nidec Honda: Chill ACC Tune",
+                                "Some Hondas perform smoother with the lower stock PID tune. The car will follow the set speed less agressively on both the accelerator and brakes. May not react to lead cars fast enough so this tune is optomized for a 2+ bar following distance on the highway to relax.",
+                                "../assets/offroad/icon_openpilot.png",
+                                this));
+
+  toggles.append(new ParamControl("SpeedInc",
+                                "Comma Pedal: (+/-) 5 Increments",
+                                "This reverses the default well-known logic of pressing for +1 and holding for +5. Only works with the pedal installed.",
+                                "../assets/offroad/icon_openpilot.png",
+                                this));
+
+  toggles.append(new ParamControl("StoppedHUD",
+                                "Nidec Honda: Stopped Indicator on Dash",
+                                "On Hondas, stock ACC reads 'stopped' in place of the set speed on the dash when the car becomes stationary behind a lead vehicle. This small visual change attempts to bring that back since stock openpilot longitudinal took it away. Visual change just for cool points.",
+                                "../assets/offroad/icon_openpilot.png",
+                                this));
+
+  toggles.append(new ParamControl("SmoothStop",
+                                "Eliminate Standstill Jerk (Experimental)",
+                                "Openpilot tends to go to the standstill phase too early when coming to a full stop resulting in a jerk that isn't smooth as the controller mashes the brakes down to hold the car. This parameter should smoothen that out. Tested on the civic but use caution as larger vehicles may not hold correctly at a stop.",
+                                "../assets/offroad/icon_openpilot.png",
+                                this));
+
+
+  toggles.append(new ParamControl("TorqueLimitSound",
+                                "Audible Alerts: Steering Torque Limit",
+                                "Enabling this will make a sound effect when the car uses up all of the available steering torque.",
+                                "../assets/offroad/icon_openpilot.png",
+                                this));
+
+  toggles.append(new ParamControl("CivicSpeedAdjustment",
+                                "Nidec Honda Civic: Speedometer Rounding Fix",
+                                "In MPH, the civic rounds slightly too low. This feature makes openpilot accelerate an extra 0.76% so the two speeds on the dash line up. (No more staying at 69 when set at 70).",
+                                "../assets/offroad/icon_openpilot.png",
+                                this));
 
 #ifdef ENABLE_MAPS
   toggles.append(new ParamControl("NavSettingTime24h",

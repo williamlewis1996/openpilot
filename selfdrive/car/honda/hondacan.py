@@ -2,6 +2,7 @@ from selfdrive.car.isotp_parallel_query import IsoTpParallelQuery
 from selfdrive.car.honda.values import HONDA_BOSCH, CAR
 from selfdrive.config import Conversions as CV
 from selfdrive.swaglog import cloudlog
+from common.params import Params
 
 # CAN bus layout with relay
 # 0 = ACC-CAN - radar side
@@ -66,7 +67,7 @@ def create_brake_command(packer, apply_brake, pump_on, pcm_override, pcm_cancel_
     "COMPUTER_BRAKE_REQUEST": brake_rq,
     "SET_ME_1": 1,
     "BRAKE_LIGHTS": brakelights,
-    "CHIME": stock_brake["CHIME"] if fcw else 0,  # send the chime for stock fcw
+    "CHIME": 0,  # chime issued when disabling FCM
     "FCW": fcw << 1,  # TODO: Why are there two bits for fcw?
     "AEB_REQ_1": 0,
     "AEB_REQ_2": 0,
@@ -131,11 +132,19 @@ def create_bosch_supplemental_1(packer, car_fingerprint, idx):
   return packer.make_can_msg("BOSCH_SUPPLEMENTAL_1", bus, values, idx)
 
 
-def create_ui_commands(packer, pcm_speed, hud, car_fingerprint, is_metric, idx, openpilot_longitudinal_control, stock_hud):
+def create_ui_commands(packer, pcm_speed, hud, enabled, stopping, car_fingerprint, is_metric, idx, openpilot_longitudinal_control, stock_hud):
   commands = []
   bus_pt = get_pt_bus(car_fingerprint)
   radar_disabled = car_fingerprint in HONDA_BOSCH and openpilot_longitudinal_control
   bus_lkas = get_lkas_cmd_bus(car_fingerprint, radar_disabled)
+
+  is_eon_metric = Params().get("IsMetric", encoding='utf8') == "1"
+  if is_eon_metric:
+    speed_units = 2
+  else:
+    speed_units = 3
+
+  standstill = 1 if enabled and stopping else 0
 
   if openpilot_longitudinal_control:
     if car_fingerprint in HONDA_BOSCH:
@@ -151,13 +160,14 @@ def create_ui_commands(packer, pcm_speed, hud, car_fingerprint, is_metric, idx, 
       }
     else:
       acc_hud_values = {
+        'CRUISE_SPEED': 252 if Params().get_bool('StoppedHUD') and standstill != 0 and hud.car != 0 else hud.v_cruise,
         'PCM_SPEED': pcm_speed * CV.MS_TO_KPH,
         'PCM_GAS': hud.pcm_accel,
-        'CRUISE_SPEED': hud.v_cruise,
         'ENABLE_MINI_CAR': 1,
         'HUD_LEAD': hud.car,
-        'HUD_DISTANCE': 3,    # max distance setting on display
-        'IMPERIAL_UNIT': int(not is_metric),
+        'HUD_DISTANCE_3': 1 if hud.car != 0 else 0,
+        'HUD_DISTANCE': hud.dist_lines,    # max distance setting on display
+        'IMPERIAL_UNIT': speed_units,
         'SET_ME_X01_2': 1,
         'SET_ME_X01': 1,
         "FCM_OFF": stock_hud["FCM_OFF"],
@@ -172,6 +182,7 @@ def create_ui_commands(packer, pcm_speed, hud, car_fingerprint, is_metric, idx, 
     'SET_ME_X48': 0x48,
     'STEERING_REQUIRED': hud.steer_required,
     'SOLID_LANES': hud.lanes,
+    'DASHED_LANES': hud.dashed_lanes,
     'BEEP': 0,
   }
   commands.append(packer.make_can_msg('LKAS_HUD', bus_lkas, lkas_hud_values, idx))
