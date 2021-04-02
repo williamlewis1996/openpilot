@@ -110,7 +110,18 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     localizerMalfunction @103;
     highCpuUsage @105;
 
+    epsNotFound @116;
+
     driverMonitorLowAccDEPRECATED @68;
+
+    #spektor
+    manualSteeringRequired @106;
+    manualLongitudinalRequired @107;
+    silentPedalPressed @108;
+    silentButtonEnable @109;
+    silentBrakeHold @110;
+    silentWrongGear @111;
+
     radarCanErrorDEPRECATED @15;
     radarCommIssueDEPRECATED @67;
     gasUnavailableDEPRECATED @3;
@@ -132,21 +143,20 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     startupOneplusDEPRECATED @82;
 
     #dp
-    preLaneChangeLeftALC @106;
-    preLaneChangeRightALC @107;
-    manualSteeringRequired @108;
-    manualSteeringRequiredBlinkersOn @109;
-    leadCarMoving @110;
+    preLaneChangeLeftALC @112;
+    preLaneChangeRightALC @113;
+    manualSteeringRequiredBlinkersOn @114;
+    leadCarMoving @115;
 
     # timebomb assist
-    timebombWarn @111;
-    timebombBypassing @112;
-    timebombBypassed @113;
-    mapdAlert @114;
+    timebombWarn @116;
+    timebombBypassing @117;
+    timebombBypassed @118;
+    mapdAlert @119;
     
     #mapd
-    speedLimitActive @115;
-    speedLimitValueChange @116;
+    speedLimitActive @120;
+    speedLimitValueChange @121;
   }
 }
 
@@ -206,6 +216,14 @@ struct CarState {
   # clutch (manual transmission only)
   clutchPressed @28 :Bool;
 
+  lkasEnabled @38 :Bool;
+  leftBlinkerOn @39 :Bool;
+  rightBlinkerOn @40 :Bool;
+  disengageByBrake @41 :Bool;
+  automaticLaneChange @42 :Bool;
+  belowLaneChangeSpeed @43 :Bool;
+  accEnabled @44 :Bool;
+
   # which packets this state came from
   canMonoTimes @12: List(UInt64);
 
@@ -214,9 +232,9 @@ struct CarState {
   rightBlindspot @34 :Bool; # Is there something blocking the right lane change
 
   # dp
-  stopSteering @39 :Bool; # timebomb - stopSteering
-  engineRPM @40 :Float32;
-  cruiseActualEnabled @41 :Bool;
+  stopSteering @45 :Bool; # timebomb - stopSteering
+  engineRPM @46 :Float32;
+  cruiseActualEnabled @47 :Bool;
 
   struct WheelSpeeds {
     # optional wheel speeds
