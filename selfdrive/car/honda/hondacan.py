@@ -124,7 +124,7 @@ def create_ui_commands(packer, pcm_speed, hud, car_fingerprint, is_metric, idx, 
         'CRUISE_SPEED': hud.v_cruise,
         'ENABLE_MINI_CAR': 1,
         'HUD_LEAD': hud.car,
-        'HUD_DISTANCE': 3,    # max distance setting on display
+        'HUD_DISTANCE': 1,    # max distance setting on display
         'IMPERIAL_UNIT': int(not is_metric),
         'SET_ME_X01_2': 1,
         'SET_ME_X01': 1,
@@ -140,6 +140,7 @@ def create_ui_commands(packer, pcm_speed, hud, car_fingerprint, is_metric, idx, 
     'SET_ME_X48': 0x48,
     'STEERING_REQUIRED': hud.steer_required,
     'SOLID_LANES': hud.lanes,
+    'DASHED_LANES': hud.dashed_lanes,
     'BEEP': 0,
   }
   commands.append(packer.make_can_msg('LKAS_HUD', bus_lkas, lkas_hud_values, idx))

@@ -141,6 +141,12 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     timebombWarn @110;
     timebombBypassing @111;
     timebombBypassed @112;
+    
+    #honda spektor
+    manualLongitudinalRequired @113;
+    silentPedalPressed @114;
+    silentButtonEnable @115;
+    silentBrakeHold @116;
   }
 }
 
@@ -207,8 +213,16 @@ struct CarState {
   rightBlindspot @34 :Bool; # Is there something blocking the right lane change
 
   # dp
-  lkMode @37 :Bool;
-  stopSteering @38 :Bool; # timebomb - stopSteering
+  stopSteering @37 :Bool; # timebomb - stopSteering
+  #spektor
+  lkasEnabled @38 :Bool;
+  leftBlinkerOn @39 :Bool;
+  rightBlinkerOn @40 :Bool;
+  disengageByBrake @41 :Bool;
+  automaticLaneChange @42 :Bool;
+  belowLaneChangeSpeed @43 :Bool;
+  accEnabled @44 :Bool;
+
 
   struct WheelSpeeds {
     # optional wheel speeds
