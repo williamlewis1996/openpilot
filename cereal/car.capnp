@@ -111,6 +111,7 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     highCpuUsage @105;
 
     driverMonitorLowAccDEPRECATED @68;
+
     radarCanErrorDEPRECATED @15;
     radarCommIssueDEPRECATED @67;
     gasUnavailableDEPRECATED @3;
@@ -134,19 +135,26 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     #dp
     preLaneChangeLeftALC @106;
     preLaneChangeRightALC @107;
-    manualSteeringRequired @108;
-    manualSteeringRequiredBlinkersOn @109;
-    leadCarMoving @110;
+    manualSteeringRequiredBlinkersOn @108;
+    leadCarMoving @109;
 
     # timebomb assist
-    timebombWarn @111;
-    timebombBypassing @112;
-    timebombBypassed @113;
-    mapdAlert @114;
+    timebombWarn @110;
+    timebombBypassing @111;
+    timebombBypassed @112;
+    mapdAlert @113;
 
     #mapd
-    speedLimitActive @115;
-    speedLimitValueChange @116;
+    speedLimitActive @114;
+    speedLimitValueChange @115;
+
+    #spektor
+    manualSteeringRequired @116;
+    manualLongitudinalRequired @117;
+    silentPedalPressed @118;
+    silentButtonEnable @119;
+    silentBrakeHold @120;
+    silentWrongGear @121;
   }
 }
 
@@ -217,6 +225,15 @@ struct CarState {
   stopSteering @38 :Bool; # timebomb - stopSteering
   engineRPM @39 :Float32;
   cruiseActualEnabled @40 :Bool;
+
+  # spektor
+  lkasEnabled @41 :Bool;
+  leftBlinkerOn @42 :Bool;
+  rightBlinkerOn @43 :Bool;
+  disengageByBrake @44 :Bool;
+  automaticLaneChange @45 :Bool;
+  belowLaneChangeSpeed @46 :Bool;
+  accEnabled @47 :Bool;
 
   struct WheelSpeeds {
     # optional wheel speeds

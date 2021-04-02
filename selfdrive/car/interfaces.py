@@ -28,6 +28,7 @@ class CarInterfaceBase():
   def __init__(self, CP, CarController, CarState):
     self.CP = CP
     self.VM = VehicleModel(CP)
+    self.disengage_on_gas = False
 
     self.frame = 0
     self.steer_warning = 0
@@ -152,11 +153,12 @@ class CarInterfaceBase():
       pass
     elif self.dragonconf.dpAllowGas:
       if cs_out.brakePressed and (not self.CS.out.brakePressed or not cs_out.standstill):
-        events.add(EventName.pedalPressed)
-    else:
-      if (cs_out.gasPressed and (not self.CS.out.gasPressed) and cs_out.vEgo > gas_resume_speed) or \
-              (cs_out.brakePressed and (not self.CS.out.brakePressed or not cs_out.standstill)):
-        events.add(EventName.pedalPressed)
+        if (cs_out.lkasEnabled):
+          cs_out.disengageByBrake = True
+        if (cs_out.cruiseState.enabled):
+          events.add(EventName.pedalPressed)
+        else:
+          events.add(EventName.silentPedalPressed)
 
     # we engage when pcm is active (rising edge)
     if pcm_enable:
