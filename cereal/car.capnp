@@ -104,12 +104,6 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     dashcamMode @96;
     controlsInitializing @98;
 
-    manualSteeringRequired @99;
-    manualLongitudinalRequired @100;
-    silentPedalPressed @101;
-    silentButtonEnable @102;
-    silentBrakeHold @103;
-
     radarCanErrorDEPRECATED @15;
     radarCommIssueDEPRECATED @67;
     gasUnavailableDEPRECATED @3;
@@ -141,6 +135,12 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     timebombWarn @104;
     timebombBypassing @105;
     timebombBypassed @106;
+    
+    #honda spektor
+    manualLongitudinalRequired @114;
+    silentPedalPressed @115;
+    silentButtonEnable @116;
+    silentBrakeHold @117;
   }
 }
 
