@@ -137,10 +137,10 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     timebombBypassed @106;
 
     #honda spektor
-    manualLongitudinalRequired @114;
-    silentPedalPressed @115;
-    silentButtonEnable @116;
-    silentBrakeHold @117;
+    manualLongitudinalRequired @107;
+    silentPedalPressed @108;
+    silentButtonEnable @109;
+    silentBrakeHold @110;
   }
 }
 
