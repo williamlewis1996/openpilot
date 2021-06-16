@@ -135,7 +135,7 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     timebombWarn @104;
     timebombBypassing @105;
     timebombBypassed @106;
-    
+
     #honda spektor
     manualLongitudinalRequired @114;
     silentPedalPressed @115;
@@ -200,14 +200,6 @@ struct CarState {
   # clutch (manual transmission only)
   clutchPressed @28 :Bool;
 
-  lkasEnabled @37 :Bool;
-  leftBlinkerOn @38 :Bool;
-  rightBlinkerOn @39 :Bool;
-  disengageByBrake @40 :Bool;
-  automaticLaneChange @41 :Bool;
-  belowLaneChangeSpeed @42 :Bool;
-  accEnabled @43 :Bool;
-
   # which packets this state came from
   canMonoTimes @12: List(UInt64);
 
@@ -218,6 +210,15 @@ struct CarState {
   # dp
   lkMode @37 :Bool;
   stopSteering @38 :Bool; # timebomb - stopSteering
+  #spektor
+  lkasEnabled @39 :Bool;
+  leftBlinkerOn @40 :Bool;
+  rightBlinkerOn @41 :Bool;
+  disengageByBrake @42 :Bool;
+  automaticLaneChange @43 :Bool;
+  belowLaneChangeSpeed @44 :Bool;
+  accEnabled @45 :Bool;
+
 
   struct WheelSpeeds {
     # optional wheel speeds
