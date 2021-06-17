@@ -149,11 +149,6 @@ class CarInterfaceBase():
         else:
         events.add(EventName.silentPedalPressed)
 
-    if not self.dragonconf.dpAllowGas:
-      if (cs_out.gasPressed and (not self.CS.out.gasPressed) and cs_out.vEgo > gas_resume_speed) or \
-              (cs_out.brakePressed and (not self.CS.out.brakePressed or not cs_out.standstill)):
-        events.add(EventName.pedalPressed)
-
     # we engage when pcm is active (rising edge)
     if pcm_enable:
       if cs_out.cruiseState.enabled and not self.CS.out.cruiseState.enabled:
