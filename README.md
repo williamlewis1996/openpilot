@@ -4,7 +4,7 @@ Dragonpilot with Spektor56's 24/7 LKAS for Hondas. I've included a few of my twe
 
 Credit goes to:    
 [Spektor56](https://github.com/spektor56/openpilot)   
-[Dragonpilot/eFini](https://github.com/dragonpilot-community/dragonpilot)
+[Dragonpilot/eFini](https://github.com/dragonpilot-community/dragonpilot)  
 [ShaneSmiskol](https://github.com/ShaneSmiskol/openpilot)    
 [wirelessnet2](https://github.com/wirelessnet2/openpilot)    
 [kegman](https://github.com/kegman/openpilot)    
