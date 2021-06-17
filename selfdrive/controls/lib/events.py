@@ -412,7 +412,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       _("TOUCH STEERING WHEEL"),
       _("Driver Unresponsive"),
       AlertStatus.userPrompt, AlertSize.mid,
-      Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarning, .1, .1, .1),
+      Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarning1, .1, .1, .1),
   },
 
   EventName.driverUnresponsive: {
