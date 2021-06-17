@@ -128,13 +128,14 @@ class CarController():
     # *** rate limit after the enable check ***
     self.brake_last = rate_limit(brake, self.brake_last, -2., DT_CTRL)
 
-    if hud_show_lanes and enabled and CS.lkMode and CS.out.cruiseState.enabled:
+    if enabled and CS.out.cruiseState.enabled:
       if hud_show_car:
         hud_car = 2
       else:
         hud_car = 1
     else:
       hud_car = 0
+
 
     fcw_display, steer_required, acc_alert = process_hud_alert(hud_alert)
 
