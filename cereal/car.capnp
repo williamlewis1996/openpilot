@@ -208,16 +208,15 @@ struct CarState {
   rightBlindspot @34 :Bool; # Is there something blocking the right lane change
 
   # dp
-  lkMode @37 :Bool;
-  stopSteering @38 :Bool; # timebomb - stopSteering
+  stopSteering @37 :Bool; # timebomb - stopSteering
   #spektor
-  lkasEnabled @39 :Bool;
-  leftBlinkerOn @40 :Bool;
-  rightBlinkerOn @41 :Bool;
-  disengageByBrake @42 :Bool;
-  automaticLaneChange @43 :Bool;
-  belowLaneChangeSpeed @44 :Bool;
-  accEnabled @45 :Bool;
+  lkasEnabled @38 :Bool;
+  leftBlinkerOn @39 :Bool;
+  rightBlinkerOn @40 :Bool;
+  disengageByBrake @41 :Bool;
+  automaticLaneChange @42 :Bool;
+  belowLaneChangeSpeed @43 :Bool;
+  accEnabled @44 :Bool;
 
 
   struct WheelSpeeds {

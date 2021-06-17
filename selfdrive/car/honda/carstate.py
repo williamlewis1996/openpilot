@@ -221,7 +221,6 @@ class CarState(CarStateBase):
     self.cruise_mode = 0
 
     #dp
-    self.lkMode = False
     self.hud_lead = 0
     self.lead_distance = 0.
 
