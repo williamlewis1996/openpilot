@@ -147,7 +147,7 @@ class CarInterfaceBase():
         if (cs_out.cruiseState.enabled):
           events.add(EventName.pedalPressed)
         else:
-        events.add(EventName.silentPedalPressed)
+          events.add(EventName.silentPedalPressed)
 
     # we engage when pcm is active (rising edge)
     if pcm_enable:
