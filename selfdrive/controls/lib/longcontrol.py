@@ -1,6 +1,5 @@
 from cereal import log
 from common.numpy_fast import clip, interp
-from common.params import Params
 from selfdrive.controls.lib.pid import LongPIDController
 from selfdrive.controls.lib.dynamic_gas import DynamicGas
 from common.op_params import opParams
@@ -16,7 +15,6 @@ BRAKE_STOPPING_TARGET = 0.5  # apply at least this amount of brake to maintain t
 
 RATE = 100.0
 
-Source = log.LongitudinalPlan.LongitudinalPlanSource
 
 def long_control_state_trans(active, long_control_state, v_ego, v_target, v_pid,
                              output_gb, brake_pressed, cruise_standstill, min_speed_can):
@@ -72,14 +70,12 @@ class LongControl():
     self.op_params = opParams()
     self.dynamic_gas = DynamicGas(CP, candidate)
 
-    self.coast_enabled = True
-
   def reset(self, v_pid):
     """Reset PID controller and change setpoint"""
     self.pid.reset()
     self.v_pid = v_pid
 
-  def update(self, active, CS, v_target, v_target_future, a_target, CP, extras, source):
+  def update(self, active, CS, v_target, v_target_future, a_target, CP, extras):
     """Update longitudinal control. This updates the state machine and runs a PID loop"""
     # Actuation limits
     gas_max = interp(CS.vEgo, CP.gasMaxBP, CP.gasMaxV)
@@ -100,19 +96,11 @@ class LongControl():
       self.reset(v_ego_pid)
       output_gb = 0.
 
-    # cruise or lead following
+    # tracking objects and driving
     elif self.long_control_state == LongCtrlState.pid:
       self.v_pid = v_target
       self.pid.pos_limit = gas_max
       self.pid.neg_limit = - brake_max
-
-      if self.coast_enabled:
-        if source in [Source.cruiseBrake, Source.cruiseCoast]:
-          self.pid.pos_limit = 0.
-        if source in [Source.cruiseGas, Source.cruiseCoast]:
-          self.pid.neg_limit = 0.
-        if source == Source.cruiseCoast:
-          self.pid.reset()
 
       # Toyota starts braking more when it thinks you want to stop
       # Freeze the integrator so we don't accelerate to compensate, and don't allow positive acceleration
