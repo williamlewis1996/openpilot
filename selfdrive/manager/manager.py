@@ -21,6 +21,8 @@ from selfdrive.swaglog import cloudlog, add_file_handler
 from selfdrive.version import dirty, get_git_commit, version, origin, branch, commit, \
                               terms_version, training_version, comma_remote, \
                               get_git_branch, get_git_remote
+from common.dp_conf import init_params_vals
+
 
 def manager_init():
 
@@ -48,6 +50,10 @@ def manager_init():
     if params.get(k) is None:
       params.put(k, v)
 
+  # dp init params
+  init_params_vals(params)
+  dp_reg = params.get('dp_reg') == b'1'
+
   # is this dashcam?
   if os.getenv("PASSIVE") is not None:
     params.put_bool("Passive", bool(int(os.getenv("PASSIVE"))))
@@ -74,7 +80,7 @@ def manager_init():
   params.put("GitRemote", get_git_remote(default=""))
 
   # set dongle id
-  reg_res = register(show_spinner=True)
+  reg_res = register(show_spinner=True) if dp_reg else UNREGISTERED_DONGLE_ID
   if reg_res:
     dongle_id = reg_res
   else:
@@ -111,12 +117,31 @@ def manager_thread():
   cloudlog.info("manager start")
   cloudlog.info({"environ": os.environ})
 
-  # save boot log
-  subprocess.call("./bootlog", cwd=os.path.join(BASEDIR, "selfdrive/loggerd"))
-
   params = Params()
 
+  dp_reg = params.get('dp_reg') == b'1'
+  dp_updated = params.get('dp_updated') == b'1'
+  dp_logger = params.get('dp_logger') == b'1'
+  dp_athenad = params.get('dp_athenad') == b'1'
+  dp_uploader = params.get('dp_uploader') == b'1'
+  dp_dashcamd = params.get('dp_dashcamd') == b'1'
+  # save boot log
+  if dp_logger:
+    subprocess.call("./bootlog", cwd=os.path.join(BASEDIR, "selfdrive/loggerd"))
+
   ignore = []
+  if not dp_dashcamd:
+    ignore += ['dashcamd']
+  if not dp_updated:
+    ignore += ['updated']
+  if not dp_logger:
+    ignore += ['logcatd', 'loggerd', 'proclogd', 'logmessaged', 'tombstoned']
+  if not dp_athenad:
+    ignore += ['manage_athenad']
+  if not dp_uploader or not dp_reg:
+    ignore += ['uploader']
+  if not dp_athenad and not dp_uploader:
+    ignore += ['deleter']
   if params.get("DongleId", encoding='utf8') == UNREGISTERED_DONGLE_ID:
     ignore += ["manage_athenad", "uploader"]
   if os.getenv("NOBOARD") is not None:
