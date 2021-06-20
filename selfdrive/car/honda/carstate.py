@@ -202,7 +202,10 @@ def get_can_signals(CP, gearbox_msg="GEARBOX"):
 class CarState(CarStateBase):
   def __init__(self, CP):
     super().__init__(CP)
-    can_define = CANDefine(DBC[CP.carFingerprint]['pt'])
+    can_define = CANDefine(DBC[CP.carFingerprint]["pt"])
+    self.gearbox_msg = "GEARBOX"
+    if CP.carFingerprint == CAR.ACCORD and CP.transmissionType == TransmissionType.cvt:
+      self.gearbox_msg = "GEARBOX_15T"
 
     self.steer_not_allowed = False
     self.accEnabled = False
@@ -212,7 +215,7 @@ class CarState(CarStateBase):
     self.disengageByBrake = False
     self.belowLaneChangeSpeed = True
     self.automaticLaneChange = True #TODO: add setting back
-    self.shifter_values = can_define.dv["GEARBOX"]["GEAR_SHIFTER"]
+    self.shifter_values = can_define.dv[self.gearbox_msg]["GEAR_SHIFTER"]
     self.steer_status_values = defaultdict(lambda: "UNKNOWN", can_define.dv["STEER_STATUS"]["STEER_STATUS"])
 
     self.user_gas, self.user_gas_pressed = 0., 0
@@ -363,11 +366,6 @@ class CarState(CarStateBase):
         ret.brakePressed = True
 
     if bool(main_on):
-      if self.CP.enableGasInterceptor:
-        if self.prev_cruise_buttons == 3: #set
-          if self.cruise_buttons != 3:
-            self.accEnabled = True     
-
       if self.prev_cruise_setting != 1: #1 == not LKAS button
         if self.cruise_setting == 1: #LKAS button rising edge
           self.lkasEnabled = not self.lkasEnabled
@@ -375,25 +373,17 @@ class CarState(CarStateBase):
       self.lkasEnabled = False
       self.accEnabled = False
 
-    if self.CP.enableGasInterceptor:
-      if self.prev_cruise_buttons != 2: #cancel
-        if self.cruise_buttons == 2:
-          self.accEnabled = False   
-      if ret.brakePressed:
-        self.accEnabled = False
-      ret.cruiseState.enabled = self.accEnabled
-
     ret.steerError = False
     ret.steerWarning = False
 
     if self.lkasEnabled:
-      steer_status = self.steer_status_values[cp.vl["STEER_STATUS"]['STEER_STATUS']]
-      ret.steerError = steer_status not in ['NORMAL', 'NO_TORQUE_ALERT_1', 'NO_TORQUE_ALERT_2', 'LOW_SPEED_LOCKOUT', 'TMP_FAULT']
+      steer_status = self.steer_status_values[cp.vl["STEER_STATUS"]["STEER_STATUS"]]
+      ret.steerError = steer_status not in ["NORMAL", "NO_TORQUE_ALERT_1", "NO_TORQUE_ALERT_2", "LOW_SPEED_LOCKOUT", "TMP_FAULT"]
       # NO_TORQUE_ALERT_2 can be caused by bump OR steering nudge from driver
-      self.steer_not_allowed = steer_status not in ['NORMAL', 'NO_TORQUE_ALERT_2']
+      self.steer_not_allowed = steer_status not in ["NORMAL", "NO_TORQUE_ALERT_2"]
       # LOW_SPEED_LOCKOUT is not worth a warning
       if (self.automaticLaneChange and not self.belowLaneChangeSpeed and (self.rightBlinkerOn or self.leftBlinkerOn)) or not (self.rightBlinkerOn or self.leftBlinkerOn):
-        ret.steerWarning = steer_status not in ['NORMAL', 'LOW_SPEED_LOCKOUT', 'NO_TORQUE_ALERT_2']
+        ret.steerWarning = steer_status not in ["NORMAL", "LOW_SPEED_LOCKOUT", "NO_TORQUE_ALERT_2"]
 
     # TODO: discover the CAN msg that has the imperial unit bit for all other cars
     if self.CP.carFingerprint in [CAR.JADE]:
