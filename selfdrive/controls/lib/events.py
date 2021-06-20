@@ -216,7 +216,7 @@ def startup_fuzzy_fingerprint_alert(CP: car.CarParams, sm: messaging.SubMaster, 
   return Alert(
     "WARNING: No Exact Match on Car Model",
     f"Closest Match: {CP.carFingerprint.title()[:40]}",
-    AlertStatus.userPrompt, AlertSize.full,
+    AlertStatus.userPrompt, AlertSize.mid,
     Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 2.)
 
 EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, bool], Alert]]]] = {
