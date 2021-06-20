@@ -241,7 +241,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       _("Openpilot initalized"),
       _("Toggle autosteer with the LKAS button."),
       AlertStatus.normal, AlertSize.mid,
-      Priority.MID, VisualAlert.none, AudibleAlert.none, 0., 0., 15.),
+      Priority.LOW, VisualAlert.none, AudibleAlert.none, 0., 0., 15.),
   },
 
   EventName.startupMaster: {
@@ -249,7 +249,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       _("Openpilot initalized"),
       _("Toggle autosteer with the LKAS button."),
       AlertStatus.normal, AlertSize.mid,
-      Priority.MID, VisualAlert.none, AudibleAlert.none, 0., 0., 15.),
+      Priority.LOW, VisualAlert.none, AudibleAlert.none, 0., 0., 15.),
   },
 
   EventName.startupNoControl: {
@@ -384,7 +384,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.promptDriverDistracted: {
-    ET.PERMANENT: Alert(
+    ET.WARNING: Alert(
       _("KEEP EYES ON ROAD"),
       _("Driver Distracted"),
       AlertStatus.normal, AlertSize.mid,
@@ -408,7 +408,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.promptDriverUnresponsive: {
-    ET.PERMANENT: Alert(
+    ET.WARNING: Alert(
       _("TOUCH STEERING WHEEL"),
       _("Driver Unresponsive"),
       AlertStatus.normal, AlertSize.mid,
@@ -424,7 +424,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.driverMonitorLowAcc: {
-    ET.PERMANENT: Alert(
+    ET.WARNING: Alert(
       _("CHECK DRIVER FACE VISIBILITY"),
       _("Driver Monitoring Uncertain"),
       AlertStatus.normal, AlertSize.mid,
@@ -452,7 +452,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.preLaneChangeLeft: {
-    ET.PERMANENT: Alert(
+    ET.WARNING: Alert(
       _("Automatic Left Lane Change"),
       _("Monitor Other Vehicles"),
       AlertStatus.normal, AlertSize.mid,
@@ -460,7 +460,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.preLaneChangeRight: {
-    ET.PERMANENT: Alert(
+    ET.WARNING: Alert(
       _("Automatic Right Lane Change"),
       _("Monitor Other Vehicles"),
       AlertStatus.normal, AlertSize.mid,
@@ -468,7 +468,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.laneChangeBlocked: {
-    ET.PERMANENT: Alert(
+    ET.WARNING: Alert(
       _("Car Detected in Blindspot"),
       _("Monitor Other Vehicles"),
       AlertStatus.normal, AlertSize.mid,
@@ -476,15 +476,15 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.laneChange: {
-    ET.PERMANENT: Alert(
+    ET.WARNING: Alert(
       _("Changing Lane"),
       _("Check your surroundings."),
       AlertStatus.normal, AlertSize.mid,
-      Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1),
+      Priority.LOW, VisualAlert.steerRequired, AudibleAlert.none, .0, .1, .1),
   },
 
   EventName.manualSteeringRequired: {
-    ET.PERMANENT: Alert(
+    ET.WARNING: Alert(
       _("ACC Mode"),
       _("LKAS switched off. Steering required."),
       AlertStatus.normal, AlertSize.mid,
@@ -492,7 +492,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.manualLongitudinalRequired: {
-    ET.PERMANENT: Alert(
+    ET.WARNING: Alert(
       _("LKAS Mode"),
       _("ACC switched off. Accel/brake required."),
       AlertStatus.normal, AlertSize.mid,
@@ -500,7 +500,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.steerSaturated: {
-    ET.PERMANENT: Alert(
+    ET.WARNING: Alert(
       _("Steering Torque Limit Reached"),
       _("You may need to assist the wheel."),
       AlertStatus.normal, AlertSize.mid,
@@ -849,7 +849,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   # dp
   EventName.preLaneChangeLeftALC: {
     ET.WARNING: Alert(
-      _("Automatic Lane Change Starting"),
+      _("Left Auto Lane Change Starting Soon"),
       _("Check your surroundings."),
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .1, .1, .1, alert_rate=0.75),
@@ -857,7 +857,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
 
   EventName.preLaneChangeRightALC: {
     ET.WARNING: Alert(
-      _("Automatic Lane Change Starting"),
+      _("Left Auto Lane Change Starting Soon"),
       _("Check your surroundings."),
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .1, .1, .1, alert_rate=0.75),
