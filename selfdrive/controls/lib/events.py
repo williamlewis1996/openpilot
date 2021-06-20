@@ -238,17 +238,17 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
 
   EventName.startup: {
     ET.PERMANENT: Alert(
-      _("Be ready to take over at any time"),
-      _("Always keep hands on wheel and eyes on road"),
+      _("Openpilot initalized"),
+      _("Toggle autosteer with the LKAS button."),
       AlertStatus.normal, AlertSize.mid,
       Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 15.),
   },
 
   EventName.startupMaster: {
     ET.PERMANENT: Alert(
-      _("WARNING: This branch is not tested"),
-      _("Always keep hands on wheel and eyes on road"),
-      AlertStatus.userPrompt, AlertSize.mid,
+      _("Openpilot initalized"),
+      _("Toggle autosteer with the LKAS button."),
+      AlertStatus.normal, AlertSize.mid,
       Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 15.),
   },
 
@@ -276,7 +276,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
     ET.PERMANENT: Alert(
       "Car Unrecognized",
       "Check All Connections",
-      AlertStatus.userPrompt, AlertSize.mid,
+      AlertStatus.normal, AlertSize.mid,
       Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 15.),
   },
 
@@ -302,7 +302,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       _("openpilot Not Available"),
       _("Enable Community Features in Settings to Engage"),
       AlertStatus.normal, AlertSize.mid,
-      Priority.LOW, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
+      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
   },
 
   EventName.carUnrecognized: {
@@ -343,8 +343,8 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
     ET.PERMANENT: Alert(
       _("Lane Departure Detected"),
       _("Take Control"),
-      AlertStatus.userPrompt, AlertSize.mid,
-      Priority.LOW, VisualAlert.none, AudibleAlert.none, 1., 2., 3.),
+      AlertStatus.normal, AlertSize.mid,
+      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 1., 2., 3.),
   },
 
   # ********** events only containing alerts that display while engaged **********
@@ -371,23 +371,23 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
     ET.WARNING: Alert(
       _("Autosteer Limit Reached"),
       "",
-      AlertStatus.userPrompt, AlertSize.small,
-      Priority.LOW, VisualAlert.none, AudibleAlert.none, 1., 1., 1.),
+      AlertStatus.normal, AlertSize.small,
+      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 1., 1., 1.),
   },
 
   EventName.preDriverDistracted: {
     ET.WARNING: Alert(
       _("KEEP EYES ON ROAD: Driver Distracted"),
       "",
-      AlertStatus.normal, AlertSize.small,
-      Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1),
+      AlertStatus.userPrompt, AlertSize.small,
+      Priority.LOWER, VisualAlert.none, AudibleAlert.none, .0, .1, .1),
   },
 
   EventName.promptDriverDistracted: {
     ET.WARNING: Alert(
       _("KEEP EYES ON ROAD"),
       _("Driver Distracted"),
-      AlertStatus.userPrompt, AlertSize.mid,
+      AlertStatus.normal, AlertSize.mid,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarning1, .1, .1, .1),
   },
 
@@ -403,15 +403,15 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
     ET.WARNING: Alert(
       _("TOUCH STEERING WHEEL: No Face Detected"),
       "",
-      AlertStatus.normal, AlertSize.small,
-      Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1, alert_rate=0.75),
+      AlertStatus.userPrompt, AlertSize.small,
+      Priority.LOWER, VisualAlert.none, AudibleAlert.none, .0, .1, .1, alert_rate=0.75),
   },
 
   EventName.promptDriverUnresponsive: {
     ET.WARNING: Alert(
       _("TOUCH STEERING WHEEL"),
       _("Driver Unresponsive"),
-      AlertStatus.userPrompt, AlertSize.mid,
+      AlertStatus.normal, AlertSize.mid,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarning1, .1, .1, .1),
   },
 
@@ -503,7 +503,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
     ET.WARNING: Alert(
       _("Steering Torque Limit Reached"),
       _("You may need to assist the wheel."),
-      AlertStatus.userPrompt, AlertSize.mid,
+      AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, 1., 1., 1.),
   },
 
