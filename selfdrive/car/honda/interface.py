@@ -595,8 +595,8 @@ class CarInterface(CarInterfaceBase):
 
       # do enable on both accel and decel buttons
       if b.type in [ButtonType.accelCruise, ButtonType.decelCruise] and not b.pressed:
-        if not self.CP.enableCruise:
-          events.add(EventName.buttonEnable)
+        self.last_enable_pressed = cur_time
+        enable_pressed = True
 
       # do disable on LKAS button if ACC is disabled
       if b.type in [ButtonType.altButton1] and b.pressed:
@@ -612,7 +612,7 @@ class CarInterface(CarInterfaceBase):
 
       # do disable on button down
       if b.type == ButtonType.cancel and b.pressed:
-            if not self.CS.lkasEnabled:
+        if not self.CS.lkasEnabled:
           events.add(EventName.buttonCancel)
         else:
           events.add(EventName.manualLongitudinalRequired)
