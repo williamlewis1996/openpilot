@@ -65,6 +65,13 @@ services = {
   "modelV2": (True, 20., 20),
   "managerState": (True, 2., 1),
 
+  "dynamicFollowData": (False, 20.),
+  "dynamicFollowButton": (False, 0.),
+  "laneSpeed": (False, 0.),
+  "laneSpeedButton": (False, 0.),
+  "dynamicCameraOffset": (False, 0.),
+  "modelLongButton": (False, 0.),
+
   "testModel": (False, 0.),
   "testLiveLocation": (False, 0.),
   "testJoystick": (False, 0.),
