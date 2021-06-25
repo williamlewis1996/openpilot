@@ -843,6 +843,8 @@ struct LateralPlan @0xe1e9318e2ae8b51e {
   dPathPoints @20 :List(Float32);
   dProb @21 :Float32;
 
+  cameraOffset @26 :Float32;
+
   mpcSolutionValid @9 :Bool;
   desire @17 :Desire;
   laneChangeState @18 :LaneChangeState;
@@ -1332,6 +1334,45 @@ struct ManagerState {
   }
 }
 
+struct DynamicFollowData {
+  mpcTR @0 :Float32;
+  profilePred @1 :UInt16;
+}
+
+struct DynamicFollowButton {
+  status @0 :UInt16;
+}
+
+struct LaneSpeed {
+  fastestLane @0 :Text;
+  state @1 :Text;
+  new @2 :Bool;
+
+  leftLaneSpeeds @3 :List(Float32);
+  middleLaneSpeeds @4 :List(Float32);
+  rightLaneSpeeds @5 :List(Float32);
+
+  leftLaneDistances @6 :List(Float32);
+  middleLaneDistances @7 :List(Float32);
+  rightLaneDistances @8 :List(Float32);
+
+  leftLaneOncoming @9 :Bool;
+  rightLaneOncoming @10 :Bool;
+}
+
+struct LaneSpeedButton {
+  status @0 :UInt16;
+}
+
+struct DynamicCameraOffset {
+  keepingLeft @0 :Bool;
+  keepingRight @1 :Bool;
+}
+
+struct ModelLongButton {
+  enabled @0 :Bool;
+}
+
 struct Event {
   logMonoTime @0 :UInt64;  # nanoseconds
   valid @67 :Bool = true;
@@ -1388,6 +1429,13 @@ struct Event {
     clocks @35 :Clocks;
     deviceState @6 :DeviceState;
     logMessage @18 :Text;
+
+    dynamicFollowData @79 :DynamicFollowData;
+    dynamicFollowButton @80 :DynamicFollowButton;
+    laneSpeed @81 :LaneSpeed;
+    laneSpeedButton @82 :LaneSpeedButton;
+    dynamicCameraOffset @83 :DynamicCameraOffset;
+    modelLongButton @84 :ModelLongButton;
 
 
     # *********** debug ***********
