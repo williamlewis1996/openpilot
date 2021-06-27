@@ -115,6 +115,7 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     silentPedalPressed @107;
     silentButtonEnable @108;
     silentBrakeHold @109;
+    parkGear @110;
 
     radarCanErrorDEPRECATED @15;
     radarCommIssueDEPRECATED @67;
