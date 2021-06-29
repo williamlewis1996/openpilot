@@ -149,7 +149,7 @@ static void update_state(UIState *s) {
     s->scene.steeringTorqueEps = car_state.getSteeringTorqueEps();
     s->scene.steeringPressed = car_state.getSteeringPressed();
   }
-  if (sm.updated("radarState") && s->vg) {
+  if (sm.updated("radarState")) {
     std::optional<cereal::ModelDataV2::XYZTData::Reader> line;
     if (sm.rcv_frame("modelV2") > 0) {
       line = sm["modelV2"].getModelV2().getPosition();
