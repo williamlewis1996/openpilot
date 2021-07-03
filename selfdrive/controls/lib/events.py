@@ -421,7 +421,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       "KEEP EYES ON ROAD",
       "Driver Distracted",
       AlertStatus.userPrompt, AlertSize.mid,
-      Priority.MID, VisualAlert.steerRequired, AudibleAlert.chimeWarning1, .1, .1, .1),
+      Priority.MID, VisualAlert.steerRequired, AudibleAlert.none, .1, .1, .1),
   },
 
   EventName.driverDistracted: {
