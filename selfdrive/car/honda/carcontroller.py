@@ -164,7 +164,7 @@ class CarController():
         if CS.CP.carFingerprint in HONDA_BOSCH:
           pass # TODO: implement
         else:
-          apply_gas = clip(actuators.gas, 0., 1.)
+          apply_gas = clip(actuators.gas, 0., 1.) ** 1.3
           if not CS.out.cruiseState.enabled:
             apply_gas = 0.
           apply_brake = int(clip(self.brake_last * P.BRAKE_MAX, 0, P.BRAKE_MAX - 1))
