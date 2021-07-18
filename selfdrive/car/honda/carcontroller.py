@@ -120,7 +120,7 @@ class CarController():
     if (CS.leftBlinkerOn or CS.rightBlinkerOn):
       self.signal_last = cur_time
 
-    lkas_active = enabled and not CS.steer_not_allowed and CS.lkasEnabled and ((CS.automaticLaneChange and not CS.belowLaneChangeSpeed) or ((not ((cur_time - self.signal_last) < 1) or not CS.belowLaneChangeSpeed) and not (CS.leftBlinkerOn or CS.rightBlinkerOn)))
+    lkas_active = enabled and not CS.steer_not_allowed and CS.lkasEnabled and ((CS.automaticLaneChange and not CS.belowLaneChangeSpeed) or ((not ((cur_time - self.signal_last) < 2) or not CS.belowLaneChangeSpeed) and not (CS.leftBlinkerOn or CS.rightBlinkerOn)))
     
     hud = HUDData(int(pcm_accel), (int(round(hud_v_cruise)) if hud_car != 0 else 255), hud_car,
                   hud_show_lanes and lkas_active, fcw_display, acc_alert, steer_required, CS.read_distance_lines, CS.lkasEnabled and not lkas_active)
