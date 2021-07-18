@@ -369,7 +369,7 @@ class CarState(CarStateBase):
       self.read_distance_lines_prev = self.read_distance_lines
 
     if bool(main_on):
-          if self.CP.enableGasInterceptor:
+      if self.CP.enableGasInterceptor:
         if self.prev_cruise_buttons == 3: #set
           if self.cruise_buttons != 3:            
             self.accEnabled = True
