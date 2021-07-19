@@ -15,7 +15,7 @@ TWO_BAR_DISTANCE = 1.3  # in seconds
 THREE_BAR_DISTANCE = 1.8  # in seconds
 FOUR_BAR_DISTANCE = 2.3   # in seconds
 STOPPING_DISTANCE = 2 # distance between you and lead car when you come to stop
-TR = TWO_BAR_DISTANCE  # default interval
+TR = ONE_BAR_DISTANCE  # default interval
 
 # Variables that change braking profiles
 CITY_SPEED = 22.4  # braking profile changes when below this speed based on following dynamics below [m/s]
