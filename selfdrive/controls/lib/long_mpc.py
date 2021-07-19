@@ -15,7 +15,7 @@ TWO_BAR_DISTANCE = 1.3  # in seconds
 THREE_BAR_DISTANCE = 1.8  # in seconds
 FOUR_BAR_DISTANCE = 2.3   # in seconds
 STOPPING_DISTANCE = 1 # distance between you and lead car when you come to stop
-TR = ONE_BAR_DISTANCE  # default interval
+TR = THREE_BAR_DISTANCE  # default interval
 
 # Variables that change braking profiles
 CITY_SPEED = 22.4  # braking profile changes when below this speed based on following dynamics below [m/s]
@@ -56,7 +56,7 @@ class LongitudinalMpc():
     self.prev_lead_x = 0.0
     self.new_lead = False
     self.v_rel = 0.0
-    self.lastTR = 1
+    self.lastTR = 3
 
     self.last_cloudlog_t = 0.0
     self.n_its = 0
