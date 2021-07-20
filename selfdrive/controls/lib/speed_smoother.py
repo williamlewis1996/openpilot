@@ -96,5 +96,4 @@ def speed_smoother(vEgo, aEgo, vT, aMax, aMin, jMax, jMin, ts):
   vEgo *= -1 if flipped else 1
   aEgo *= -1 if flipped else 1
 
-  # Reverse speeds invalid
-  return max(float(vEgo), 0.), float(aEgo)
+  return float(vEgo), float(aEgo)
