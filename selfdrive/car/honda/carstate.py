@@ -223,7 +223,7 @@ class CarState(CarStateBase):
     self.cruise_setting = 0
     self.v_cruise_pcm_prev = 0
     self.cruise_mode = 0
-    self.trMode = 1
+    self.trMode = 0 # 0=1 bar default, 1=2 bar default, 2=3 bar default, 3=4 bar default
     self.read_distance_lines_prev = 4
     self.lead_distance = 255
     self.engineRPM = 0
