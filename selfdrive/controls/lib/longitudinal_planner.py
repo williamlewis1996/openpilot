@@ -85,7 +85,7 @@ class Planner():
 
   def choose_solution(self, v_cruise_setpoint, enabled):
     if enabled:
-      solutions = {'cruise': self.v_cruise}
+      solutions = {'cruise': self.v_cruise + 50} # was self.v_cruise
       if self.mpc1.prev_lead_status:
         solutions['mpc1'] = self.mpc1.v_mpc
       if self.mpc2.prev_lead_status:
@@ -102,10 +102,10 @@ class Planner():
         self.v_acc = self.mpc2.v_mpc
         self.a_acc = self.mpc2.a_mpc
       elif slowest == 'cruise':
-        self.v_acc = self.v_cruise
+        self.v_acc = self.v_cruise + 50 # was self.v_cruise
         self.a_acc = self.a_cruise
 
-    self.v_acc_future = min([self.mpc1.v_mpc_future, self.mpc2.v_mpc_future, v_cruise_setpoint])
+    self.v_acc_future = min([self.mpc1.v_mpc_future, self.mpc2.v_mpc_future, 255]) #v_cruises_setpoint
 
   def update(self, sm, CP):
     """Gets called when new radarState is available"""
