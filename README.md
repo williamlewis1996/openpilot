@@ -28,7 +28,7 @@ This fork is a collection of many different features from other forks and some o
 * Reduced the potentional for false driving model lagging alerts.
 * Tesla warning sound effect under specific situations.
 
-🏆 Special thanks to
+🏆 Special Thanks
 ------
 [Spektor56](https://github.com/spektor56/openpilot)   
 [eisenheim](https://github.com/eyezenheim/openpilot)
