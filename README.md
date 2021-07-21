@@ -1,4 +1,4 @@
-[![](https://i.imgur.com/UelUjKAh.png)](#)
+[![](https://i.imgur.com/lGnO4Oq.png)](#)
 
 Aragon's Openpilot Fork
 ------
