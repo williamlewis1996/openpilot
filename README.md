@@ -1,4 +1,4 @@
-[![](https://i.imgur.com/UelUjKAh.png)](#)
+[![](https://i.imgur.com/lGnO4Oq.png)](#)
 
 Aragon's Openpilot Fork
 ------
@@ -31,7 +31,7 @@ This fork is a collection of many different features from other forks and some o
 🏆 Special Thanks
 ------
 [Spektor56](https://github.com/spektor56/openpilot)   
-[eisenheim](https://github.com/eyezenheim/openpilot)
+[eisenheim](https://github.com/eyezenheim/openpilot)  
 [ShaneSmiskol](https://github.com/ShaneSmiskol/openpilot)    
 [wirelessnet2](https://github.com/wirelessnet2/openpilot)    
 [kegman](https://github.com/kegman/openpilot)    
