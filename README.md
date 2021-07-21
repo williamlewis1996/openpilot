@@ -5,13 +5,13 @@ Aragon's Openpilot Fork
 
 This fork is a collection of many different features from other forks and some of my own neatly packaged together for an excellent Openpilot experience.
 
-🤖 Lateral Features
+↪️ Lateral Features
 ------
 * Honda: Seperate LKAS and ACC similar to how stock Honda Sensing performs, thanks to Spektor56.
 * Engagement in gears other than drive, such as sport and low.
 * Nudgeless assisted lane changes above 30MPH. Tune in `selfdrive/controls/lib/lateral_planner.py` on line 126.
 
-💨 Longitudinal Features
+↩️ Longitudinal Features
 ------
 * No disengagement when gas is pressed.
 * Honda: Custom follow distances. Use the distance button on the steering wheel to cycle through the bars while cruise is engaged.
@@ -27,5 +27,17 @@ This fork is a collection of many different features from other forks and some o
 * Update prompt forcing an internet connection to check for updates has been disabled.
 * Reduced the potentional for false driving model lagging alerts.
 * Tesla warning sound effect under specific situations.
+
+🏆 Special thanks to
+------
+[Spektor56](https://github.com/spektor56/openpilot)   
+[eisenheim](https://github.com/eyezenheim/openpilot)
+[ShaneSmiskol](https://github.com/ShaneSmiskol/openpilot)    
+[wirelessnet2](https://github.com/wirelessnet2/openpilot)    
+[kegman](https://github.com/kegman/openpilot)    
+[cfranhonda](https://github.com/cfranhonda/openpilot)    
+[doktor](https://github.com/doktorsleepelss)    
+[qadmus](https://github.com/qadmus/openpilot)
+[reddn](https://github.com/reddn)
 
 📬 If you'd like to reach out to me, message `Aragon#7777` on Discord, or tag me in #custom-forks regarding this branch.
