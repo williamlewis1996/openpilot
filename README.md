@@ -37,7 +37,7 @@ This fork is a collection of many different features from other forks and some o
 [kegman](https://github.com/kegman/openpilot)    
 [cfranhonda](https://github.com/cfranhonda/openpilot)    
 [doktor](https://github.com/doktorsleepelss)    
-[qadmus](https://github.com/qadmus/openpilot)
+[qadmus](https://github.com/qadmus/openpilot)  
 [reddn](https://github.com/reddn)
 
 📬 If you'd like to reach out to me, message `Aragon#7777` on Discord, or tag me in #custom-forks regarding this branch.
