@@ -40,4 +40,4 @@ This fork is a collection of many different features from other forks and some o
 [qadmus](https://github.com/qadmus/openpilot)  
 [reddn](https://github.com/reddn)
 
-📬 If you'd like to reach out to me, message `Aragon#7777` on Discord, or tag me in #custom-forks on the official Comma Discord server regarding this branch.
+📬 If you'd like to reach out to me, message `Aragon#7777` on Discord, or tag me in #custom-forks on the official Comma server regarding this branch.
