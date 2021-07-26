@@ -145,9 +145,9 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     leadCarMoving @114;
 
     # timebomb assist
-    timebombWarn @116;
-    timebombBypassing @117;
-    timebombBypassed @118;
+    timebombWarn @115;
+    timebombBypassing @116;
+    timebombBypassed @117;
   }
 }
 
