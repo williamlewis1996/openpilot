@@ -104,6 +104,7 @@ class CarController():
     self.braking = False
     self.brake_steady = 0.
     self.brake_last = 0.
+    self.signal_last = 0.    
     self.apply_brake_last = 0
     self.last_pump_ts = 0.
     self.packer = CANPacker(dbc_name)
