@@ -601,7 +601,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       "",
       AlertStatus.normal, AlertSize.none,
       Priority.MID, VisualAlert.none, AudibleAlert.none, .2, 0., 0.),
-    ET.NO_ENTRY: NoEntryAlert(_("Pedal Pressed During Attempt")),
+    ET.NO_ENTRY: NoEntryAlert(_("Pedal Pressed During Attempt"),
                               visual_alert=VisualAlert.brakePressed),
   },
 
