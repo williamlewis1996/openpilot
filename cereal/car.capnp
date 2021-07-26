@@ -143,7 +143,6 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     preLaneChangeLeftALC @111;
     preLaneChangeRightALC @112;
     manualSteeringRequiredBlinkersOn @113;
-    leadCarMoving @114;
 
     # timebomb assist
     timebombWarn @116;
