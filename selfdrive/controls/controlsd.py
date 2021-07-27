@@ -621,7 +621,7 @@ class Controls:
     controlsState.steeringAngleDesiredDeg = actuators.steeringAngleDeg
     
     # personal speedometer offset
-        if self.v_cruise_kph != 255:
+    if self.v_cruise_kph != 255:
       controlsState.vCruise = controlsState.vCruise * 1.005
 
     if self.joystick_mode:
