@@ -562,6 +562,14 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
     ET.ENABLE: EngagementAlert(AudibleAlert.chimeEngage),
   },
 
+  EventName.silentButtonEnable: {
+    ET.ENABLE: Alert(
+      "",
+      "",
+      AlertStatus.normal, AlertSize.none,
+      Priority.MID, VisualAlert.none, AudibleAlert.none, .2, 0., 0.),
+  },
+
   EventName.pcmDisable: {
     ET.USER_DISABLE: EngagementAlert(AudibleAlert.chimeDisengage),
   },
