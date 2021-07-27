@@ -309,7 +309,7 @@ class Controls:
           self.events.add(EventName.noGps)
       if not self.dp_jetson and not self.sm.all_alive(self.camera_packets):
         self.events.add(EventName.cameraMalfunction)
-      if self.sm['modelV2'].frameDropPerc > 30:
+      if self.sm['modelV2'].frameDropPerc > 20:
         self.events.add(EventName.modeldLagging)
       if not self.dp_panda_no_gps and self.sm['liveLocationKalman'].excessiveResets:
         self.events.add(EventName.localizerMalfunction)
@@ -619,6 +619,10 @@ class Controls:
     # dp
     controlsState.angleSteers = CS.steeringAngleDeg
     controlsState.steeringAngleDesiredDeg = actuators.steeringAngleDeg
+    
+    # personal speedometer offset
+        if self.v_cruise_kph != 255:
+      controlsState.vCruise = controlsState.vCruise * 1.005
 
     if self.joystick_mode:
       controlsState.lateralControlState.debugState = lac_log
