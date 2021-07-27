@@ -54,6 +54,8 @@ class CarController():
     interceptor_gas_cmd = 0.
     pcm_accel_cmd = actuators.gas - actuators.brake
 
+    #not CS.out.cruiseState.enabled
+
     if CS.CP.enableGasInterceptor:
       # handle hysteresis when around the minimum acc speed
       if CS.out.vEgo < MIN_ACC_SPEED:
@@ -67,13 +69,13 @@ class CarController():
         interceptor_gas_cmd = clip(actuators.gas, 0., 1.)
         pcm_accel_cmd = 0.06 - actuators.brake
 
-    pcm_accel_cmd, self.accel_steady = accel_hysteresis(pcm_accel_cmd, self.accel_steady, enabled and CS.out.cruiseState.enabled)
+    pcm_accel_cmd, self.accel_steady = accel_hysteresis(pcm_accel_cmd, self.accel_steady, enabled)
     pcm_accel_cmd = clip(pcm_accel_cmd * CarControllerParams.ACCEL_SCALE, CarControllerParams.ACCEL_MIN, CarControllerParams.ACCEL_MAX)
 
     # steer torque
     new_steer = int(round(actuators.steer * CarControllerParams.STEER_MAX))
     apply_steer = apply_toyota_steer_torque_limits(new_steer, self.last_steer, CS.out.steeringTorqueEps, CarControllerParams)
-    self.steer_rate_limited = False
+    self.steer_rate_limited = new_steer != apply_steer
 
     cur_time = frame * DT_CTRL
     if (CS.leftBlinkerOn or CS.rightBlinkerOn):
@@ -81,7 +83,6 @@ class CarController():
 
     # Cut steering while we're in a known fault state (2s)    
     if enabled and not CS.steer_not_allowed and CS.lkasEnabled and ((CS.automaticLaneChange and not CS.belowLaneChangeSpeed) or ((not ((cur_time - self.signal_last) < 1) or not CS.belowLaneChangeSpeed) and not (CS.leftBlinkerOn or CS.rightBlinkerOn))):
-      self.steer_rate_limited = new_steer != apply_steer
       apply_steer_req = 1
     else:
       apply_steer = 0
