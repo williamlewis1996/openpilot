@@ -217,15 +217,21 @@ class CarInterface(CarInterfaceBase):
       ret.steerRatio = 16.33  # 11.82 is spec end-to-end
       ret.lateralParams.torqueBP, ret.lateralParams.torqueV = [[0, 4096], [0, 4096]]  # TODO: determine if there is a dead zone at the top end
       tire_stiffness_factor = 0.8467
-      ret.longitudinalTuning.kpBP = [0., 5., 35.]
-      ret.longitudinalTuning.kpV = [1.2, 0.8, 0.5]
-      ret.longitudinalTuning.kiBP = [0., 35.]
-      ret.longitudinalTuning.kiV = [0.18, 0.12]
 
       if eps_modified:
         ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.3], [0.09]]
       else:
-        ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.6], [0.18]]
+        ret.lateralTuning.init('lqr')
+
+        ret.lateralTuning.lqr.scale = 1500.0
+        ret.lateralTuning.lqr.ki = 0.05
+
+        ret.lateralTuning.lqr.a = [0., 1., -0.22619643, 1.21822268]
+        ret.lateralTuning.lqr.b = [-1.92006585e-04, 3.95603032e-05]
+        ret.lateralTuning.lqr.c = [1., 0.]
+        ret.lateralTuning.lqr.k = [-110.73572306, 451.22718255]
+        ret.lateralTuning.lqr.l = [0.3233671, 0.3185757]
+        ret.lateralTuning.lqr.dcGain = 0.002237852961363602
 
     elif candidate == CAR.ACURA_ILX:
       stop_and_go = False
