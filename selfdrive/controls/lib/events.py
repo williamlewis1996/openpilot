@@ -930,25 +930,25 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   # dp
   EventName.preLaneChangeLeftALC: {
     ET.WARNING: Alert(
-      _("Lane Change Starting"),
-      _(""),
+      _("Auto Lane Change"),
+      _("Starting Soon"),
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .1, .1, .1, alert_rate=0.75),
   },
 
   EventName.preLaneChangeRightALC: {
     ET.WARNING: Alert(
-      _("Lane Change Starting"),
-      _(""),
+      _("Auto Lane Change"),
+      _("Starting Soon"),
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .1, .1, .1, alert_rate=0.75),
   },
 
   EventName.manualSteeringRequiredBlinkersOn: {
     ET.WARNING: Alert(
-      _("STEERING REQUIRED: Blinkers ON"),
-      "",
-      AlertStatus.normal, AlertSize.small,
+      _("STEERING REQUIRED"),
+      _("Blinkers on"),
+      AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1, alert_rate=0.25),
   },
 
