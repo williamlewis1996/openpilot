@@ -261,18 +261,18 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
 
   EventName.startup: {
     ET.PERMANENT: Alert(
-      _("Be ready to take over at any time"),
-      _("Always keep hands on wheel and eyes on road"),
+      _("Openpilot Standby"),
+      _("Always keep your eyes on the road."),
       AlertStatus.normal, AlertSize.mid,
-      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 15.),
+      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 20.),
   },
 
   EventName.startupMaster: {
     ET.PERMANENT: Alert(
-      _("WARNING: This branch is not tested"),
-      _("Always keep hands on wheel and eyes on road"),
+      _("Openpilot Standby"),
+      _("Always keep your eyes on the road."),
       AlertStatus.userPrompt, AlertSize.mid,
-      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 15.),
+      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 20.),
   },
 
   # Car is recognized, but marked as dashcam only
@@ -281,7 +281,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       _("Dashcam mode"),
       _("Always keep hands on wheel and eyes on road"),
       AlertStatus.normal, AlertSize.mid,
-      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 15.),
+      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 20.),
   },
 
   # Car is not recognized
@@ -525,24 +525,24 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   EventName.manualSteeringRequired: {
     ET.WARNING: Alert(
       _("ACC Mode"),
-      _(""),
-      AlertStatus.normal, AlertSize.mid,
+      "",
+      AlertStatus.normal, AlertSize.small,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, 1., 2., 2.),
   },
 
   EventName.manualLongitudinalRequired: {
     ET.WARNING: Alert(
       _("LKAS Mode"),
-      _(""),
-      AlertStatus.normal, AlertSize.mid,
+      "".
+      AlertStatus.normal, AlertSize.small,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, 1., 2., 2.),
   },
 
   EventName.steerSaturated: {
     ET.WARNING: Alert(
       _("Steering Torque Limit"),
-      _(""),
-      AlertStatus.userPrompt, AlertSize.mid,
+      "",
+      AlertStatus.userPrompt, AlertSize.small,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, 1., 1., 1.),
   },
 
