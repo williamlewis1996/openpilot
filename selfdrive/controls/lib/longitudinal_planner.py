@@ -24,8 +24,8 @@ _A_CRUISE_MIN_BP = [  0.,  5.,  10., 20.,  40.]
 
 # need fast accel at very low speed for stop and go
 # make sure these accelerations are smaller than mpc limits
-_A_CRUISE_MAX_V = [3.0, 3.5, 3.0, 2.0, 2.0]
-_A_CRUISE_MAX_V_FOLLOWING = [3.0, 3.5, 3.0, 2.0, 2.0]
+_A_CRUISE_MAX_V = [2.6, 2.4, 2.2, 2.0, 1.8]
+_A_CRUISE_MAX_V_FOLLOWING = [2.4, 2.3, 2.2, 2.0, 1.8]
 _A_CRUISE_MAX_BP = [0., 5., 10., 20., 55.]
 
 # Lookup table for turns
