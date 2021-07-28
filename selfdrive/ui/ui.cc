@@ -137,7 +137,7 @@ static void update_state(UIState *s) {
   if (scene.started && sm.updated("controlsState")) {
     auto controls_state = sm["controlsState"].getControlsState();
     s->scene.enabled = controls_state.getEnabled();
-    s->scene.angleSteersDes = controls_state.getSteeringAngleDesiredDeg();
+    //s->scene.angleSteersDes = controls_state.getSteeringAngleDesiredDeg();
     s->scene.pidStateOutput = controls_state.getLateralControlState().getPidState().getOutput();
   }
   if (sm.updated("carState")) {
