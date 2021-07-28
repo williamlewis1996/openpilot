@@ -90,7 +90,7 @@ class LongControl():
       self.pid.pos_limit = gas_max
       self.pid.neg_limit = - brake_max
 
-      if long_plan.longitudinalPlanSource == 'cruise':
+      if self.longitudinalPlanSource == 'cruise':
         self.pid.neg_limit = 0
 
       # Toyota starts braking more when it thinks you want to stop
