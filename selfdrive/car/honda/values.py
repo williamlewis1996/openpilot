@@ -7,7 +7,7 @@ Ecu = car.CarParams.Ecu
 VisualAlert = car.CarControl.HUDControl.VisualAlert
 
 class CarControllerParams():
-  ACCEL_MAX = 1.6
+  ACCEL_MAX = 3.2
 
   def __init__(self, CP):
       self.BRAKE_MAX = 1024//4
@@ -30,6 +30,10 @@ class CruiseButtons:
   DECEL_SET = 3
   CANCEL = 2
   MAIN = 1
+
+class CruiseSetting:
+  DISTANCE_ADJ = 3
+  LKAS_BUTTON = 1
 
 # See dbc files for info on values"
 VISUAL_HUD = {

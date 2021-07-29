@@ -21,7 +21,7 @@ from selfdrive.loggerd.config import get_available_percent
 from selfdrive.pandad import get_expected_signature
 from selfdrive.swaglog import cloudlog
 from selfdrive.thermald.power_monitoring import PowerMonitoring
-from selfdrive.version import get_git_branch, terms_version, training_version
+from selfdrive.version import tested_branch, terms_version, training_version
 
 FW_SIGNATURE = get_expected_signature()
 
@@ -30,8 +30,8 @@ NetworkType = log.DeviceState.NetworkType
 NetworkStrength = log.DeviceState.NetworkStrength
 CURRENT_TAU = 15.   # 15s time constant
 CPU_TEMP_TAU = 5.   # 5s time constant
-DAYS_NO_CONNECTIVITY_MAX = 7  # do not allow to engage after a week without internet
-DAYS_NO_CONNECTIVITY_PROMPT = 4  # send an offroad prompt after 4 days with no internet
+DAYS_NO_CONNECTIVITY_MAX = 36500  # do not allow to engage after a week without internet
+DAYS_NO_CONNECTIVITY_PROMPT = 36500  # send an offroad prompt after 4 days with no internet
 DISCONNECT_TIMEOUT = 5.  # wait 5 seconds before going offroad after disconnect so you get an alert
 
 prev_offroad_states: Dict[str, Tuple[bool, Optional[str]]] = {}
@@ -151,7 +151,6 @@ def thermald_thread():
   started_seen = False
   thermal_status = ThermalStatus.green
   usb_power = True
-  current_branch = get_git_branch()
 
   network_type = NetworkType.none
   network_strength = NetworkStrength.unknown
@@ -333,7 +332,7 @@ def thermald_thread():
     last_update_exception = params.get("LastUpdateException", encoding='utf8')
 
     if update_failed_count > 15 and last_update_exception is not None:
-      if current_branch in ["release2", "dashcam"]:
+      if tested_branch:
         extra_text = "Ensure the software is correctly installed"
       else:
         extra_text = last_update_exception

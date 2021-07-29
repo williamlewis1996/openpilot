@@ -1,4 +1,4 @@
-[![](https://i.imgur.com/UelUjKAh.png)](#)
+![](https://user-images.githubusercontent.com/37757984/127420744-89ca219c-8f8e-46d3-bccf-c1cb53b81bb1.png)
 
 Table of Contents
 =======================
@@ -57,7 +57,7 @@ openpilot should preserve all other vehicle's stock features, including, but are
 Supported Hardware
 ------
 
-At the moment, openpilot supports the EON Gold DevKit and the [comma two](https://comma.ai/shop/products/comma-two-devkit). A [car harness](https://comma.ai/shop/products/car-harness) is recommended to connect the EON or comma two to the car. For experimental purposes, openpilot can also run on an Ubuntu computer with external [webcams](https://github.com/commaai/openpilot/tree/master/tools/webcam).
+At the moment, openpilot supports the EON Gold DevKit, [comma two](https://comma.ai/shop/products/two), and [comma three](https://comma.ai/shop/products/three). A [car harness](https://comma.ai/shop/products/car-harness) is recommended to connect your device to the car. For experimental purposes, openpilot can also run on an Ubuntu computer with external [webcams](https://github.com/commaai/openpilot/tree/master/tools/webcam).
 
 Supported Cars
 ------
@@ -204,6 +204,7 @@ Community Maintained Cars and Features
 | Volkswagen| Jetta 2018-20                 | Driver Assistance | Stock            | 0mph               | 0mph         |
 | Volkswagen| Jetta GLI 2021                | Driver Assistance | Stock            | 0mph               | 0mph         |
 | Volkswagen| Passat 2016-17<sup>2</sup>    | Driver Assistance | Stock            | 0mph               | 0mph         |
+| Volkswagen| T-Cross 2021                  | Driver Assistance | Stock            | 0mph               | 0mph         |
 | Volkswagen| Tiguan 2020                   | Driver Assistance | Stock            | 0mph               | 0mph         |
 | Volkswagen| Touran 2017                   | Driver Assistance | Stock            | 0mph               | 0mph         |
 
@@ -219,7 +220,7 @@ Although they're not upstream, the community has openpilot running on other make
 Installation Instructions
 ------
 
-Install openpilot on an EON Gold or comma two by entering ``https://openpilot.comma.ai`` during the installer setup.
+Install openpilot on a supported device by entering ``https://openpilot.comma.ai`` during the installer setup.
 
 Follow these [video instructions](https://youtu.be/lcjqxCymins) to properly mount the device on the windshield. Note: openpilot features an automatic pose calibration routine and openpilot performance should not be affected by small pitch and yaw misalignments caused by imprecise device mounting.
 
@@ -298,13 +299,13 @@ openpilot is open source software: the user is free to disable data collection i
 openpilot logs the road facing camera, CAN, GPS, IMU, magnetometer, thermal sensors, crashes, and operating system logs.
 The driver facing camera is only logged if you explicitly opt-in in settings. The microphone is not recorded.
 
-By using openpilot, you agree to [our Privacy Policy](https://my.comma.ai/privacy). You understand that use of this software or its related services will generate certain types of user data, which may be logged and stored at the sole discretion of comma. By accepting this agreement, you grant an irrevocable, perpetual, worldwide right to comma for the use of this data.
+By using openpilot, you agree to [our Privacy Policy](https://connect.comma.ai/privacy). You understand that use of this software or its related services will generate certain types of user data, which may be logged and stored at the sole discretion of comma. By accepting this agreement, you grant an irrevocable, perpetual, worldwide right to comma for the use of this data.
 
 Safety and Testing
 ----
 
 * openpilot observes ISO26262 guidelines, see [SAFETY.md](SAFETY.md) for more details.
-* openpilot has software in the loop [tests](.github/workflows/test.yaml) that run on every commit.
+* openpilot has software in the loop [tests](.github/workflows/selfdrive_tests.yaml) that run on every commit.
 * The safety model code lives in panda and is written in C, see [code rigor](https://github.com/commaai/panda#code-rigor) for more details.
 * panda has software in the loop [safety tests](https://github.com/commaai/panda/tree/master/tests/safety).
 * Internally, we have a hardware in the loop Jenkins test suite that builds and unit tests the various processes.
