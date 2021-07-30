@@ -179,7 +179,14 @@ class CarController():
             can_sends.extend(hondacan.create_acc_commands(self.packer, enabled, apply_accel, apply_gas, idx, stopping, starting, CS.CP.carFingerprint))
 
         else:
-          apply_gas = clip(actuators.gas, 0., 1.)
+          if v_ego >= 0.0 * CV.MPH_TO_MS:
+            apply_gas = clip(actuators.gas, 0., 1.) ** 2.0
+          if v_ego >= 15.0 * CV.MPH_TO_MS:
+            apply_gas = clip(actuators.gas, 0., 1.) ** 1.8
+          if v_ego >= 30.0 * CV.MPH_TO_MS:
+            apply_gas = clip(actuators.gas, 0., 1.) ** 1.4
+          if v_ego >= 45.0 * CV.MPH_TO_MS:
+            apply_gas = clip(actuators.gas, 0., 1.)
           if not CS.out.cruiseState.enabled:
             apply_gas = 0.
           apply_brake = int(clip(self.brake_last * P.BRAKE_MAX, 0, P.BRAKE_MAX - 1))
