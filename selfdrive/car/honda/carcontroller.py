@@ -89,10 +89,9 @@ class CarController():
 
     self.params = CarControllerParams(CP)
 
-  def update(self, sm, CP, enabled, CS, frame, actuators,
+  def update(self, enabled, CS, frame, actuators,
              pcm_speed, pcm_override, pcm_cancel_cmd, pcm_accel,
              hud_v_cruise, hud_show_lanes, hud_show_car, hud_alert):
-    v_ego = sm['carState'].vEgo
 
     P = self.params
 
@@ -180,13 +179,13 @@ class CarController():
             can_sends.extend(hondacan.create_acc_commands(self.packer, enabled, apply_accel, apply_gas, idx, stopping, starting, CS.CP.carFingerprint))
 
         else:
-          if v_ego >= 0.0 * CV.MPH_TO_MS:
+          if CS.out.vEgo >= 0.0 * CV.MPH_TO_MS:
             apply_gas = clip(actuators.gas, 0., 1.) ** 2.0
-          if v_ego >= 15.0 * CV.MPH_TO_MS:
+          if CS.out.vEgo >= 15.0 * CV.MPH_TO_MS:
             apply_gas = clip(actuators.gas, 0., 1.) ** 1.8
-          if v_ego >= 30.0 * CV.MPH_TO_MS:
+          if CS.out.vEgo >= 30.0 * CV.MPH_TO_MS:
             apply_gas = clip(actuators.gas, 0., 1.) ** 1.4
-          if v_ego >= 45.0 * CV.MPH_TO_MS:
+          if CS.out.vEgo >= 45.0 * CV.MPH_TO_MS:
             apply_gas = clip(actuators.gas, 0., 1.)
           if not CS.out.cruiseState.enabled:
             apply_gas = 0.
