@@ -168,8 +168,8 @@ class CarController():
             accel = actuators.gas - actuators.brake
 
             # TODO: pass in LoC.long_control_state and use that to decide starting/stoppping
-            stopping = accel < 0 and CS.out.vEgo < 0.3
-            starting = accel > 0 and CS.out.vEgo < 0.3
+            stopping = accel < 0 and CS.out.vEgo < 0.1
+            starting = accel > 0 and CS.out.vEgo < 0.1
 
             # Prevent rolling backwards
             accel = -1.0 if stopping else accel
