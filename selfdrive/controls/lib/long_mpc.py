@@ -15,7 +15,7 @@ class LongitudinalMpc():
     self.ts = list(range(10))
     self.status = True
     self.min_a = -1.2
-    self.max_a = 1.2
+    self.max_a = 3.5
 
 
   def reset_mpc(self):
