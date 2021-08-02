@@ -62,7 +62,6 @@ void VisionBuf::allocate(size_t len) {
 
   memset(addr, 0, ion_alloc.len);
 
-  this->owner = true;
   this->len = len;
   this->mmap_len = ion_alloc.len;
   this->addr = addr;
@@ -82,7 +81,6 @@ void VisionBuf::import(){
   err = ioctl(ion_fd, ION_IOC_IMPORT, &fd_data);
   assert(err == 0);
 
-  this->owner = false;
   this->handle = fd_data.handle;
   this->addr = mmap(NULL, this->mmap_len, PROT_READ | PROT_WRITE, MAP_SHARED, this->fd, 0);
   assert(this->addr != MAP_FAILED);
@@ -106,9 +104,7 @@ void VisionBuf::init_cl(cl_device_id device_id, cl_context ctx) {
 }
 
 
-void VisionBuf::sync(int dir) {
-  int err;
-
+int VisionBuf::sync(int dir) {
   struct ion_flush_data flush_data = {0};
   flush_data.handle = this->handle;
   flush_data.vaddr = this->addr;
@@ -126,23 +122,23 @@ void VisionBuf::sync(int dir) {
      ION_IOC_INV_CACHES : ION_IOC_CLEAN_CACHES;
 
   custom_data.arg = (unsigned long)&flush_data;
-  err = ioctl(ion_fd, ION_IOC_CUSTOM, &custom_data);
-  assert(err == 0);
+  return ioctl(ion_fd, ION_IOC_CUSTOM, &custom_data);
 }
 
-void VisionBuf::free() {
+int VisionBuf::free() {
+  int err = 0;
+
   if (this->buf_cl){
-    int err = clReleaseMemObject(this->buf_cl);
-    assert(err == 0);
+    err = clReleaseMemObject(this->buf_cl);
+    if (err != 0) return err;
   }
 
-  munmap(this->addr, this->mmap_len);
-  close(this->fd);
+  err = munmap(this->addr, this->mmap_len);
+  if (err != 0) return err;
 
-  // Free the ION buffer if we also shared it
-  if (this->owner){
-    struct ion_handle_data handle_data = {.handle = this->handle};
-    int ret = ioctl(ion_fd, ION_IOC_FREE, &handle_data);
-    assert(ret == 0);
-  }
+  err = close(this->fd);
+  if (err != 0) return err;
+
+  struct ion_handle_data handle_data = {.handle = this->handle};
+  return ioctl(ion_fd, ION_IOC_FREE, &handle_data);
 }

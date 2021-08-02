@@ -10,6 +10,7 @@
 #include "messaging/messaging.h"
 #include "visionipc/ipc.h"
 #include "visionipc/visionipc_server.h"
+#include "logger/logger.h"
 
 std::string get_endpoint_name(std::string name, VisionStreamType type){
   if (messaging_use_zmq()){
@@ -122,7 +123,6 @@ void VisionIpcServer::listener(){
       bufs[i].buf_cl = 0;
       bufs[i].copy_q = 0;
       bufs[i].handle = 0;
-      bufs[i].owner = false;
 
       bufs[i].server_id = server_id;
     }
@@ -146,7 +146,11 @@ VisionBuf * VisionIpcServer::get_buffer(VisionStreamType type){
 }
 
 void VisionIpcServer::send(VisionBuf * buf, VisionIpcBufExtra * extra, bool sync){
-  if (sync) buf->sync(VISIONBUF_SYNC_FROM_DEVICE);
+  if (sync) {
+    if (buf->sync(VISIONBUF_SYNC_FROM_DEVICE) != 0) {
+      LOGE("Failed to sync buffer");
+    }
+  }
   assert(buffers.count(buf->type));
   assert(buf->idx < buffers[buf->type].size());
 
@@ -166,7 +170,9 @@ VisionIpcServer::~VisionIpcServer(){
   // VisionBuf cleanup
   for( auto const& [type, buf] : buffers ) {
     for (VisionBuf* b : buf){
-      b->free();
+      if (b->free() != 0) {
+        LOGE("Failed to free buffer");
+      }
       delete b;
     }
   }
