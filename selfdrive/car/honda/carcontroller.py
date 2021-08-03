@@ -73,7 +73,7 @@ def process_hud_alert(hud_alert):
 
 HUDData = namedtuple("HUDData",
                      ["pcm_accel", "v_cruise",  "car",
-                     "lanes", "fcw", "acc_alert", "steer_required", "dashed_lanes"])
+                     "lanes", "fcw", "acc_alert", "steer_required", "dashed_lanes", "dist_lines"])
 
 
 class CarController():
@@ -127,7 +127,7 @@ class CarController():
     lkas_active = enabled and not CS.steer_not_allowed and CS.lkasEnabled and ((CS.automaticLaneChange and not CS.belowLaneChangeSpeed) or ((not ((cur_time - self.signal_last) < 1) or not CS.belowLaneChangeSpeed) and not (CS.leftBlinkerOn or CS.rightBlinkerOn)))
     
     hud = HUDData(int(pcm_accel), (int(round(hud_v_cruise)) if hud_car != 0 else 255), hud_car,
-                  hud_show_lanes and lkas_active, fcw_display, acc_alert, steer_required, CS.lkasEnabled and not lkas_active)
+                  hud_show_lanes and lkas_active, fcw_display, acc_alert, steer_required, CS.lkasEnabled and not lkas_active, CS.read_distance_lines)
 
     # **** process the car messages ****
 
@@ -183,7 +183,12 @@ class CarController():
             can_sends.extend(hondacan.create_acc_commands(self.packer, enabled, apply_accel, apply_gas, idx, stopping, starting, CS.CP.carFingerprint))
 
         else:
-          apply_gas = clip(actuators.gas, 0., 1.)
+          if CS.out.vEgo >= -50.0:
+            apply_gas = clip(actuators.gas, 0., 1.) ** 1.7
+          if CS.out.vEgo >= 5.36:
+            apply_gas = clip(actuators.gas, 0., 1.) ** 1.3
+          if CS.out.vEgo >= 11.17:
+            apply_gas = clip(actuators.gas, 0., 1.)
           if not CS.out.cruiseState.enabled:
             apply_gas = 0.
           apply_brake = int(clip(self.brake_last * P.BRAKE_MAX, 0, P.BRAKE_MAX - 1))

@@ -483,7 +483,8 @@ class CarInterface(CarInterfaceBase):
     ret.rightBlinkerOn = self.CS.rightBlinkerOn
     ret.automaticLaneChange = self.CS.automaticLaneChange
     ret.belowLaneChangeSpeed = self.CS.belowLaneChangeSpeed
-
+    ret.readdistancelines = self.CS.read_distance_lines
+    
     buttonEvents = []
 
     if self.CS.cruise_buttons != self.CS.prev_cruise_buttons:
