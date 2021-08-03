@@ -1,6 +1,6 @@
 [submodule "panda"]
 	path = panda
-	url = ../../Aragon7777/panda.git
+	url = ../../commaai/panda.git
 [submodule "opendbc"]
 	path = opendbc
 	url = ../../commaai/opendbc.git
@@ -9,7 +9,7 @@
 	url = ../../commaai/laika.git
 [submodule "cereal"]
 	path = cereal
-	url = ../../Aragon7777/cereal.git
+	url = ../../sshane/cereal.git
 [submodule "rednose_repo"]
 	path = rednose_repo
 	url = ../../commaai/rednose.git
