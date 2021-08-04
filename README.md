@@ -1,16 +1,25 @@
 [![](https://i.imgur.com/lGnO4Oq.png)](#)
 
-Aragon's Openpilot Fork
+🚗 Read before installing!
 ------
+To increase the probability that you have an excellent experience and chose the right branch for your car, it is recommended to read this before proceeding.
 
-This fork is a collection of many different features from other forks and some of my own neatly packaged together for an excellent Openpilot experience.
-
-🚗 Core Features
+🚗 Branch Definitions
 ------
-* You **must** enable allow gas pressed in the settings for the features to work correctly.
-* This fork is based off of [Dragonpilot](https://github.com/dragonpilot-community/dragonpilot) which has is known to have many features.
-* If bugs in my fork are the result of Dragonpilot, I will do my best to fix them but cannot guarantee anything.
-* If you are looking for a lightweight branch that just has seperate LKAS and ACC, this isn't the branch for you.
+* Shane: Includes some or all of Shane's fork abilities: https://github.com/sshane/openpilot
+* DP: Includes Dragonpilot as the core. Dragonpilot has many different customization options accessible from the UI: https://github.com/dragonpilot-community/dragonpilot
+* Spektor: Lane keeping assist can be activatrd indepently of adaptive cruise control. Only for Hondas before 0.8.6, Toyota support added recently.
+* Honda: Honda-specific branch that utilizes the follow distance selector on the steering wheel to specific profiles. Not recommended for other cars.
+* Coasting: Only works well on Hondas & GMs. Branch has the functionality to coast beyond the set speed (including downhills) instead of using the brakes.
+* Devel: Branches in development. Check the commit history to see what's being worked on. No stability guarantees.
+* Personal: Branches used on my own fleet of cars. No stability guarantees.
+
+🚗 Installation
+------
+* Some branches (especially DP) are known to not work well without a factory reset first. Failing to do so may have errors or conflicts later on. [Check this video for instructions on how to factory reset.](https://youtu.be/0MPv_hSH3hk?t=98)
+* If using the Dragonpilot branch, enable "Allow Gas Pressed" in the controls settings to work with the standalone LKAS function properly.
+* Install via URL: https://smiskol.com/fork/aragon7777/REPLACE_WITH_BRANCH_NAME
+* Install via SSH: `cd /data; cp -rf ./openpilot ./openpilot.bak; rm -rf ./openpilot; git clone https://github.com/Aragon7777/openpilot.git openpilot; cd openpilot; git checkout REPLACEWITHBRANCHNAME && reboot`
 
 ↪️ Lateral Features
 ------
