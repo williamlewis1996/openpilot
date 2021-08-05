@@ -59,8 +59,8 @@ Example: `0.8.6-release-honda` is designed specifically for Honda's follow dista
 * Engagement in gears other than drive, such as sport and low.
 * Reduced the potentional for false driving model lagging alerts.
 
-🏆 Special Thanks
-------
+🏆 Special Thanks  
+------  
 [Spektor56](https://github.com/spektor56/openpilot)   
 [eisenheim](https://github.com/eyezenheim/openpilot)  
 [ShaneSmiskol](https://github.com/ShaneSmiskol/openpilot)    
@@ -71,4 +71,6 @@ Example: `0.8.6-release-honda` is designed specifically for Honda's follow dista
 [qadmus](https://github.com/qadmus/openpilot)  
 [reddn](https://github.com/reddn)
 
-📬 If you'd like to reach out to me, message `Aragon#7777` on Discord, or tag me in #custom-forks on the official Comma server regarding this branch.
+📬 Contact  
+------  
+If you'd like to reach out to me, message `Aragon#7777` on Discord, or tag me in #custom-forks on the official Comma server regarding this branch.  
