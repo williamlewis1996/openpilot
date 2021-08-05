@@ -51,8 +51,8 @@ Example: `0.8.6-release-honda` is designed specifically for Honda's follow dista
 * In order to get follow and acceleration profiles, you must enable them in the settings. Only then will the selectors show up while the car is on.
 * My personal settings:   
    
-DP - General:
-     Services:
+DP - General:   
+     Services:   
           Test1   
           Test2   
 
