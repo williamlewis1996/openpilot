@@ -1,8 +1,8 @@
-[![](https://i.imgur.com/lGnO4Oq.png)](#)
-
 🚗 Read before installing!
 ------
 To increase the probability that you have an excellent experience and chose the right branch for your car, it is recommended to read this before proceeding.
+
+[![](https://i.imgur.com/lGnO4Oq.png)](#)
 
 🚗 Branch Definitions
 ------
