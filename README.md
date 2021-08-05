@@ -60,12 +60,12 @@ DP - General:
 • Enable Athenad Service: Enabled   
 • Enable On-Road Dashcam: Enabled (your drives may stop uploading to connect.comma.ai if enabled due to storage)   
 • Enable Appd Service: Enabled     
-**Hardware - General**   
+**Hardware - General:**   
 • Enable Hotspot On Boot: Disabled     
 • Camera Offset: 6cm (if your car hugs one side of the road, tune this yourself)      
 • Fan Mode: 0      
 • Enable Auto Shutdown: Disabled    
-**Hardware - Non-C2**      
+**Hardware - Non-C2:**      
 • All options disabled. Toggle these if needed    
          
 DP - Controls:     
@@ -78,12 +78,12 @@ DP - Controls:
 • Use LQR Controller: Disabled (some people have had good results with this especially on toyotas, try it out)    
 • Enable Steering Ratio Learner: Disabled (SR learner tends to learn badly causing ping-pongs in a few days)    
 • Driving Path Offset: 0cm   
-**Longitudinal**   
+**Longitudinal:**   
 • Use Accel Profile: Enabled (this enables a button on the bottom right while the car is on to toggle between normal, sport, and economy accelerations)   
 • Use Following Profile: Enabled (this enables a button on the bottom right while the car is on to toggle follow distances in seconds)   
 • Allow Gas Pedal Pressed: Enabled (this is required to be enabled when using a branch with Spektor)   
 • Enable Gear Safety Check: Disabled (this lets you run Openpilot in other gears like sport and low, use caution)   
-**Safety**   
+**Safety:**   
 Enable Device Temp Check: Enabled   
 Enable Max Ctrl Speed Check: Disabled    
      
