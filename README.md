@@ -8,7 +8,7 @@ To increase the probability that you have an excellent experience and chose the 
 ------
 * Shane: Includes some or all of Shane's fork abilities: https://github.com/sshane/openpilot
 * DP: Includes Dragonpilot as the core. Dragonpilot has many different customization options accessible from the UI: https://github.com/dragonpilot-community/dragonpilot
-* Spektor: Lane keeping assist can be activatrd indepently of adaptive cruise control. Only for Hondas before 0.8.6, Toyota support added recently.
+* Spektor: Lane keeping assist can be activated independently of adaptive cruise control. Only for Hondas before 0.8.6, Toyota support added recently.
 * Honda: Honda-specific branch that utilizes the follow distance selector on the steering wheel to specific profiles. Not recommended for other cars.
 * Coasting: Only works well on Hondas & GMs. Branch has the functionality to coast beyond the set speed (including downhills) instead of using the brakes.
 * Devel: Branches in development. Check the commit history to see what's being worked on. No stability guarantees.
