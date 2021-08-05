@@ -98,6 +98,8 @@ DP - UI:
 • Display Event / Steer Icon: Enabled   
 • Display Max Speed: Enabled   
 • Display Driver Monitor Indicator: Enabled   
+• Display Side Info: Enabled   
+• Display Top Info Bar: Disabled   
     
 DP - Cars:   
 • Keep everything disabled unless you have something specific to use, like a torque-modded civic   
