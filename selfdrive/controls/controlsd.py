@@ -622,7 +622,7 @@ class Controls:
     
     # personal speedometer offset
     if self.v_cruise_kph != 255:
-      controlsState.vCruise = controlsState.vCruise * 1.0088
+      controlsState.vCruise = controlsState.vCruise * 1.0065
 
     if self.joystick_mode:
       controlsState.lateralControlState.debugState = lac_log
