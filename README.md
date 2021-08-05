@@ -68,9 +68,40 @@ DP - General:
 • All options disabled. Toggle these if needed    
          
 DP - Controls:     
-**Test**       
-
-
+**Lateral:**       
+• Lateral Ctrl Mode: 2  
+• LCA Min Speed: 30mph   
+• ALCA Delay: 1 second    
+• ALCA Min Speed: 30mph (min speed for nudgeless lane changes to happen, set to your liking. To disable, set Lateral Ctrl Mode to 1)     
+• Enable Cont. ALCA: Enabled (for some reason, in recent DP versions lane changes are buggy without this enabled. Use caution)   
+• Use LQR Controller: Disabled (some people have had good results with this especially on toyotas, try it out)    
+• Enable Steering Ratio Learner: Disabled (SR learner tends to learn badly causing ping-pongs in a few days)    
+• Driving Path Offset: 0cm   
+**Longitudinal**   
+• Use Accel Profile: Enabled (this enables a button on the bottom right while the car is on to toggle between normal, sport, and economy accelerations)   
+• Use Following Profile: Enabled (this enables a button on the bottom right while the car is on to toggle follow distances in seconds)   
+• Allow Gas Pedal Pressed: Enabled (this is required to be enabled when using a branch with Spektor)   
+• Enable Gear Safety Check: Disabled (this lets you run Openpilot in other gears like sport and low, use caution)   
+**Safety**   
+Enable Device Temp Check: Enabled   
+Enable Max Ctrl Speed Check: Disabled    
+     
+DP - UI:       
+• Display Mode: 2   
+• Screen Brightness: Auto   
+• Alert Volume: Auto   
+• Display Speed: Enabled   
+• Display Lane Prediction: Enabled   
+• Display Lead Car Indicator: Enabled   
+• Display Turning Signal / Blinkers: Enabled   
+• Display Event / Steer Icon: Enabled   
+• Display Max Speed: Enabled   
+• Display Driver Monitor Indicator: Enabled   
+    
+DP - Cars:   
+• Keep everything disabled unless you have something specific to use, like a torque-modded civic   
+   
+   
 🚗 General features across all branches (other than clean):
 ------
 * Alerts have mostly been rewritten. Better grammar, less annoying, and more details on specific events.
