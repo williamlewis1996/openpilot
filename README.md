@@ -65,7 +65,8 @@ DP - General:
 • Fan Mode: 0      
 • Enable Auto Shutdown: Disabled    
 **Hardware - Non-C2**      
-• All options disabled. Toggle these if needed       
+• All options disabled. Toggle these if needed    
+         
 DP - Controls:     
 **Test**       
 
