@@ -53,21 +53,21 @@ Example: `0.8.6-release-honda` is designed specifically for Honda's follow dista
    
 DP - General:   
 **Services:**   
-* Enable Updater Service: Enabled
-* Enable Log Service: Enabled
-* Enable Uploader Service: Enabled
-* Enable Athenad Service: Enabled
-* Enable On-Road Dashcam: Enabled (your drives may stop uploading to connect.comma.ai if enabled due to storage)
-* Enable Appd Service: Enabled  
-**Hardware - General**
-* Enable Hotspot On Boot: Disabled
-* Camera Offset: 6cm (if your car hugs one side of the road, tune this yourself)
-* Fan Mode: 0
-* Enable Auto Shutdown: Disabled
-**Hardware - Non-C2**
-* All options disabled. Toggle these if needed  
-DP - Controls:  
-**Test**  
+• Enable Updater Service: Enabled   
+• Enable Log Service: Enabled   
+• Enable Uploader Service: Enabled   
+• Enable Athenad Service: Enabled   
+• Enable On-Road Dashcam: Enabled (your drives may stop uploading to connect.comma.ai if enabled due to storage)   
+• Enable Appd Service: Enabled     
+**Hardware - General**   
+• Enable Hotspot On Boot: Disabled     
+• Camera Offset: 6cm (if your car hugs one side of the road, tune this yourself)      
+• Fan Mode: 0      
+• Enable Auto Shutdown: Disabled    
+**Hardware - Non-C2**      
+• All options disabled. Toggle these if needed       
+DP - Controls:     
+**Test**       
 
 
 🚗 General features across all branches (other than clean):
