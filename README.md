@@ -22,7 +22,7 @@ Example: `0.8.6-release-honda` is designed specifically for Honda's follow dista
   
 🚗 Installation  
 ------
-* Some branches (especially DP) are known to not work well without a factory reset first. Failing to do so may have errors or conflicts later on. [Check this video for instructions on how to factory reset.](https://youtu.be/0MPv_hSH3hk?t=98)
+* Some branches (especially DP) are known to not work well without a factory reset first. Failing to do so may have errors or conflicts later on. [Check this video for instructions on how to factory reset.](https://youtu.be/0MPv_hSH3hk?t=221)
 * If using the Dragonpilot branch, enable "Allow Gas Pressed" in the controls settings to work with the standalone LKAS function properly.
 * Install via URL: https://smiskol.com/fork/aragon7777/REPLACE_WITH_BRANCH_NAME
 * Install via SSH: `cd /data; cp -rf ./openpilot ./openpilot.bak; rm -rf ./openpilot; git clone https://github.com/Aragon7777/openpilot.git openpilot; cd openpilot; git checkout REPLACEWITHBRANCHNAME && reboot`
