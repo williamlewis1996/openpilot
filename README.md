@@ -46,10 +46,10 @@ Example: `0.8.6-release-honda` is designed specifically for Honda's follow dista
 *           ACC can be adjusted in increments of 1MPH or +5MPH by holding, even with a (Honda) comma pedal.
 *           ACC will not engage if seatbelt unlatched, door open, or unsupported gear.
 
-↩️ Dragonpilot Settings:
-------
-* In order to get follow and acceleration profiles, you must enable them in the settings. Only then will the selectors show up while the car is on.
-* My personal settings:   
+↩️ Dragonpilot Settings:   
+------   
+• In order to get follow and acceleration profiles, you must enable them in the settings. Only then will the selectors show up while the car is on.   
+• My personal settings:     
    
 DP - General:   
 **Services:**   
