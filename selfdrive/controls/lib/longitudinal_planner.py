@@ -28,9 +28,9 @@ _A_TOTAL_MAX_V = [1.7, 3.2]
 _A_TOTAL_MAX_BP = [20., 40.]
 
 DP_FOLLOWING_DIST = {
-  0: 1.8,
-  1: 1.4,
-  2: 1.0,
+  0: 1.0,
+  1: 0.9,
+  2: 0.8,
 }
 
 DP_ACCEL_ECO = 0
