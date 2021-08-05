@@ -17,7 +17,7 @@ To increase the probability that you have an excellent experience and choose the
 * Honda: Honda-specific branch that utilizes the follow distance selector on the steering wheel to specific profiles. Not recommended for other cars.
 
 Example: `0.8.6-dp-spektor-toyota` would contain Dragonpilot as the core, Spektor's independent LKAS and ACC, and tested to work on Toyotas.  
-Example: `0.8.2-shane-spektor` would contain [https://github.com/sshane/openpilot](Shane) as the core, plus Spektor's independent LKAS and ACC for Hondas.  
+Example: `0.8.2-shane-spektor` would contain [Shane](https://github.com/sshane/openpilot) as the core, plus Spektor's independent LKAS and ACC for Hondas.  
 Example: `0.8.6-release-honda` is designed specifically for Honda's follow distance selector. Other cars would see no benefit.  
   
 🚗 Installation  
