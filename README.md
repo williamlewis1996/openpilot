@@ -14,11 +14,11 @@ To increase the probability that you have an excellent experience and chose the 
 * Devel: Branches in development. Check the commit history to see what's being worked on. No stability guarantees.
 * Personal: Branches used on my own fleet of cars. No stability guarantees.
 
-* Example: `0.8.6-dp-spektor-toyota` would contain Dragonpilot as the core, Spektor's independent LKAS and ACC, and tested to work on Toyotas.
-* Example: `0.8.2-shane-spektor` would contain [https://github.com/sshane/openpilot](Shane) as the core, plus Spektor's independent LKAS and ACC for Hondas.
-* Example: `0.8.6-release-honda` is designed specifically for Honda's follow distance selector. Other cars would see no benefit.
-
-🚗 Installation
+Example: `0.8.6-dp-spektor-toyota` would contain Dragonpilot as the core, Spektor's independent LKAS and ACC, and tested to work on Toyotas.  
+Example: `0.8.2-shane-spektor` would contain [https://github.com/sshane/openpilot](Shane) as the core, plus Spektor's independent LKAS and ACC for Hondas.  
+Example: `0.8.6-release-honda` is designed specifically for Honda's follow distance selector. Other cars would see no benefit.  
+  
+🚗 Installation  
 ------
 * Some branches (especially DP) are known to not work well without a factory reset first. Failing to do so may have errors or conflicts later on. [Check this video for instructions on how to factory reset.](https://youtu.be/0MPv_hSH3hk?t=98)
 * If using the Dragonpilot branch, enable "Allow Gas Pressed" in the controls settings to work with the standalone LKAS function properly.
