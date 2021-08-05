@@ -24,8 +24,9 @@ Example: `0.8.6-release-honda` is designed specifically for Honda's follow dista
 * If using the Dragonpilot branch, enable "Allow Gas Pressed" in the controls settings to work with the standalone LKAS function properly.
 * Install via URL: https://smiskol.com/fork/aragon7777/REPLACE_WITH_BRANCH_NAME
 * Install via SSH: `cd /data; cp -rf ./openpilot ./openpilot.bak; rm -rf ./openpilot; git clone https://github.com/Aragon7777/openpilot.git openpilot; cd openpilot; git checkout REPLACEWITHBRANCHNAME && reboot`
+* If a NEOS upgrade or downgrade is required, it's always best to factory reset and install stock Openpilot for that specific NEOS version. After that, proceed.
 
-↪️ Lateral Features
+↪️ Spektor56 behavior explained:
 ------
 * Honda and Toyota: Behavior like stock Honda Sensing, thanks to Spektor56. 
 *      LKAS and ACC are two seperate functions that can be used independently.
