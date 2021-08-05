@@ -46,12 +46,9 @@ Example: `0.8.6-release-honda` is designed specifically for Honda's follow dista
 *           ACC can be adjusted in increments of 1MPH or +5MPH by holding, even with a (Honda) comma pedal.
 *           ACC will not engage if seatbelt unlatched, door open, or unsupported gear.
 
-↩️ Longitudinal Features
+↩️ Dragonpilot Notes:
 ------
-* Engagement in gears other than drive, such as sport and low.
-* Nudgeless assisted lane changes above 30MPH. Tune in `selfdrive/controls/lib/lateral_planner.py` on line 126.
-* All of Dragonpilot goodies. 
-* In order to get follow and acceleration profiles, you must enable them in the settings. Only then will there be buttons after turning the car on.
+* In order to get follow and acceleration profiles, you must enable them in the settings. Only then will the selectors show up while the car is on.
 
 🚗 General features across all branches (other than clean):
 ------
@@ -60,7 +57,6 @@ Example: `0.8.6-release-honda` is designed specifically for Honda's follow dista
 * Update prompt forcing an internet connection to check for updates has been disabled.
 * Engagement in gears other than drive, such as sport and low.
 * Reduced the potentional for false driving model lagging alerts.
-* Tesla warning sound effect under specific situations.
 
 🏆 Special Thanks
 ------
