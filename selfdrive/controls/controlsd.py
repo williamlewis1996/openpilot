@@ -620,9 +620,12 @@ class Controls:
     controlsState.angleSteers = CS.steeringAngleDeg
     controlsState.steeringAngleDesiredDeg = actuators.steeringAngleDeg
     
-    # personal speedometer offset
-    if self.v_cruise_kph != 255:
-      controlsState.vCruise = controlsState.vCruise * 1.0060
+    # Not using this in release builds
+    # Personal speedometer offset. Makes OP overshoot or undershoot set speed
+    # You can tune this offset to your own car if you like
+
+    #if self.v_cruise_kph != 255:
+      #controlsState.vCruise = controlsState.vCruise * 1.0060
 
     if self.joystick_mode:
       controlsState.lateralControlState.debugState = lac_log
