@@ -1,8 +1,8 @@
 🚨 Read before installing! 🚨
 ------
-To increase the probability that you have an excellent experience and chose the right branch for your car, it is recommended to read this before proceeding.
+To increase the probability that you have an excellent experience and choose the right branch for your car, it is recommended to read this before proceeding.
 
-[![](https://i.imgur.com/lGnO4Oq.png)](#)
+[![](https://i.imgur.com/fsq4V8b.jpg)](#)
 
 🚗 Branch Definitions
 ------
@@ -11,18 +11,18 @@ To increase the probability that you have an excellent experience and chose the 
 * Coasting: Only works well on Hondas & GMs. Branch has the functionality to coast beyond the set speed (including downhills) instead of using the brakes.
 * Devel: Branches in development. Check the commit history to see what's being worked on. No stability guarantees.
 * Personal: Branches used on my own fleet of cars. No stability guarantees.
-* Shane: Includes some or all of Shane's fork abilities: https://github.com/sshane/openpilot
-* DP: Includes Dragonpilot as the core. Dragonpilot has many different customization options accessible from the UI: https://github.com/dragonpilot-community/dragonpilot
+* Shane: Includes some or all of [Shane's fork abilities](https://github.com/sshane/openpilot): Edit settings via SSH with `python op_edit.py`.
+* DP: Includes [Dragonpilot](https://github.com/dragonpilot-community/dragonpilot) as the core. [Dragonpilot](https://github.com/dragonpilot-community/dragonpilot) has many different customization options accessible from the UI.
 * Spektor: Lane keeping assist can be activated independently of adaptive cruise control. Only for Hondas before 0.8.6, Toyota support added recently.
 * Honda: Honda-specific branch that utilizes the follow distance selector on the steering wheel to specific profiles. Not recommended for other cars.
 
 Example: `0.8.6-dp-spektor-toyota` would contain Dragonpilot as the core, Spektor's independent LKAS and ACC, and tested to work on Toyotas.  
-Example: `0.8.2-shane-spektor` would contain [https://github.com/sshane/openpilot](Shane) as the core, plus Spektor's independent LKAS and ACC for Hondas.  
+Example: `0.8.2-shane-spektor` would contain [Shane](https://github.com/sshane/openpilot) as the core, plus Spektor's independent LKAS and ACC for Hondas.  
 Example: `0.8.6-release-honda` is designed specifically for Honda's follow distance selector. Other cars would see no benefit.  
   
 🚗 Installation  
 ------
-* Some branches (especially DP) are known to not work well without a factory reset first. Failing to do so may have errors or conflicts later on. [Check this video for instructions on how to factory reset.](https://youtu.be/0MPv_hSH3hk?t=98)
+* Some branches (especially DP) are known to not work well without a factory reset first. Failing to do so may have errors or conflicts later on. [Check this video for instructions on how to factory reset.](https://youtu.be/0MPv_hSH3hk?t=221)
 * If using the Dragonpilot branch, enable "Allow Gas Pressed" in the controls settings to work with the standalone LKAS function properly.
 * Install via URL: https://smiskol.com/fork/aragon7777/REPLACE_WITH_BRANCH_NAME
 * Install via SSH: `cd /data; cp -rf ./openpilot ./openpilot.bak; rm -rf ./openpilot; git clone https://github.com/Aragon7777/openpilot.git openpilot; cd openpilot; git checkout REPLACEWITHBRANCHNAME && reboot`
@@ -46,11 +46,65 @@ Example: `0.8.6-release-honda` is designed specifically for Honda's follow dista
 *           ACC can be adjusted in increments of 1MPH or +5MPH by holding, even with a (Honda) comma pedal.
 *           ACC will not engage if seatbelt unlatched, door open, or unsupported gear.
 
-↩️ Dragonpilot (DP) Notes:
-------
-* In order to get follow and acceleration profiles, you must enable them in the settings. Only then will the selectors show up while the car is on.
-* (Coming Soon): My personal settings.
-
+↩️ Dragonpilot Settings:   
+------   
+• In order to get follow and acceleration profiles, you must enable them in the settings. Only then will the selectors show up while the car is on.   
+    
+**My Personal Settings**     
+   
+DP - General:   
+**Services:**   
+• Enable Updater Service: Enabled   
+• Enable Log Service: Enabled   
+• Enable Uploader Service: Enabled   
+• Enable Athenad Service: Enabled   
+• Enable On-Road Dashcam: Enabled (your drives may stop uploading to connect.comma.ai if enabled due to storage)   
+• Enable Appd Service: Enabled     
+**Hardware - General:**   
+• Enable Hotspot On Boot: Disabled     
+• Camera Offset: 6cm (if your car hugs one side of the road, tune this yourself)      
+• Fan Mode: 0      
+• Enable Auto Shutdown: Disabled    
+**Hardware - Non-C2:**      
+• All options disabled. Toggle these if needed    
+         
+DP - Controls:     
+**Lateral:**       
+• Lateral Ctrl Mode: 2  
+• LCA Min Speed: 30mph   
+• ALCA Delay: 1 second    
+• ALCA Min Speed: 30mph (min speed for nudgeless lane changes to happen, set to your liking. To disable, set Lateral Ctrl Mode to 1)     
+• Enable Cont. ALCA: Enabled (for some reason, in recent DP versions lane changes are buggy without this enabled. Use caution)   
+• Use LQR Controller: Disabled (some people have had good results with this especially on toyotas, try it out)    
+• Enable Steering Ratio Learner: Disabled (SR learner tends to learn badly causing ping-pongs in a few days)    
+• Driving Path Offset: 0cm   
+**Longitudinal:**   
+• Use Accel Profile: Enabled (this enables a button on the bottom right while the car is on to toggle between normal, sport, and economy accelerations)   
+• Use Following Profile: Enabled (this enables a button on the bottom right while the car is on to toggle follow distances in seconds)   
+• Allow Gas Pedal Pressed: Enabled (this is required to be enabled when using a branch with Spektor)   
+• Enable Gear Safety Check: Disabled (this lets you run Openpilot in other gears like sport and low, use caution)   
+**Safety:**   
+Enable Device Temp Check: Enabled   
+Enable Max Ctrl Speed Check: Disabled    
+     
+DP - UI:       
+• Display Mode: 2   
+• Screen Brightness: Auto   
+• Alert Volume: Auto   
+• Display Speed: Enabled   
+• Display Lane Prediction: Enabled   
+• Display Lead Car Indicator: Enabled   
+• Display Turning Signal / Blinkers: Enabled   
+• Display Event / Steer Icon: Enabled   
+• Display Max Speed: Enabled   
+• Display Driver Monitor Indicator: Enabled   
+• Display Side Info: Enabled   
+• Display Top Info Bar: Disabled   
+    
+DP - Cars:   
+• Keep everything disabled unless you have something specific to use, like a torque-modded civic   
+   
+   
 🚗 General features across all branches (other than clean):
 ------
 * Alerts have mostly been rewritten. Better grammar, less annoying, and more details on specific events.
@@ -59,8 +113,8 @@ Example: `0.8.6-release-honda` is designed specifically for Honda's follow dista
 * Engagement in gears other than drive, such as sport and low.
 * Reduced the potentional for false driving model lagging alerts.
 
-🏆 Special Thanks
-------
+🏆 Special Thanks  
+------  
 [Spektor56](https://github.com/spektor56/openpilot)   
 [eisenheim](https://github.com/eyezenheim/openpilot)  
 [ShaneSmiskol](https://github.com/ShaneSmiskol/openpilot)    
@@ -71,4 +125,6 @@ Example: `0.8.6-release-honda` is designed specifically for Honda's follow dista
 [qadmus](https://github.com/qadmus/openpilot)  
 [reddn](https://github.com/reddn)
 
-📬 If you'd like to reach out to me, message `Aragon#7777` on Discord, or tag me in #custom-forks on the official Comma server regarding this branch.
+📬 Contact  
+------  
+If you'd like to reach out to me, message `Aragon#7777` on Discord, or tag me in #custom-forks on the official Comma server regarding this branch.  
