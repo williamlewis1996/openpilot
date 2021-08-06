@@ -90,6 +90,7 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     startupMaster @78;
     startupFuzzyFingerprint @97;
     startupNoFw @104;
+    startupZss @105;
     fcw @79;
     steerSaturated @80;
     belowEngageSpeed @84;
@@ -110,12 +111,12 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     localizerMalfunction @103;
 
     # spektor
-    manualSteeringRequired @105;
-    manualLongitudinalRequired @106;
-    silentPedalPressed @107;
-    silentButtonEnable @108;
-    silentBrakeHold @109;
-    silentWrongGear @110;
+    manualSteeringRequired @106;
+    manualLongitudinalRequired @107;
+    silentPedalPressed @108;
+    silentButtonEnable @109;
+    silentBrakeHold @110;
+    silentWrongGear @111;
 
     driverMonitorLowAccDEPRECATED @68;
     radarCanErrorDEPRECATED @15;
