@@ -129,8 +129,8 @@ ButtonsWindow::ButtonsWindow(QWidget *parent) : QWidget(parent) {
   QObject::connect(dfButton, &QPushButton::clicked, [=]() {
     QUIState::ui_state.scene.dfButtonStatus = dfStatus < 3 ? dfStatus + 1 : 0;  // wrap back around
   });
-  dfButton->setFixedWidth(170);
-  dfButton->setFixedHeight(170);
+  dfButton->setFixedWidth(200);
+  dfButton->setFixedHeight(200);
 //  btns_layout->addStretch();
   btns_layout->addWidget(dfButton, 0, Qt::AlignRight);
 
