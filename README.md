@@ -46,9 +46,12 @@ Example: `0.8.6-release-honda` is designed specifically for Honda's follow dista
 *           ACC can be adjusted in increments of 1MPH or +5MPH by holding, even with a (Honda) comma pedal.
 *           ACC will not engage if seatbelt unlatched, door open, or unsupported gear.
 
-↪️ Shane Branch Personal Settings: 
+↪️ Shane Settings (access by ./op_edit.py)
 ------
+• Follow distance can by pressing the "GAP Adjust" button. I usually run "traffic".
    
+**My Personal Settings**     
+    
 1. camera_offset: 0.06    
 2. global_df_mod: 1.0    
 3. min_TR: 0.9    
