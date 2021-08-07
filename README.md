@@ -48,7 +48,7 @@ Example: `0.8.6-release-honda` is designed specifically for Honda's follow dista
 
 ↪️ Shane Settings (access by ./op_edit.py)
 ------
-• Follow distance can by pressing the "GAP Adjust" button. I usually run "traffic".
+• Follow distance can be adjusted by pressing the "GAP Adjust" button. I usually run "traffic".
    
 **My Personal Settings**     
     
