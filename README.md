@@ -72,7 +72,7 @@ Example: `0.8.6-release-honda` is designed specifically for Honda's follow dista
 18. standstill_hack: False  (static)      
 19. username: None     
          
-↩️ Dragonpilot Settings:   
+↩️ Dragonpilot Settings (access via UI):   
 ------   
 • In order to get follow and acceleration profiles, you must enable them in the settings. Only then will the selectors show up while the car is on.   
     
