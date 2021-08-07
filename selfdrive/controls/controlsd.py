@@ -659,7 +659,7 @@ class Controls:
 
     # personal speedometer offset
     if self.v_cruise_kph != 255:
-      if self.v_cruise_kph >= -50 and <= 114:
+      if self.v_cruise_kph >= -50:
         controlsState.vCruise = controlsState.vCruise * 1.0050
       if self.v_cruise_kph >= 115:
         ontrolsState.vCruise = controlsState.vCruise * 1.0085
