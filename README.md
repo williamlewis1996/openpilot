@@ -46,6 +46,29 @@ Example: `0.8.6-release-honda` is designed specifically for Honda's follow dista
 *           ACC can be adjusted in increments of 1MPH or +5MPH by holding, even with a (Honda) comma pedal.
 *           ACC will not engage if seatbelt unlatched, door open, or unsupported gear.
 
+↪️ Shane Branch Personal Settings: 
+------
+   
+1. camera_offset: 0.06    
+2. global_df_mod: 1.0    
+3. min_TR: 0.9    
+4. alca_no_nudge_speed: 30.0     
+5. steer_ratio: None      
+6. upload_on_hotspot: True      
+7. disengage_on_gas: False      
+8. update_behavior: auto  (static)       
+9. dynamic_gas: True      
+10. hide_auto_df_alerts: False       
+11. log_auto_df: False  (static)     
+12. support_white_panda: False  (static)     
+13. disable_charging: 30  (static)      
+14. prius_use_pid: False  (static)     
+15. use_lqr: True  (static)      
+16. corollaTSS2_use_indi: False  (static)      
+17. rav4TSS2_use_indi: False  (static)     
+18. standstill_hack: False  (static)      
+19. username: None     
+         
 ↩️ Dragonpilot Settings:   
 ------   
 • In order to get follow and acceleration profiles, you must enable them in the settings. Only then will the selectors show up while the car is on.   
@@ -103,7 +126,6 @@ DP - UI:
     
 DP - Cars:   
 • Keep everything disabled unless you have something specific to use, like a torque-modded civic   
-   
    
 🚗 General features across all branches (other than clean):
 ------
