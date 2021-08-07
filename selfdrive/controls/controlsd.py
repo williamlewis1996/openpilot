@@ -657,6 +657,14 @@ class Controls:
     controlsState.forceDecel = bool(force_decel)
     controlsState.canErrorCounter = self.can_error_counter
 
+    # personal speedometer offset
+    if self.v_cruise_kph != 255:
+      if self.v_cruise_kph >= -50:
+      controlsState.vCruise = controlsState.vCruise * 1.0050
+      if self.v_cruise_kph >= 115:
+      controlsState.vCruise = controlsState.vCruise * 1.0085
+       
+
     if self.joystick_mode:
       controlsState.lateralControlState.debugState = lac_log
     elif self.CP.steerControlType == car.CarParams.SteerControlType.angle:
