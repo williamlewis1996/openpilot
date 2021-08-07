@@ -125,12 +125,12 @@ ButtonsWindow::ButtonsWindow(QWidget *parent) : QWidget(parent) {
 //  btns_layout->addStretch();
 //  btns_layout->addWidget(mlButton, 0, Qt::AlignCenter);
 
-  dfButton = new QPushButton("DF\nprofile");
+  dfButton = new QPushButton("GAP\nAdjust");
   QObject::connect(dfButton, &QPushButton::clicked, [=]() {
     QUIState::ui_state.scene.dfButtonStatus = dfStatus < 3 ? dfStatus + 1 : 0;  // wrap back around
   });
-  dfButton->setFixedWidth(200);
-  dfButton->setFixedHeight(200);
+  dfButton->setFixedWidth(170);
+  dfButton->setFixedHeight(170);
 //  btns_layout->addStretch();
   btns_layout->addWidget(dfButton, 0, Qt::AlignRight);
 
