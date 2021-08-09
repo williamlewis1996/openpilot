@@ -8,10 +8,6 @@
 [submodule "laika_repo"]
 	path = laika_repo
 	url = ../../commaai/laika.git
-[submodule "cereal"]
-	path = cereal
-	url = ../../Aragon7777/cereal.git
-        branch = master
 [submodule "rednose_repo"]
 	path = rednose_repo
 	url = ../../commaai/rednose.git
