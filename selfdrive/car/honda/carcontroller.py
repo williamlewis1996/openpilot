@@ -7,6 +7,7 @@ from selfdrive.car import create_gas_command
 from selfdrive.car.honda import hondacan
 from selfdrive.car.honda.values import CruiseButtons, CAR, VISUAL_HUD, HONDA_BOSCH, CarControllerParams
 from opendbc.can.packer import CANPacker
+from common.params import Params
 
 VisualAlert = car.CarControl.HUDControl.VisualAlert
 
@@ -73,7 +74,7 @@ def process_hud_alert(hud_alert):
 
 HUDData = namedtuple("HUDData",
                      ["pcm_accel", "v_cruise",  "car",
-                     "lanes", "fcw", "acc_alert", "steer_required", "dashed_lanes"])
+                     "lanes", "fcw", "acc_alert", "steer_required", "dashed_lanes", "speed_units"])
 
 
 class CarController():
@@ -86,6 +87,13 @@ class CarController():
     self.last_pump_ts = 0.
     self.packer = CANPacker(dbc_name)
     self.new_radar_config = False
+    #self.params = Params()
+    self.is_metric = Params().get("IsMetric") == "1"
+    if self.is_metric:
+      self.speed_units = 2
+    else:
+      self.speed_units = 3
+
 
     self.params = CarControllerParams(CP)
 
@@ -127,7 +135,7 @@ class CarController():
     lkas_active = enabled and not CS.steer_not_allowed and CS.lkasEnabled and ((CS.automaticLaneChange and not CS.belowLaneChangeSpeed) or ((not ((cur_time - self.signal_last) < 1) or not CS.belowLaneChangeSpeed) and not (CS.leftBlinkerOn or CS.rightBlinkerOn)))
     
     hud = HUDData(int(pcm_accel), (int(round(hud_v_cruise)) if hud_car != 0 else 255), hud_car,
-                  hud_show_lanes and lkas_active, fcw_display, acc_alert, steer_required, CS.lkasEnabled and not lkas_active)
+                  hud_show_lanes and lkas_active, fcw_display, acc_alert, steer_required, CS.lkasEnabled and not lkas_active, self.speed_units)
 
     # **** process the car messages ****
 

@@ -101,7 +101,7 @@ def create_acc_commands(packer, enabled, accel, gas, idx, stopping, starting, ca
   commands.append(packer.make_can_msg("ACC_CONTROL", bus, acc_control_values, idx))
 
   acc_control_on_values = {
-    "SET_TO_3": 0x03,
+    'SET_ME_X03_2': hud.speed_units,
     "CONTROL_ON": enabled,
     "SET_TO_FF": 0xff,
     "SET_TO_75": 0x75,
