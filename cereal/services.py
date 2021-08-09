@@ -61,6 +61,13 @@ services = {
   "modelV2": (True, 20., 40),
   "managerState": (True, 2., 1),
   "uploaderState": (True, 0., 1),
+
+  "dynamicFollowData": (False, 20.),
+  "dynamicFollowButton": (False, 0.),
+  "laneSpeed": (False, 0.),
+  "laneSpeedButton": (False, 0.),
+  "dynamicCameraOffset": (False, 0.),
+  "modelLongButton": (False, 0.),
 }
 service_list = {name: Service(new_port(idx), *vals) for  # type: ignore
                 idx, (name, vals) in enumerate(services.items())}
