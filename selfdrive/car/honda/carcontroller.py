@@ -180,8 +180,8 @@ class CarController():
 
         else:
           if CS.out.vEgo >= -50.0:
-            apply_gas = clip(actuators.gas, 0., 1.) ** 1.8
-          if CS.out.vEgo >= 12.0:
+            apply_gas = clip(actuators.gas, 0., 1.) ** 1.4
+          if CS.out.vEgo >= 10.0:
             apply_gas = clip(actuators.gas, 0., 1.)
           if not CS.out.cruiseState.enabled:
             apply_gas = 0.
