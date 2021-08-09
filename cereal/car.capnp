@@ -90,6 +90,7 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     startupMaster @78;
     startupFuzzyFingerprint @97;
     startupNoFw @104;
+    startupZss @105;
     fcw @79;
     steerSaturated @80;
     belowEngageSpeed @84;
@@ -108,6 +109,15 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     driverCameraError @101;
     wideRoadCameraError @102;
     localizerMalfunction @103;
+
+    # spektor
+    manualSteeringRequired @106;
+    manualLongitudinalRequired @107;
+    silentPedalPressed @108;
+    silentButtonEnable @109;
+    silentBrakeHold @110;
+    silentWrongGear @111;
+    parkGear @112;
 
     driverMonitorLowAccDEPRECATED @68;
     radarCanErrorDEPRECATED @15;
@@ -186,6 +196,14 @@ struct CarState {
 
   # clutch (manual transmission only)
   clutchPressed @28 :Bool;
+
+  lkasEnabled @37 :Bool;
+  leftBlinkerOn @38 :Bool;
+  rightBlinkerOn @39 :Bool;
+  disengageByBrake @40 :Bool;
+  automaticLaneChange @41 :Bool;
+  belowLaneChangeSpeed @42 :Bool;
+  accEnabled @43 :Bool;
 
   # which packets this state came from
   canMonoTimes @12: List(UInt64);
@@ -427,6 +445,7 @@ struct CarParams {
   communityFeature @46: Bool;  # true if a community maintained feature is detected
   fingerprintSource @49: FingerprintSource;
   networkLocation @50 :NetworkLocation;  # Where Panda/C2 is integrated into the car's CAN network
+  hasZss @58: Bool;  # true if ZSS is detected
 
   struct LateralParams {
     torqueBP @0 :List(Int32);
@@ -438,7 +457,10 @@ struct CarParams {
     kpV @1 :List(Float32);
     kiBP @2 :List(Float32);
     kiV @3 :List(Float32);
-    kf @4 :Float32;
+    kdBP @4 :List(Float32) = [0.];
+    kdV @5 :List(Float32) = [0.];
+    kf @6 :Float32;
+    newKfTuned @7 :Bool;
   }
 
   struct LongitudinalPIDTuning {
@@ -451,13 +473,13 @@ struct CarParams {
   }
 
   struct LateralINDITuning {
-    outerLoopGainBP @4 :List(Float32);
+    outerLoopGainBP @4 :List(Float32) = [0.];
     outerLoopGainV @5 :List(Float32);
-    innerLoopGainBP @6 :List(Float32);
+    innerLoopGainBP @6 :List(Float32) = [0.];
     innerLoopGainV @7 :List(Float32);
-    timeConstantBP @8 :List(Float32);
+    timeConstantBP @8 :List(Float32) = [0.];
     timeConstantV @9 :List(Float32);
-    actuatorEffectivenessBP @10 :List(Float32);
+    actuatorEffectivenessBP @10 :List(Float32) = [0.];
     actuatorEffectivenessV @11 :List(Float32);
 
     outerLoopGainDEPRECATED @0 :Float32;
