@@ -146,7 +146,7 @@ class Alert:
 class NoEntryAlert(Alert):
   def __init__(self, alert_text_2, audible_alert=AudibleAlert.none,
                visual_alert=VisualAlert.none, duration_hud_alert=2.):
-    super().__init__("Standby Mode", alert_text_2, AlertStatus.normal,
+    super().__init__("Openpilot Standby Mode", alert_text_2, AlertStatus.normal,
                      AlertSize.mid, Priority.LOW, visual_alert,
                      audible_alert, .4, duration_hud_alert, 3.)
 
@@ -571,7 +571,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       "Car Detected in Blindspot",
       "Monitor Other Vehicles",
       AlertStatus.normal, AlertSize.mid,
-      Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1),
+      Priority.LOW, VisualAlert.none, AudibleAlert.chimeWarning2, .0, .1, .1),
   },
 
   EventName.laneChange: {
@@ -579,7 +579,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       "Changing Lane",
       "Check your surroundings.",
       AlertStatus.normal, AlertSize.mid,
-      Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1),
+      Priority.LOW, VisualAlert.none, AudibleAlert.chimeWarning1, .0, .1, .1),
   },
 
   EventName.manualSteeringRequired: {
@@ -602,7 +602,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
     ET.WARNING: Alert(
       "Steering Torque Limit Reached",
       "You may need to assist the wheel.",
-      AlertStatus.normal, AlertSize.mid,
+      AlertStatus.userPrompt, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, 1., 1., 1.),
   },
 
@@ -631,11 +631,11 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   # ********** events that affect controls state transitions **********
 
   EventName.pcmEnable: {
-    ET.ENABLE: EngagementAlert(AudibleAlert.none),
+    ET.ENABLE: EngagementAlert(AudibleAlert.chimeEngage),
   },
 
   EventName.buttonEnable: {
-    ET.ENABLE: EngagementAlert(AudibleAlert.none),
+    ET.ENABLE: EngagementAlert(AudibleAlert.chimeEngage),
   },
 
   EventName.silentButtonEnable: {
@@ -647,11 +647,11 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.pcmDisable: {
-    ET.USER_DISABLE: EngagementAlert(AudibleAlert.none),
+    ET.USER_DISABLE: EngagementAlert(AudibleAlert.chimeDisengage),
   },
 
   EventName.buttonCancel: {
-    ET.USER_DISABLE: EngagementAlert(AudibleAlert.none),
+    ET.USER_DISABLE: EngagementAlert(AudibleAlert.chimeDisengage),
   },
 
   EventName.brakeHold: {
@@ -669,12 +669,12 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
   },
 
   EventName.parkBrake: {
-    ET.USER_DISABLE: EngagementAlert(AudibleAlert.none),
-    ET.NO_ENTRY: NoEntryAlert("Park Brake Engaged"),
+    ET.USER_DISABLE: EngagementAlert(AudibleAlert.chimeWarning2),
+    ET.NO_ENTRY: NoEntryAlert("Parking Brake Engaged"),
   },
 
   EventName.pedalPressed: {
-    ET.USER_DISABLE: EngagementAlert(AudibleAlert.none),
+    ET.USER_DISABLE: EngagementAlert(AudibleAlert.chimeDisengage),
     ET.NO_ENTRY: NoEntryAlert("Pedal Pressed During Attempt",
                               visual_alert=VisualAlert.brakePressed),
   },
@@ -746,7 +746,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       "System Overheated",
       "",
       AlertStatus.normal, AlertSize.small,
-      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
+      Priority.LOWER, VisualAlert.none, AudibleAlert.chimeWarning2, 0., 0., .2),
     ET.SOFT_DISABLE: SoftDisableAlert("System Overheated"),
     ET.NO_ENTRY: NoEntryAlert("System Overheated"),
   },
@@ -902,7 +902,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       "CAN Error: Check Connections",
       "",
       AlertStatus.normal, AlertSize.small,
-      Priority.LOW, VisualAlert.none, AudibleAlert.none, 0., 0., .2, creation_delay=1.),
+      Priority.LOW, VisualAlert.none, AudibleAlert.chimeWarning2, 0., 0., .2, creation_delay=1.),
     ET.NO_ENTRY: NoEntryAlert("CAN Error: Check Connections"),
   },
 
@@ -912,7 +912,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       "LKAS Fault: Restart the car to engage",
       "",
       AlertStatus.normal, AlertSize.small,
-      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
+      Priority.LOWER, VisualAlert.none, AudibleAlert.chimeWarning2, 0., 0., .2),
     ET.NO_ENTRY: NoEntryAlert("LKAS Fault: Restart the Car"),
   },
 
@@ -922,7 +922,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       "Cruise Fault: Restart the car to engage",
       "",
       AlertStatus.normal, AlertSize.small,
-      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., .2),
+      Priority.LOWER, VisualAlert.none, AudibleAlert.chimeWarning2, 0., 0., .2),
     ET.NO_ENTRY: NoEntryAlert("Cruise Fault: Restart the Car"),
   },
 
