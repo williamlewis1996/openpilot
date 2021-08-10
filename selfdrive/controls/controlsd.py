@@ -142,7 +142,6 @@ class Controls:
     self.soft_disable_timer = 0
     self.v_cruise_kph = 255
     self.v_cruise_kph_last = 0
-    self.cruiseState_enabled_last = False
     self.mismatch_counter = 0
     self.can_error_counter = 0
     self.last_blinker_frame = 0
@@ -474,13 +473,6 @@ class Controls:
             self.state = State.enabled
           self.current_alert_types.append(ET.ENABLE)
           self.v_cruise_kph = initialize_v_cruise(CS.vEgo, CS.buttonEvents, self.v_cruise_kph_last)
-
-    # SET/RESUME button logic
-    if self.CP.enableGasInterceptor and CS.cruiseState.enabled and not self.cruiseState_enabled_last:
-      self.v_cruise_kph = initialize_v_cruise(CS.vEgo, CS.buttonEvents, self.v_cruise_kph_last)
-
-    self.cruiseState_enabled_last = CS.cruiseState.enabled
-
 
     # Check if actuators are enabled
     self.active = self.state == State.enabled or self.state == State.softDisabling
