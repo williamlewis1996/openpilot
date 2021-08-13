@@ -15,6 +15,7 @@ To increase the probability that you have an excellent experience and choose the
 * DP: Includes [Dragonpilot](https://github.com/dragonpilot-community/dragonpilot) as the core. [Dragonpilot](https://github.com/dragonpilot-community/dragonpilot) has many different customization options accessible from the UI.
 * Spektor: Lane keeping assist can be activated independently of adaptive cruise control. Only for Hondas before 0.8.6, Toyota support added recently.
 * Honda: Honda-specific branch that utilizes the follow distance selector on the steering wheel to specific profiles. Not recommended for other cars.
+* DevUI: The fancy user-interface that has a bunch of useful stats on-screen, colored path depending on torque, brake light icon, and much more. It often ends up out of date or not working on new updates and constantly has to be fixed. As such, I'll try to add this to as many branches as possible but it may not always make it in.
 
 Example: `0.8.6-dp-spektor-toyota` would contain Dragonpilot as the core, Spektor's independent LKAS and ACC, and tested to work on Toyotas.  
 Example: `0.8.2-shane-spektor` would contain [Shane](https://github.com/sshane/openpilot) as the core, plus Spektor's independent LKAS and ACC for Hondas.  
