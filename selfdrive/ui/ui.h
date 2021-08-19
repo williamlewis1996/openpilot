@@ -70,6 +70,7 @@ const Alert CONTROLS_UNRESPONSIVE_ALERT = {"TAKE CONTROL IMMEDIATELY", "Controls
 const int CONTROLS_TIMEOUT = 5;
 
 const int bdr_s = 30;
+const int bdr_is = 30;
 const int header_h = 420;
 const int footer_h = 280;
 
@@ -83,9 +84,9 @@ typedef enum UIStatus {
 } UIStatus;
 
 const QColor bg_colors [] = {
-  [STATUS_DISENGAGED] =  QColor(0x17, 0x33, 0x49, 0xc8),
-  [STATUS_ENGAGED] = QColor(0x17, 0x86, 0x44, 0xf1),
-  [STATUS_WARNING] = QColor(0xDA, 0x6F, 0x25, 0xf1),
+  [STATUS_DISENGAGED] =  QColor(0xe, 0xe, 0xe, 0xc8),
+  [STATUS_ENGAGED] = QColor(0x0, 0xFF, 0x0, 0xf1),
+  [STATUS_WARNING] = QColor(0xE, 0x17, 0x1F, 0xf1),
   [STATUS_ALERT] = QColor(0xC9, 0x22, 0x31, 0xf1),
 };
 
@@ -104,6 +105,28 @@ typedef struct UIScene {
   bool world_objects_visible;
 
   cereal::PandaState::PandaType pandaType;
+
+  int lead_status;
+  float lead_d_rel;
+  float lead_v_rel;
+  float angleSteers;
+  bool brakePressed;
+  float angleSteersDes;
+  bool recording;
+  float gpsAccuracyUblox;
+  float altitudeUblox;
+  int engineRPM;
+  int dashcamX;
+  int dashcamY;
+  float aEgo;
+  float steeringTorqueEps;
+  bool steeringPressed;
+  bool enabled;
+  float pidStateOutput;
+  int cpuUsagePercent;
+  float cpu0TempC;
+  int satelliteCount;
+  bool computerBraking;
 
   // modelV2
   float lane_line_probs[4];
