@@ -221,10 +221,10 @@ def wrong_car_mode_alert(CP: car.CarParams, sm: messaging.SubMaster, metric: boo
 
 def startup_fuzzy_fingerprint_alert(CP: car.CarParams, sm: messaging.SubMaster, metric: bool) -> Alert:
   return Alert(
-    "WARNING: No Exact Match on Car Model",
-    f"Closest Match: {CP.carFingerprint.title()[:40]}",
-    AlertStatus.userPrompt, AlertSize.mid,
-    Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 0.)
+    "Welcome to Openpilot",
+    f"To use Autosteer, press the lane-keep-assist button.",
+    AlertStatus.normal, AlertSize.mid,
+    Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 10.)
 
 
 def joystick_alert(CP: car.CarParams, sm: messaging.SubMaster, metric: bool) -> Alert:
@@ -277,7 +277,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       "Dashcam mode",
       "Always keep hands on wheel and eyes on road",
       AlertStatus.normal, AlertSize.mid,
-      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 15.),
+      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 10.),
   },
 
   # Car is not recognized
@@ -286,7 +286,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
       "Dashcam mode for unsupported car",
       "Always keep hands on wheel and eyes on road",
       AlertStatus.normal, AlertSize.mid,
-      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 15.),
+      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 0., 0., 10.),
   },
 
   # openpilot uses the version strings from various ECUs to detect the correct car model.
@@ -414,7 +414,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
     ET.WARNING: Alert(
       "Autosteer Temporarily Suspended",
       "Steering override by driver.",
-      AlertStatus.normal, AlertSize.mid,
+      AlertStatus.userPrompt, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, 1., 1., 1.),
   },
 
@@ -422,7 +422,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
     ET.WARNING: Alert(
       "KEEP EYES ON ROAD: Driver Distracted",
       "",
-      AlertStatus.normal, AlertSize.small,
+      AlertStatus.userPrompt, AlertSize.small,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1),
   },
 
@@ -446,7 +446,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
     ET.WARNING: Alert(
       "TOUCH STEERING WHEEL: No Face Detected",
       "",
-      AlertStatus.normal, AlertSize.small,
+      AlertStatus.userPrompt, AlertSize.small,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1, alert_rate=0.75),
   },
 
@@ -490,7 +490,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
     ET.WARNING: Alert(
       "Automatic Left Lane Change",
       "Check your surroundings.",
-      AlertStatus.normal, AlertSize.mid,
+      AlertStatus.userPrompt, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1, alert_rate=0.75),
   },
 
@@ -498,7 +498,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
     ET.WARNING: Alert(
       "Automatic Right Lane Change",
       "Check your surroundings.",
-      AlertStatus.normal, AlertSize.mid,
+      AlertStatus.userPrompt, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1, alert_rate=0.75),
   },
 
@@ -506,7 +506,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
     ET.WARNING: Alert(
       "Car Detected in Blindspot",
       "Monitor Other Vehicles",
-      AlertStatus.normal, AlertSize.mid,
+      AlertStatus.userPrompt, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1),
   },
 
@@ -514,7 +514,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
     ET.WARNING: Alert(
       "Changing Lane",
       "Check your surroundings.",
-      AlertStatus.normal, AlertSize.mid,
+      AlertStatus.userPrompt, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .0, .1, .1),
   },
 
@@ -522,15 +522,15 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
     ET.WARNING: Alert(
       "ACC Mode",
       "LKAS switched off. Steering required.",
-      AlertStatus.normal, AlertSize.mid,
-      Priority.LOW, VisualAlert.none, AudibleAlert.none, 1., .1, .1),
+      AlertStatus.userPrompt, AlertSize.mid,
+      Priority.LOW, VisualAlert.none, AudibleAlert.none, 1., 2., 2.),
   },
 
   EventName.manualLongitudinalRequired: {
     ET.WARNING: Alert(
       "LKAS Mode",
       "ACC switched off. Accel/brake required.",
-      AlertStatus.normal, AlertSize.mid,
+      AlertStatus.userPrompt, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, 1., 2., 2.),
   },
 
@@ -538,7 +538,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
     ET.WARNING: Alert(
       "Steering Torque Limit Reached",
       "You may need to assist the wheel.",
-      AlertStatus.normal, AlertSize.mid,
+      AlertStatus.userPrompt, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, 1., 1., 1.),
   },
 
