@@ -493,7 +493,6 @@ class CarInterface(CarInterfaceBase):
     ret.automaticLaneChange = self.CS.automaticLaneChange
     ret.belowLaneChangeSpeed = self.CS.belowLaneChangeSpeed
     ret.readdistancelines = self.CS.read_distance_lines
-    ret.engineRPM = self.CS.engineRPM
     
     buttonEvents = []
 
