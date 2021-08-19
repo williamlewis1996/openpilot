@@ -254,8 +254,8 @@ static void ui_draw_vision_face(UIState *s) {
 
 static void ui_draw_vision_brake(UIState *s) {
   const int radius = 80;
-  const int center_x = s->viz_rect.x + radius + (bdr_is * 2) + 250;
-  const int center_y = s->viz_rect.bottom() - footer_h / 2 + 50;
+  const int center_x = radius + (bdr_is * 2) + 250;
+  const int center_y = s->fb_h - footer_h / 2 + 50;
   ui_draw_circle_image(s, center_x, center_y, radius, "brake_disk", (s->scene.brakePressed || s->scene.computerBraking));
 }
 
@@ -551,12 +551,12 @@ static void bb_ui_draw_UI(UIState *s)
 {
   //const UIScene *scene = &s->scene;
   const int bb_dml_w = 180;
-  const int bb_dml_x = (s->viz_rect.x + (bdr_is * 2));
-  const int bb_dml_y = (s->viz_rect.y + (bdr_is * 1.5)) + 220;
+  const int bb_dml_x = (bdr_is * 2);
+  const int bb_dml_y = (bdr_is * 1.5) + 220;
 
   const int bb_dmr_w = 180;
-  const int bb_dmr_x = s->viz_rect.x + s->viz_rect.w - bb_dmr_w - (bdr_is * 2);
-  const int bb_dmr_y = (s->viz_rect.y + (bdr_is * 1.5)) + 220;
+  const int bb_dmr_x = s->fb_w - bb_dmr_w - (bdr_is * 2);
+  const int bb_dmr_y = (bdr_is * 1.5) + 220;
 
   bb_ui_draw_measures_right(s, bb_dml_x, bb_dml_y, bb_dml_w);
   bb_ui_draw_measures_left(s, bb_dmr_x, bb_dmr_y-20, bb_dmr_w);
