@@ -69,8 +69,7 @@ const Alert CONTROLS_UNRESPONSIVE_ALERT = {"TAKE CONTROL IMMEDIATELY", "Controls
                                            AudibleAlert::CHIME_WARNING_REPEAT};
 const int CONTROLS_TIMEOUT = 5;
 
-const int bdr_s = 10;
-const int bdr_is = 30;
+const int bdr_s = 30;
 const int header_h = 420;
 const int footer_h = 280;
 
@@ -86,7 +85,7 @@ typedef enum UIStatus {
 const QColor bg_colors [] = {
   [STATUS_DISENGAGED] =  QColor(0xe, 0xe, 0xe, 0xc8),
   [STATUS_ENGAGED] = QColor(0x48, 0x48, 0xFF, 0xf1),
-  [STATUS_WARNING] = QColor(0xDA, 0x6F, 0x25, 0xf1),
+  [STATUS_WARNING] = QColor(0xE, 0x17, 0x1F, 0xf1),
   [STATUS_ALERT] = QColor(0xC9, 0x22, 0x31, 0xf1),
 };
 
