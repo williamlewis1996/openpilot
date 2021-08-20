@@ -215,34 +215,34 @@ void draw_lock_button(UIState *s) {
       .height = 150};
 }
 
-static void screen_draw_button(UIState *s) {
-  if (captureState == CAPTURE_STATE_CAPTURING) {
-      draw_lock_button(s);
-    }
+//static void screen_draw_button(UIState *s) {
+  //if (captureState == CAPTURE_STATE_CAPTURING) {
+      //draw_lock_button(s);
+    //}
 
-    int btn_w = 150;
-    int btn_h = 150;
-    int btn_x = 1920 - btn_w + 12;
-    int btn_y = 1080 - btn_h + 5;
-    nvgBeginPath(s->vg);
-    nvgRoundedRect(s->vg, btn_x - 110 + 12, btn_y - 45 + 5, btn_w, btn_h, 100);
-    nvgStrokeColor(s->vg, nvgRGBA(255, 255, 255, 80));
-    nvgStrokeWidth(s->vg, 6);
-    nvgStroke(s->vg);
+    //int btn_w = 150;
+    //int btn_h = 150;
+    //int btn_x = 1920 - btn_w + 12;
+    //int btn_y = 1080 - btn_h + 5;
+    //nvgBeginPath(s->vg);
+    //nvgRoundedRect(s->vg, btn_x - 110 + 12, btn_y - 45 + 5, btn_w, btn_h, 100);
+    //nvgStrokeColor(s->vg, nvgRGBA(255, 255, 255, 80));
+    //nvgStrokeWidth(s->vg, 6);
+    //nvgStroke(s->vg);
 
-    nvgFontSize(s->vg, 70);
+    //nvgFontSize(s->vg, 70);
 
-    if (captureState == CAPTURE_STATE_CAPTURING) {
-      NVGcolor fillColor = nvgRGBA(255, 0, 0, 150);
-      nvgFillColor(s->vg, fillColor);
-      nvgFill(s->vg);
-      nvgFillColor(s->vg, nvgRGBA(255, 255, 255, 200));
-    }
-    else {
-      nvgFillColor(s->vg, nvgRGBA(255, 255, 255, 200));
-    }
-    nvgText(s->vg, btn_x - 35 + 12, btn_y + 50 + 5, "REC", NULL);
-}
+    //if (captureState == CAPTURE_STATE_CAPTURING) {
+      //NVGcolor fillColor = nvgRGBA(255, 0, 0, 150);
+      //nvgFillColor(s->vg, fillColor);
+      //nvgFill(s->vg);
+      //nvgFillColor(s->vg, nvgRGBA(255, 255, 255, 200));
+    //}
+    //else {
+      //nvgFillColor(s->vg, nvgRGBA(255, 255, 255, 200));
+    //}
+    //nvgText(s->vg, btn_x - 35 + 12, btn_y + 50 + 5, "REC", NULL);
+//}
 
 void screen_toggle_record_state() {
   if (captureState == CAPTURE_STATE_CAPTURING) {
