@@ -27,6 +27,7 @@
 #include "selfdrive/hardware/hw.h"
 
 #include "selfdrive/ui/ui.h"
+#include "dashcam.h"
 
 const int border_shifter = 20;
 
