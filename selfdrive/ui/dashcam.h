@@ -83,7 +83,7 @@ void save_file(char *videos_dir, char *filename) {
 }
 
 void stop_capture() {
-  char videos_dir[50] = "/sdcard/videos";
+  char videos_dir[50] = "/data/media/0/videos";
 
   if (captureState == CAPTURE_STATE_CAPTURING) {
     system("killall -SIGINT screenrecord");
@@ -106,7 +106,7 @@ void stop_capture() {
 void start_capture() {
   captureState = CAPTURE_STATE_CAPTURING;
   char cmd[128] = "";
-  char videos_dir[50] = "/sdcard/videos";
+  char videos_dir[50] = "/data/media/0/videos";
 
   //////////////////////////////////
   // NOTE: make sure videos_dir folder exists on the device!
