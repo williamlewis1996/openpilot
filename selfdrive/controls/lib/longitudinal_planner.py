@@ -50,14 +50,15 @@ class Planner():
     self.mpcs = {}
     self.mpcs['lead0'] = LeadMpc(0)
     self.mpcs['lead1'] = LeadMpc(1)
-    self.mpcs['cruise'] = LongitudinalMpc()
+    self.mpcs['cruiseGas'] = LongitudinalMpc()
+    self.mpcs['cruiseBrake'] = LongitudinalMpc()
 
     self.fcw = False
     self.fcw_checker = FCWChecker()
 
     self.v_desired = 0.0
     self.a_desired = 0.0
-    self.longitudinalPlanSource = 'cruise'
+    self.longitudinalPlanSource = 'cruiseGas'
     self.alpha = np.exp(-DT_MDL/2.0)
     self.lead_0 = log.ModelDataV2.LeadDataV3.new_message()
     self.lead_1 = log.ModelDataV2.LeadDataV3.new_message()
@@ -99,13 +100,20 @@ class Planner():
     # clip limits, cannot init MPC outside of bounds
     accel_limits_turns[0] = min(accel_limits_turns[0], self.a_desired)
     accel_limits_turns[1] = max(accel_limits_turns[1], self.a_desired)
-    self.mpcs['cruise'].set_accel_limits(accel_limits_turns[0], accel_limits_turns[1])
+    self.mpcs['cruiseGas'].set_accel_limits(accel_limits_turns[0], accel_limits_turns[1])
+    self.mpcs['cruiseBrake'].set_accel_limits(accel_limits_turns[0], accel_limits_turns[1])
 
     next_a = np.inf
     for key in self.mpcs:
       self.mpcs[key].set_cur_state(self.v_desired, self.a_desired)
-      self.mpcs[key].update(sm['carState'], sm['radarState'], v_cruise)
-      if self.mpcs[key].status and self.mpcs[key].a_solution[5] < next_a:
+      if key == 'cruiseGas':
+        self.mpcs[key].update(sm['carState'], sm['radarState'], v_cruise)
+      else:
+        self.mpcs[key].update(sm['carState'], sm['radarState'], v_cruise + 5 * CV.MPH_TO_MS)
+
+      if self.mpcs[key].status and self.mpcs[key].a_solution[5] < next_a:  # picks slowest solution from accel in ~0.2 seconds
+        if key == 'cruiseGas' and self.mpcs[key].a_solution[5] < 0.: # cruise doesn't brake
+          continue
         self.longitudinalPlanSource = key
         self.v_desired_trajectory = self.mpcs[key].v_solution[:CONTROL_N]
         self.a_desired_trajectory = self.mpcs[key].a_solution[:CONTROL_N]
