@@ -69,7 +69,7 @@ const Alert CONTROLS_UNRESPONSIVE_ALERT = {"TAKE CONTROL IMMEDIATELY", "Controls
                                            AudibleAlert::CHIME_WARNING_REPEAT};
 const int CONTROLS_TIMEOUT = 5;
 
-const int bdr_s = 30;
+const int bdr_s = 10;
 const int bdr_is = 30;
 const int header_h = 420;
 const int footer_h = 280;
