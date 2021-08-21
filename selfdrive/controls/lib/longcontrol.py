@@ -105,10 +105,8 @@ class LongControl():
       self.pid.pos_limit = gas_max
       self.pid.neg_limit = - brake_max
 
-      if long_plan.longitudinalPlanSource == 'cruiseGas':
+      if long_plan.longitudinalPlanSource == 'cruise':
         self.pid.neg_limit = 0
-      elif long_plan.longitudinalPlanSource == 'cruiseBrake':
-        self.pid.pos_limit = 0
 
       # Toyota starts braking more when it thinks you want to stop
       # Freeze the integrator so we don't accelerate to compensate, and don't allow positive acceleration
