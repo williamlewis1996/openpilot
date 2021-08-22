@@ -201,7 +201,7 @@ struct CarState {
   leftBlinkerOn @39 :Bool;
   rightBlinkerOn @40 :Bool;
   disengageByBrake @41 :Bool;
-  automaticLaneChange @421 :Bool;
+  automaticLaneChange @42 :Bool;
   belowLaneChangeSpeed @43 :Bool;
   accEnabled @44 :Bool;
   readdistancelines @45 :Int16;
