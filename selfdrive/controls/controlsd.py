@@ -698,6 +698,10 @@ class Controls:
     controlsState.angleSteers = CS.steeringAngleDeg
     controlsState.steeringAngleDesiredDeg = actuators.steeringAngleDeg
 
+    # 2018 Honda Civic Speed Offset
+    if self.v_cruise_kph != 255:
+      controlsState.vCruise = controlsState.vCruise * 1.0076
+
     if self.joystick_mode:
       controlsState.lateralControlState.debugState = lac_log
     elif self.CP.steerControlType == car.CarParams.SteerControlType.angle:
