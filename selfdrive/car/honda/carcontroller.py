@@ -280,7 +280,7 @@ class CarController():
         else:
           apply_brake = clip(self.brake_last - wind_brake, 0.0, 1.0)
           apply_brake = int(clip(apply_brake * P.BRAKE_MAX, 0, P.BRAKE_MAX - 1))
-          if not CS.out.cruiseState.enabled:
+          if not CS.out.cruiseState.enabled and not (CS.CP.pcmCruise and CS.accEnabled and CS.CP.minEnableSpeed > 0 and not CS.out.cruiseState.enabled):
             apply_brake = 0.
           if dragonconf.dpAtl and dragonconf.dpAtlOpLong and not CS.out.cruiseActualEnabled:
             apply_brake = 0
