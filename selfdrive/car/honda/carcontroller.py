@@ -163,7 +163,7 @@ class CarController():
 
     # wind brake from air resistance decel at high speed
     wind_brake = interp(CS.out.vEgo, [0.0, 2.3, 35.0], [0.0, 0.0, 0.15])
-    if CS.CP.carFingerprint in OLD_NIDEC_LONG_CONTROL:
+    if CS.CP.enableGasInterceptor or CS.CP.carFingerprint in OLD_NIDEC_LONG_CONTROL:
       #pcm_speed = pcm_speed
       pcm_accel = int(clip(pcm_accel, 0, 1) * 0xc6)
     else:
