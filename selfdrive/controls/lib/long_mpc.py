@@ -16,8 +16,8 @@ class LongitudinalMpc():
     self.last_cloudlog_t = 0.0
     self.ts = list(range(10))
     self.status = True
-    self.min_a = -1.2 if self.mpc_id == 0 else -3.5
-    self.max_a = 1.2
+    self.min_a = -3.2 if self.mpc_id == 0 else -3.5
+    self.max_a = 3.2
 
 
   def reset_mpc(self):
