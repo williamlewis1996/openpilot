@@ -115,7 +115,7 @@ ButtonsWindow::ButtonsWindow(QWidget *parent) : QWidget(parent) {
   btns_layout->setSpacing(0);
   btns_layout->setContentsMargins(0, 0, 30, 30);
 
-  main_layout->addWidget(btns_wrapper, 0, Qt::AlignBottom);
+  main_layout->addWidget(btns_wrapper, 0, Qt::AlignRight);
 
   mlButton = new QPushButton("Model\nCC");
   QObject::connect(mlButton, &QPushButton::clicked, [=]() {
@@ -123,7 +123,7 @@ ButtonsWindow::ButtonsWindow(QWidget *parent) : QWidget(parent) {
   });
   mlButton->setFixedWidth(200);
   mlButton->setFixedHeight(200);
-  btns_layout->addWidget(mlButton, 0, Qt::AlignRight | Qt::AlignCenter);
+  btns_layout->addWidget(mlButton, 0, Qt::AlignCenter);
 
   dfButton = new QPushButton("GAP\nAdjust");
   QObject::connect(dfButton, &QPushButton::clicked, [=]() {
@@ -131,7 +131,7 @@ ButtonsWindow::ButtonsWindow(QWidget *parent) : QWidget(parent) {
   });
   dfButton->setFixedWidth(200);
   dfButton->setFixedHeight(200);
-  btns_layout->addWidget(dfButton, 0, Qt::AlignRight);
+  btns_layout->addWidget(dfButton, 0, Qt::AlignBottom);
 
   setStyleSheet(R"(
     QPushButton {
