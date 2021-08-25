@@ -115,7 +115,7 @@ ButtonsWindow::ButtonsWindow(QWidget *parent) : QWidget(parent) {
   btns_layout->setSpacing(0);
   btns_layout->setContentsMargins(0, 0, 30, 30);
 
-  main_layout->addWidget(btns_wrapper, 0, Qt::AlignBotton);
+  main_layout->addWidget(btns_wrapper, 0, Qt::AlignBottom);
 
   dfButton = new QPushButton("GAP\nAdjust");
   QObject::connect(dfButton, &QPushButton::clicked, [=]() {
