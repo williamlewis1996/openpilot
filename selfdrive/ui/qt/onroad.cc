@@ -113,7 +113,7 @@ ButtonsWindow::ButtonsWindow(QWidget *parent) : QWidget(parent) {
   QWidget *btns_wrapper = new QWidget;
   QHBoxLayout *btns_layout  = new QHBoxLayout(btns_wrapper);
   btns_layout->setSpacing(0);
-  btns_layout->setContentsMargins(30, 0, 30, 30);
+  btns_layout->setContentsMargins(0, 0, 30, 30);
 
   main_layout->addWidget(btns_wrapper, 0, Qt::AlignBottom);
 
@@ -123,7 +123,7 @@ ButtonsWindow::ButtonsWindow(QWidget *parent) : QWidget(parent) {
   });
   mlButton->setFixedWidth(200);
   mlButton->setFixedHeight(200);
-  btns_layout->addWidget(mlButton, 0, Qt::AlignRight);
+  btns_layout->addWidget(mlButton, 0, Qt::AlignBottom, Qt::AlignRight);
 
   dfButton = new QPushButton("GAP\nAdjust");
   QObject::connect(dfButton, &QPushButton::clicked, [=]() {
@@ -158,7 +158,7 @@ void ButtonsWindow::updateState(const UIState &s) {
 
   if (mlEnabled != s.scene.mlButtonEnabled) {  // update model longitudinal button
     mlEnabled = s.scene.mlButtonEnabled;
-    mlButton->setStyleSheet(QString("font-size: 40px; border-radius: 100px; border-color: %1").arg(mlButtonColors.at(mlEnabled)));
+    mlButton->setStyleSheet(QString("font-size: 45px; border-radius: 100px; border-color: %1").arg(mlButtonColors.at(mlEnabled)));
 
     MessageBuilder msg;
     auto mlButtonEnabled = msg.initEvent().initModelLongButton();
