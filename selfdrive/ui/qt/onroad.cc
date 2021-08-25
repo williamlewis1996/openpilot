@@ -115,15 +115,7 @@ ButtonsWindow::ButtonsWindow(QWidget *parent) : QWidget(parent) {
   btns_layout->setSpacing(0);
   btns_layout->setContentsMargins(0, 0, 30, 30);
 
-  main_layout->addWidget(btns_wrapper, 0, Qt::AlignBottom);
-
-  mlButton = new QPushButton("Model\nCC");
-  QObject::connect(mlButton, &QPushButton::clicked, [=]() {
-    QUIState::ui_state.scene.mlButtonEnabled = !mlEnabled;
-  });
-  mlButton->setFixedWidth(200);
-  mlButton->setFixedHeight(200);
-  btns_layout->addWidget(mlButton, 0, Qt::AlignRight);
+  main_layout->addWidget(btns_wrapper, 0, Qt::AlignBotton);
 
   dfButton = new QPushButton("GAP\nAdjust");
   QObject::connect(dfButton, &QPushButton::clicked, [=]() {
@@ -132,6 +124,14 @@ ButtonsWindow::ButtonsWindow(QWidget *parent) : QWidget(parent) {
   dfButton->setFixedWidth(200);
   dfButton->setFixedHeight(200);
   btns_layout->addWidget(dfButton, 0, Qt::AlignRight);
+
+  mlButton = new QPushButton("Model\nCC");
+  QObject::connect(mlButton, &QPushButton::clicked, [=]() {
+    QUIState::ui_state.scene.mlButtonEnabled = !mlEnabled;
+  });
+  mlButton->setFixedWidth(200);
+  mlButton->setFixedHeight(200);
+  btns_layout->addWidget(mlButton, 0, Qt::AlignRight);
 
   setStyleSheet(R"(
     QPushButton {
