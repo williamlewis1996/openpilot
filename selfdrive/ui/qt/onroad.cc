@@ -158,7 +158,7 @@ void ButtonsWindow::updateState(const UIState &s) {
 
   if (mlEnabled != s.scene.mlButtonEnabled) {  // update model longitudinal button
     mlEnabled = s.scene.mlButtonEnabled;
-    mlButton->setStyleSheet(QString("font-size: 50px; border-radius: 25px; border-color: %1").arg(mlButtonColors.at(mlEnabled)));
+    mlButton->setStyleSheet(QString("font-size: 40px; border-radius: 100px; border-color: %1").arg(mlButtonColors.at(mlEnabled)));
 
     MessageBuilder msg;
     auto mlButtonEnabled = msg.initEvent().initModelLongButton();
