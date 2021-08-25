@@ -29,7 +29,7 @@ private:
 
   // model long button
   bool mlEnabled = true;  // triggers initialization
-  const QStringList mlButtonColors = {"#b83737", "#37b868"};
+  const QStringList mlButtonColors = {"#ffffff", "#37b868"};
 
 public slots:
   void updateState(const UIState &s);

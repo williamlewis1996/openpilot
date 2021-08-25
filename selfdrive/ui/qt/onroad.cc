@@ -117,15 +117,13 @@ ButtonsWindow::ButtonsWindow(QWidget *parent) : QWidget(parent) {
 
   main_layout->addWidget(btns_wrapper, 0, Qt::AlignBottom);
 
-  mlButton = new QPushButton("Model Cruise Control");
+  mlButton = new QPushButton("Model\nCC");
   QObject::connect(mlButton, &QPushButton::clicked, [=]() {
     QUIState::ui_state.scene.mlButtonEnabled = !mlEnabled;
   });
-  mlButton->setFixedWidth(575);
-  mlButton->setFixedHeight(150);
-  btns_layout->addStretch(4);
-  btns_layout->addWidget(mlButton, 0, Qt::AlignHCenter | Qt::AlignBottom);
-  btns_layout->addStretch(3);
+  mlButton->setFixedWidth(200);
+  mlButton->setFixedHeight(200);
+  btns_layout->addWidget(mlButton, 0, Qt::AlignRight);
 
   dfButton = new QPushButton("GAP\nAdjust");
   QObject::connect(dfButton, &QPushButton::clicked, [=]() {
