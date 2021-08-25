@@ -2,7 +2,7 @@
 ------
 To increase the probability that you have an excellent experience and choose the right branch for your car, it is recommended to read this before proceeding.
 
-[![](https://i.imgur.com/fsq4V8b.jpg)](#)
+[![](https://i.imgur.com/JmHgT9D.png)](#)
 
 🚗 Branch Definitions
 ------
