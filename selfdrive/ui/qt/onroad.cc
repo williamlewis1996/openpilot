@@ -113,17 +113,19 @@ ButtonsWindow::ButtonsWindow(QWidget *parent) : QWidget(parent) {
   QWidget *btns_wrapper = new QWidget;
   QHBoxLayout *btns_layout  = new QHBoxLayout(btns_wrapper);
   btns_layout->setSpacing(0);
-  btns_layout->setContentsMargins(0, 0, 0, 0);
+  btns_layout->setContentsMargins(30, 0, 30, 30);
 
-  main_layout->addWidget(btns_wrapper, 0, Qt::AlignRight);
+  main_layout->addWidget(btns_wrapper, 0, Qt::AlignBottom);
 
-  mlButton = new QPushButton("Model\nCC");
+  mlButton = new QPushButton("Model Cruise Control");
   QObject::connect(mlButton, &QPushButton::clicked, [=]() {
     QUIState::ui_state.scene.mlButtonEnabled = !mlEnabled;
   });
-  mlButton->setFixedWidth(200);
-  mlButton->setFixedHeight(200);
-  btns_layout->addWidget(mlButton, 0, Qt::AlignRight);
+  mlButton->setFixedWidth(575);
+  mlButton->setFixedHeight(150);
+  btns_layout->addStretch(4);
+  btns_layout->addWidget(mlButton, 0, Qt::AlignHCenter | Qt::AlignBottom);
+  btns_layout->addStretch(3);
 
   dfButton = new QPushButton("GAP\nAdjust");
   QObject::connect(dfButton, &QPushButton::clicked, [=]() {
@@ -131,7 +133,7 @@ ButtonsWindow::ButtonsWindow(QWidget *parent) : QWidget(parent) {
   });
   dfButton->setFixedWidth(200);
   dfButton->setFixedHeight(200);
-  btns_layout->addWidget(dfButton, 0, Qt::AlignBottom);
+  btns_layout->addWidget(dfButton, 0, Qt::AlignRight);
 
   setStyleSheet(R"(
     QPushButton {
@@ -148,7 +150,7 @@ ButtonsWindow::ButtonsWindow(QWidget *parent) : QWidget(parent) {
 void ButtonsWindow::updateState(const UIState &s) {
   if (dfStatus != s.scene.dfButtonStatus) {  // update dynamic follow profile button
     dfStatus = s.scene.dfButtonStatus;
-    dfButton->setStyleSheet(QString("font-size: 45px; border-radius: 100px; border-color: %1").arg(dfButtonColors.at(dfStatus)));
+    dfButton->setStyleSheet(QString("font-size: 50px; border-radius: 100px; border-color: %1").arg(dfButtonColors.at(dfStatus)));
 
     MessageBuilder msg;
     auto dfButtonStatus = msg.initEvent().initDynamicFollowButton();
@@ -158,7 +160,7 @@ void ButtonsWindow::updateState(const UIState &s) {
 
   if (mlEnabled != s.scene.mlButtonEnabled) {  // update model longitudinal button
     mlEnabled = s.scene.mlButtonEnabled;
-    mlButton->setStyleSheet(QString("font-size: 45px; border-radius: 100px; border-color: %1").arg(mlButtonColors.at(mlEnabled)));
+    mlButton->setStyleSheet(QString("font-size: 45px; border-radius: 25px; border-color: %1").arg(mlButtonColors.at(mlEnabled)));
 
     MessageBuilder msg;
     auto mlButtonEnabled = msg.initEvent().initModelLongButton();
