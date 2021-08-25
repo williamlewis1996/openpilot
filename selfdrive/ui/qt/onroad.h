@@ -25,7 +25,7 @@ private:
 
   // dynamic follow button
   int dfStatus = -1;  // always initialize style sheet and send msg
-  const QStringList dfButtonColors = {"#044389", "#24a8bc", "#fcff4b", "#37b868"};
+  const QStringList dfButtonColors = {"#00ff00", "#50c799", "#50b7c7", "#4c4cff"};
 
   // model long button
   bool mlEnabled = true;  // triggers initialization
