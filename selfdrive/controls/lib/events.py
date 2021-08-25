@@ -851,13 +851,13 @@ EVENTS: Dict[int, Dict[str, Union[Alert, Callable[[Any, messaging.SubMaster, boo
     ET.NO_ENTRY: NoEntryAlert("Low Memory: Reboot Your Device",
                               audible_alert=AudibleAlert.none),
   },
-
-  EventName.highCpuUsage: {
+  # Alert does not exist yet
+  #EventName.highCpuUsage: {
     #ET.SOFT_DISABLE: SoftDisableAlert("System Malfunction: Reboot Your Device"),
     #ET.PERMANENT: NormalPermanentAlert("System Malfunction", "Reboot your Device"),
-    ET.NO_ENTRY: NoEntryAlert("System Malfunction: Reboot Your Device",
-                              audible_alert=AudibleAlert.none),
-  },
+    #ET.NO_ENTRY: NoEntryAlert("System Malfunction: Reboot Your Device",
+                              #audible_alert=AudibleAlert.none),
+  #},
 
   EventName.accFaulted: {
     ET.IMMEDIATE_DISABLE: ImmediateDisableAlert("Cruise Faulted"),
