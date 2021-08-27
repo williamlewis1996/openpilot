@@ -44,11 +44,13 @@ const int HONDA_BH_RX_CHECKS_LEN = sizeof(honda_bh_rx_checks) / sizeof(honda_bh_
 
 const uint16_t HONDA_PARAM_ALT_BRAKE = 1;
 const uint16_t HONDA_PARAM_BOSCH_LONG = 2;
+const uint16_t HONDA_PARAM_ALT_LKAS_BUTTON = 4;
 
 int honda_brake = 0;
 bool honda_alt_brake_msg = false;
 bool honda_fwd_brake = false;
 bool honda_bosch_long = false;
+bool honda_alt_lkas_button = false;
 enum {HONDA_N_HW, HONDA_BG_HW, HONDA_BH_HW} honda_hw = HONDA_N_HW;
 
 
@@ -105,7 +107,7 @@ static int honda_rx_hook(CAN_FIFOMailBox_TypeDef *to_push) {
     // 0x1A6 for the ILX, 0x296 for the Civic Touring
     if ((addr == 0x1A6) || (addr == 0x296)) {
       int button = (GET_BYTE(to_push, 0) & 0xE0) >> 5;
-      int button2 = (GET_BYTE(to_push, 0) & 0x0C) >> 2;
+      int button2 = honda_alt_lkas_button ? ((GET_BYTE(to_push, 5) & 0x0C) >> 2) : ((GET_BYTE(to_push, 0) & 0x0C) >> 2);
       switch (button) {
         case 1:  // main
           disengageFromBrakes = false;
@@ -328,6 +330,7 @@ static void honda_nidec_init(int16_t param) {
   honda_hw = HONDA_N_HW;
   honda_alt_brake_msg = false;
   honda_bosch_long = false;
+  honda_alt_lkas_button = GET_FLAG(param, HONDA_PARAM_ALT_LKAS_BUTTON);
 }
 
 static void honda_bosch_giraffe_init(int16_t param) {
@@ -338,6 +341,7 @@ static void honda_bosch_giraffe_init(int16_t param) {
   honda_alt_brake_msg = GET_FLAG(param, HONDA_PARAM_ALT_BRAKE);
   // radar disabled so allow gas/brakes
   honda_bosch_long = GET_FLAG(param, HONDA_PARAM_BOSCH_LONG);
+  honda_alt_lkas_button = false;
 }
 
 static void honda_bosch_harness_init(int16_t param) {
@@ -348,6 +352,7 @@ static void honda_bosch_harness_init(int16_t param) {
   honda_alt_brake_msg = GET_FLAG(param, HONDA_PARAM_ALT_BRAKE);
   // radar disabled so allow gas/brakes
   honda_bosch_long = GET_FLAG(param, HONDA_PARAM_BOSCH_LONG);
+  honda_alt_lkas_button = false;
 }
 
 static int honda_nidec_fwd_hook(int bus_num, CAN_FIFOMailBox_TypeDef *to_fwd) {
