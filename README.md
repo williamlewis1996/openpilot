@@ -67,7 +67,7 @@ If you already installed but it fails to compile (Comma Two):
 *           ACC will not engage if seatbelt unlatched, door open, or unsupported gear.
 *       Pedal: Speeds can now be set in increments of +/- 1 and hold down for +/- 5, just like stock behavior.
 *       Driver Monitoring: Driver monitoring remains exactly the same as Comma's policy.  
-  Note: Due to the separation of LKAS/ACC, driver monitoring requires fully disengaging and disabling both ACC and LKAS via their respective buttons, or pressing MAIN to clear a disengagment required alert. Failing to do so quickly enough might get you marked as too distracted and locked out until restarting a vehicle. Driver monitoring as a whole has been unchanged but this is a side effect to take into consideration.  
+  Note: Due to the separation of LKAS/ACC, driver monitoring requires fully disengaging and disabling both ACC and LKAS via their respective buttons, or pressing MAIN to clear a disengagment required alert. Failing to do so quickly enough might get you marked as too distracted and locked out until restarting the vehicle. Driver monitoring as a whole has been unchanged but this is a side effect to take into consideration.  
   
 ↪️ Shane Settings (access by ./op_edit.py)  
 ------
