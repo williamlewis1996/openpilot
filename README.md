@@ -50,12 +50,12 @@ If you already installed but it fails to compile (Comma Two):
 
 ↪️ Spektor56 behavior explained:
 ------
-* Honda and Toyota: Behavior like stock Honda Sensing, thanks to Spektor56. 
-*      LKAS and ACC are two seperate functions that can be used independently.
+* Honda and Toyota: Behavior like stock Honda or Toyota Sensing, thanks to Spektor56. 
+*      LKAS and ACC are two separate functions that can be used independently.
 *           LKAS: Lane-keeping-assist-system.
 *           LKAS is activated using the LKAS button the steering wheel.
 *           LKAS is active when the built in HUD lanelines are solid. 
-*           LKAS is inactive when the built in HUD lanelines are outlined.
+*           LKAS is inactive when the built in HUD lanelines are outlined (Honda) or do not exist (Toyota).
 *           LKAS will disengage on brake, but automatically come back.
 *           LKAS will disengage below the Auto Lane Change (ALC) speed with blinker.
 *           LKAS will stay disengaged briefly after blinkers, this helps driver recenter wheel.
@@ -65,6 +65,9 @@ If you already installed but it fails to compile (Comma Two):
 *           ACC will disengage on brake, and never automatically come back until reset by the driver.
 *           ACC can be adjusted in increments of 1MPH or +5MPH by holding, even with a (Honda) comma pedal.
 *           ACC will not engage if seatbelt unlatched, door open, or unsupported gear.
+*       Pedal: Speeds can now be set in increments of +/- 1 and hold down for +/- 5, just like stock behavior.
+*       Driver Monitoring: Driver monitoring remains exactly the same as Comma's policy. 
+*           Note: Due to the separation of LKAC/ACC, driver monitoring requires fully disengaging and disabling both ACC and LKAS via their respective buttons, or pressing MAIN to clear a disengagment required alert. Failing to do so quickly enough might get you marked as too distracted and locked out until restarting a vehicle. Driver monitoring as a whole has been unchanged but this is a side effect to take into consideration.
 
 ↪️ Shane Settings (access by ./op_edit.py)
 ------
