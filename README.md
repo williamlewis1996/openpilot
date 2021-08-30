@@ -17,6 +17,7 @@ To increase the probability that you have an excellent experience and choose the
 * Honda: Honda-specific branch that utilizes the follow distance selector on the steering wheel to specific profiles. Not recommended for other cars.
 * DevUI: The fancy user-interface that has a bunch of useful stats on-screen, colored path depending on torque, brake light icon, and much more. It often ends up out of date or not working on new updates and constantly has to be fixed. As such, I'll try to add this to as many branches as possible but it may not always make it in.
 * Nudge: If a branch is named nudge, it will feature the stock comma method of requiring you to bump the wheel before a lane change begins. The rest of the branchs have some form of nudgeless lane change where the car will simply move over when the blinker is activated.
+* Pedal: Branch optomized to work well with the Comma Gas Pedal Interceptor. My pedal tweaks exist in every branch but recent versions such as 0.8.8 have conflicts with tuning where making it smooth for the pedal creates a terrible jerky experince for everyone else without one. Thus, a dedicated pedal branch was born.
 
 Example: `0.8.6-dp-spektor-toyota` would contain Dragonpilot as the core, Spektor's independent LKAS and ACC, and tested to work on Toyotas.  
 Example: `0.8.2-shane-spektor` would contain [Shane](https://github.com/sshane/openpilot) as the core, plus Spektor's independent LKAS and ACC for Hondas.  
