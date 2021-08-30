@@ -35,10 +35,10 @@ Example: `0.8.6-release-honda` is designed specifically for Honda's follow dista
 ------
 * Certain branches of Shane contain **submodules**. You can easily see this is the case if some folders are blue. As such, sometimes extra commands are required for proper installation. Installation may or may not compile if installed directly via the URL on the device.   
   
-SSH Install on the Comma Three (Replace with branch:  
+SSH Install on the Comma Three (Replace with branch):  
 `cd /data; cp -rf ./openpilot ./openpilot.bak; rm -rf ./openpilot; git clone https://github.com/Aragon7777/openpilot.git openpilot; cd openpilot; git checkout REPLACE_THIS_WITH_BRANCH_NAME && git submodule update --init --recursive && sudo reboot`  
   
-SSH Install on the Comma Two (Replace with branch:  
+SSH Install on the Comma Two (Replace with branch):  
 `cd /data; cp -rf ./openpilot ./openpilot.bak; rm -rf ./openpilot; git clone https://github.com/Aragon7777/openpilot.git openpilot; cd openpilot; git checkout REPLACE_THIS_WITH_BRANCH_NAME && git submodule update --init --recursive && reboot`  
   
 If you already installed but it fails to compile (Comma Three):   
