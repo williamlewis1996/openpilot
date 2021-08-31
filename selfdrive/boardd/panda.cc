@@ -164,9 +164,9 @@ int Panda::usb_bulk_read(unsigned char endpoint, unsigned char* data, int length
   int err;
   int transferred = 0;
 
-  if (!connected) {
-    return 0;
-  }
+//  if (!connected) {
+//    return 0;
+//  }
 
   std::lock_guard lk(usb_lock);
 
