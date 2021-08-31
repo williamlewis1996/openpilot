@@ -4,7 +4,8 @@ dragonpilot 0.8.8-1
 * Based on openpilot 0.8.8 devel.
 * Fixed dashcam issue.
 * Fixed some VW vehicles issue. (Thanks to @yayism) 
-* KNOWN ISSUE: EON/freeon may not go offroad if comma power is not being used (due to pandad crash).
+**KNOWN ISSUE: EON/freeon may not go offroad if comma power is not being used (due to pandad crash).**
+**WIP: mapd (Thanks to @kumar)**
 
 dragonpilot 0.8.7-4
 ========================
