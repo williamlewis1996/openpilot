@@ -130,6 +130,23 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     neosUpdateRequiredDEPRECATED @88;
     modelLagWarningDEPRECATED @93;
     startupOneplusDEPRECATED @82;
+
+    #dp
+    preLaneChangeLeftALC @106;
+    preLaneChangeRightALC @107;
+    manualSteeringRequired @108;
+    manualSteeringRequiredBlinkersOn @109;
+    leadCarMoving @110;
+
+    # timebomb assist
+    timebombWarn @111;
+    timebombBypassing @112;
+    timebombBypassed @113;
+    mapdAlert @114;
+    
+    #mapd
+    speedLimitActive @115;
+    speedLimitValueChange @116;
   }
 }
 
@@ -196,6 +213,12 @@ struct CarState {
   leftBlindspot @33 :Bool; # Is there something blocking the left lane change
   rightBlindspot @34 :Bool; # Is there something blocking the right lane change
 
+  # dp
+  lkMode @38 :Bool;
+  stopSteering @39 :Bool; # timebomb - stopSteering
+  engineRPM @40 :Float32;
+  cruiseActualEnabled @41 :Bool;
+
   struct WheelSpeeds {
     # optional wheel speeds
     fl @0 :Float32;
@@ -211,6 +234,8 @@ struct CarState {
     speedOffset @3 :Float32;
     standstill @4 :Bool;
     nonAdaptive @5 :Bool;
+    #mapd
+    speedLimit @6 :Float32;
   }
 
   enum GearShifter {
@@ -248,7 +273,7 @@ struct CarState {
   }
 
   errorsDEPRECATED @0 :List(CarEvent.EventName);
-  brakeLightsDEPRECATED @19 :Bool;
+  brakeLights @19 :Bool;
 }
 
 # ******* radar state @ 20hz *******

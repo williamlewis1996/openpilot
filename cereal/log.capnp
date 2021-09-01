@@ -7,6 +7,7 @@ $Java.outerClassname("Log");
 
 using Car = import "car.capnp";
 using Legacy = import "legacy.capnp";
+using Dp = import "dp.capnp";
 
 @0xf3b1f17e25a4285b;
 
@@ -49,6 +50,7 @@ struct InitData {
     chffrIos @3;
     tici @4;
     pc @5;
+    jetson @6;
   }
 
   struct PandaInfo {
@@ -664,12 +666,12 @@ struct ControlsState @0x97ff69c53601abf1 {
   decelForTurnDEPRECATED @47 :Bool;
   decelForModelDEPRECATED @54 :Bool;
   awarenessStatusDEPRECATED @26 :Float32;
-  angleSteersDEPRECATED @13 :Float32;
+  angleSteers @13 :Float32; # dp
   vCurvatureDEPRECATED @46 :Float32;
   mapValidDEPRECATED @49 :Bool;
   jerkFactorDEPRECATED @12 :Float32;
   steerOverrideDEPRECATED @20 :Bool;
-  steeringAngleDesiredDegDEPRECATED @29 :Float32;
+  steeringAngleDesiredDeg @29 :Float32; # dp
 }
 
 struct ModelDataV2 {
@@ -812,12 +814,31 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
   speeds @33 :List(Float32);
   jerks @34 :List(Float32);
 
+  #mapd
+  visionTurnControllerState @35 :VisionTurnControllerState;
+  visionTurnSpeed @36 :Float32;
+
+  speedLimitControlState @37 :SpeedLimitControlState;
+  speedLimit @38 :Float32;
+  speedLimitOffset @39 :Float32;
+  distToSpeedLimit @40 :Float32;
+  isMapSpeedLimit @41 :Bool;
+
+  distToTurn @42 :Float32;
+  turnSpeed @43 :Float32;
+  turnSpeedControlState @44 :SpeedLimitControlState;
+  turnSign @45 :Int16;
+
   enum LongitudinalPlanSource {
     cruise @0;
     lead0 @1;
     lead1 @2;
     lead2 @3;
     e2e @4;
+    #mapd
+    turn @5;
+    limit @6;
+    turnlimit @7;
   }
 
   # deprecated
@@ -853,6 +874,21 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
     x @0 :List(Float32);
     y @1 :List(Float32);
   }
+
+  #mapd
+  enum SpeedLimitControlState {
+    inactive @0; # No speed limit set or not enabled by parameter.
+    tempInactive @1; # User wants to ignore speed limit until it changes.
+    adapting @2; # Reducing speed to match new speed limit.
+    active @3; # Cruising at speed limit.
+  }
+
+  enum VisionTurnControllerState {
+    disabled @0; # No predicted substancial turn on vision range or feature disabled.
+    entering @1; # A subsantial turn is predicted ahead, adapting speed to turn confort levels.
+    turning @2; # Actively turning. Managing acceleration to provide a roll on turn feeling.
+    leaving @3; # Road ahead straightens. Start to allow positive acceleration.
+  }
 }
 
 struct LateralPlan @0xe1e9318e2ae8b51e {
@@ -861,6 +897,9 @@ struct LateralPlan @0xe1e9318e2ae8b51e {
   rProb @7 :Float32;
   dPathPoints @20 :List(Float32);
   dProb @21 :Float32;
+  #mapd
+  dPathWLinesX @30 :List(Float32);
+  dPathWLinesY @31 :List(Float32);
 
   mpcSolutionValid @9 :Bool;
   desire @17 :Desire;
@@ -872,6 +911,9 @@ struct LateralPlan @0xe1e9318e2ae8b51e {
   psis @26 :List(Float32);
   curvatures @27 :List(Float32);
   curvatureRates @28 :List(Float32);
+
+  # dp
+  dpALCAllowed @29 :Bool;
 
   enum Desire {
     none @0;
@@ -1324,6 +1366,22 @@ struct LiveMapDataDEPRECATED {
   mapValid @11 :Bool;
 }
 
+struct LiveMapData {
+  speedLimitValid @0 :Bool;
+  speedLimit @1 :Float32;
+  speedLimitAheadValid @2 :Bool;
+  speedLimitAhead @3 :Float32;
+  speedLimitAheadDistance @4 :Float32;
+  turnSpeedLimitValid @5 :Bool;
+  turnSpeedLimit @6 :Float32;
+  turnSpeedLimitEndDistance @7 :Float32;
+  turnSpeedLimitSign @8 :Int16;
+  turnSpeedLimitsAhead @9 :List(Float32);
+  turnSpeedLimitsAheadDistances @10 :List(Float32);
+  turnSpeedLimitsAheadSigns @11 :List(Int16);
+  lastGpsTimestamp @12 :Int64;  # Milliseconds since January 1, 1970.
+}
+
 struct CameraOdometry {
   frameId @4 :UInt32;
   timestampEof @5 :UInt64;
@@ -1464,5 +1522,8 @@ struct Event {
     kalmanOdometryDEPRECATED @65 :Legacy.KalmanOdometry;
     gpsLocationDEPRECATED @21 :GpsLocationData;
     uiLayoutStateDEPRECATED @57 :Legacy.UiLayoutState;
+    dragonConf @80 :Dp.DragonConf;
+    #mapd
+    liveMapData @81: LiveMapData;
   }
 }
