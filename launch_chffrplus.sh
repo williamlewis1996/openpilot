@@ -233,17 +233,18 @@ function launch {
 
   # start manager
   cd selfdrive/manager
-  if [ -f /EON ]; then
-    if [ ! -f "/system/comma/usr/lib/libgfortran.so.5.0.0" ]; then
-      tar -zxvf /data/openpilot/selfdrive/mapd/assets/libgfortran.tar.gz -C /system/comma/usr/lib/
-    fi
-    if [ ! -d "/system/comma/usr/lib/python3.8/site-packages/opspline" ]; then
-      tar -zxvf /data/openpilot/selfdrive/mapd/assets/opspline.tar.gz -C /system/comma/usr/lib/python3.8/site-packages/
-    fi
-    ./build.py && ./manager.py
-  else
-    ./custom_dep.py && ./build.py && ./manager.py
-  fi
+  ./custom_dep.py && ./build.py && ./manager.py
+  #if [ -f /EON ]; then
+  #  if [ ! -f "/system/comma/usr/lib/libgfortran.so.5.0.0" ]; then
+  #    tar -zxvf /data/openpilot/selfdrive/mapd/assets/libgfortran.tar.gz -C /system/comma/usr/lib/
+  #  fi
+  #  if [ ! -d "/system/comma/usr/lib/python3.8/site-packages/opspline" ]; then
+  #    tar -zxvf /data/openpilot/selfdrive/mapd/assets/opspline.tar.gz -C /system/comma/usr/lib/python3.8/site-packages/
+  #  fi
+  #  ./build.py && ./manager.py
+  #else
+  #  ./custom_dep.py && ./build.py && ./manager.py
+  #fi
 
   # if broken, keep on screen error
   while true; do sleep 1; done
