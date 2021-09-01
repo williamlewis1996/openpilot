@@ -235,6 +235,7 @@ acadoWorkspace.objValueIn[1] = acadoVariables.x[61];
 acadoWorkspace.objValueIn[2] = acadoVariables.x[62];
 acadoWorkspace.objValueIn[3] = acadoVariables.od[40];
 acadoWorkspace.objValueIn[4] = acadoVariables.od[41];
+
 acado_evaluateLSQEndTerm( acadoWorkspace.objValueIn, acadoWorkspace.objValueOut, TR );
 
 acadoWorkspace.DyN[0] = acadoWorkspace.objValueOut[0];
@@ -4594,6 +4595,7 @@ int acado_preparationStep( double TR )
 int ret;
 
 ret = acado_modelSimulation();
+
 acado_evaluateObjective( TR );
 acado_condensePrep(  );
 return ret;
@@ -4726,7 +4728,7 @@ kkt += fabs(acadoWorkspace.ubA[index] * prd);
 return kkt;
 }
 
-real_t acado_getObjective( TR )
+real_t acado_getObjective(double TR)
 {
 real_t objVal;
 
@@ -4747,6 +4749,7 @@ acadoWorkspace.objValueIn[4] = acadoVariables.od[lRun1 * 2];
 acadoWorkspace.objValueIn[5] = acadoVariables.od[lRun1 * 2 + 1];
 
 acado_evaluateLSQ( acadoWorkspace.objValueIn, acadoWorkspace.objValueOut, TR );
+
 acadoWorkspace.Dy[lRun1 * 4] = acadoWorkspace.objValueOut[0] - acadoVariables.y[lRun1 * 4];
 acadoWorkspace.Dy[lRun1 * 4 + 1] = acadoWorkspace.objValueOut[1] - acadoVariables.y[lRun1 * 4 + 1];
 acadoWorkspace.Dy[lRun1 * 4 + 2] = acadoWorkspace.objValueOut[2] - acadoVariables.y[lRun1 * 4 + 2];
@@ -4758,6 +4761,7 @@ acadoWorkspace.objValueIn[2] = acadoVariables.x[62];
 acadoWorkspace.objValueIn[3] = acadoVariables.od[40];
 acadoWorkspace.objValueIn[4] = acadoVariables.od[41];
 acado_evaluateLSQEndTerm( acadoWorkspace.objValueIn, acadoWorkspace.objValueOut, TR );
+
 acadoWorkspace.DyN[0] = acadoWorkspace.objValueOut[0] - acadoVariables.yN[0];
 acadoWorkspace.DyN[1] = acadoWorkspace.objValueOut[1] - acadoVariables.yN[1];
 acadoWorkspace.DyN[2] = acadoWorkspace.objValueOut[2] - acadoVariables.yN[2];
@@ -4779,4 +4783,3 @@ objVal += + acadoWorkspace.DyN[0]*tmpDyN[0] + acadoWorkspace.DyN[1]*tmpDyN[1] + 
 objVal *= 0.5;
 return objVal;
 }
-
