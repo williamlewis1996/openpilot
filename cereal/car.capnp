@@ -214,7 +214,6 @@ struct CarState {
   rightBlindspot @34 :Bool; # Is there something blocking the right lane change
 
   # dp
-  lkMode @38 :Bool;
   stopSteering @39 :Bool; # timebomb - stopSteering
   engineRPM @40 :Float32;
   cruiseActualEnabled @41 :Bool;
