@@ -45,6 +45,7 @@ Panda::Panda(std::string serial) {
       dev_handle = NULL;
     }
   }
+  if (dev_handle == NULL) goto fail;
   libusb_free_device_list(dev_list, 1);
 
   if (libusb_kernel_driver_active(dev_handle, 0) == 1) {
@@ -59,8 +60,13 @@ Panda::Panda(std::string serial) {
 
   hw_type = get_hw_type();
 
-  assert((hw_type != cereal::PandaState::PandaType::WHITE_PANDA) &&
-         (hw_type != cereal::PandaState::PandaType::GREY_PANDA));
+  // dp - fake black panda
+
+  has_gps = hw_type != cereal::PandaState::PandaType::WHITE_PANDA;
+  LOGW("Panda.cc - has_gps: %s", has_gps? "True": "False");
+  is_old_panda = hw_type == cereal::PandaState::PandaType::WHITE_PANDA || hw_type == cereal::PandaState::PandaType::GREY_PANDA;
+  LOGW("Panda.cc - is_old_panda: %s", is_old_panda? "True": "False");
+  hw_type = is_old_panda? cereal::PandaState::PandaType::BLACK_PANDA : hw_type;
 
   has_rtc = (hw_type == cereal::PandaState::PandaType::UNO) ||
             (hw_type == cereal::PandaState::PandaType::DOS);

@@ -81,4 +81,9 @@ class Panda {
   void send_heartbeat();
   void can_send(capnp::List<cereal::CanData>::Reader can_data_list);
   int can_receive(kj::Array<capnp::word>& out_buf);
+
+  // dp
+  bool has_gps = true;
+  bool is_old_panda = false;
+  bool disable_relay = false;
 };
