@@ -110,7 +110,7 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     localizerMalfunction @103;
     highCpuUsage @105;
 
-    epsNotFound @116;
+    epsNotFound @122;
 
     driverMonitorLowAccDEPRECATED @68;
 
