@@ -233,9 +233,9 @@ struct CarState {
   rightBlindspot @34 :Bool; # Is there something blocking the right lane change
 
   # dp
-  stopSteering @45 :Bool; # timebomb - stopSteering
-  engineRPM @46 :Float32;
-  cruiseActualEnabled @47 :Bool;
+  stopSteering @46 :Bool; # timebomb - stopSteering
+  engineRPM @47 :Float32;
+  cruiseActualEnabled @48 :Bool;
 
   struct WheelSpeeds {
     # optional wheel speeds
