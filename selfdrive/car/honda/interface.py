@@ -423,6 +423,8 @@ class CarInterface(CarInterfaceBase):
 
     buttonEvents = []
 
+    ret.readdistancelines = self.CS.read_distance_lines
+
     if self.CS.cruise_buttons != self.CS.prev_cruise_buttons:
       be = car.CarState.ButtonEvent.new_message()
       be.type = ButtonType.unknown

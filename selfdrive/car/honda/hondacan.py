@@ -2,6 +2,7 @@ from selfdrive.car.isotp_parallel_query import IsoTpParallelQuery
 from selfdrive.car.honda.values import HONDA_BOSCH, CAR
 from selfdrive.config import Conversions as CV
 from selfdrive.swaglog import cloudlog
+from common.params import Params
 
 # CAN bus layout with relay
 # 0 = ACC-CAN - radar side
@@ -156,7 +157,8 @@ def create_ui_commands(packer, pcm_speed, hud, car_fingerprint, is_metric, idx, 
         'CRUISE_SPEED': hud.v_cruise,
         'ENABLE_MINI_CAR': 1,
         'HUD_LEAD': hud.car,
-        'HUD_DISTANCE': 3,    # max distance setting on display
+        'HUD_DISTANCE_3': 1 if hud.car != 0 else 0,
+        'HUD_DISTANCE': hud.dist_lines,    # max distance setting on display
         'IMPERIAL_UNIT': int(not is_metric),
         'SET_ME_X01_2': 1,
         'SET_ME_X01': 1,
