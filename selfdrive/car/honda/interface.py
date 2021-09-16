@@ -121,7 +121,7 @@ class CarInterface(CarInterfaceBase):
       ret.mass = CivicParams.MASS
       ret.wheelbase = CivicParams.WHEELBASE
       ret.centerToFront = CivicParams.CENTER_TO_FRONT
-      ret.steerRatio = 15.38  # 10.93 is end-to-end spec
+      ret.steerRatio = 11.38 # was 15.38 # 10.93 is end-to-end spec
       if eps_modified:
         # stock request input values:     0x0000, 0x00DE, 0x014D, 0x01EF, 0x0290, 0x0377, 0x0454, 0x0610, 0x06EE
         # stock request output values:    0x0000, 0x0917, 0x0DC5, 0x1017, 0x119F, 0x140B, 0x1680, 0x1680, 0x1680
@@ -130,7 +130,9 @@ class CarInterface(CarInterfaceBase):
         # modified filter output values:  0x009F, 0x0108, 0x0108, 0x0108, 0x0108, 0x0108, 0x0108, 0x0400, 0x0480
         # note: max request allowed is 4096, but request is capped at 3840 in firmware, so modifications result in 2x max
         ret.lateralParams.torqueBP, ret.lateralParams.torqueV = [[0, 2560, 8000], [0, 2560, 3840]]
-        ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.3], [0.1]]
+        #ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.3], [0.1]]
+        ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.22], [0.0733]]
+
       else:
         ret.lateralParams.torqueBP, ret.lateralParams.torqueV = [[0, 2560], [0, 2560]]
         ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[1.1], [0.33]]
@@ -424,7 +426,7 @@ class CarInterface(CarInterfaceBase):
       events.add(EventName.belowEngageSpeed)
 
     self.CS.disengageByBrake = self.CS.disengageByBrake or ret.disengageByBrake
-    
+
     if self.CS.CP.minEnableSpeed > 0 and ret.vEgo < 0.001:
       events.add(EventName.manualRestart)
 
@@ -440,7 +442,7 @@ class CarInterface(CarInterfaceBase):
     if not ret.brakePressed and not self.CS.brake_hold:
       self.CS.disengageByBrake = False
       ret.disengageByBrake = False
-    
+
     # handle button presses
     for b in ret.buttonEvents:
 
