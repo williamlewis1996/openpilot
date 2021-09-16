@@ -145,7 +145,7 @@ class CarInterface(CarInterfaceBase):
           ret.lateralTuning.lqr.l = [0.3233671, 0.3185757]
           ret.lateralTuning.lqr.dcGain = 0.002237852961363602
         else:
-          ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.35], [0.11]]
+          ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.3], [0.1]]
 
       else:
         ret.lateralParams.torqueBP, ret.lateralParams.torqueV = [[0, 2560], [0, 2560]]
