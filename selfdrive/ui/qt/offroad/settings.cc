@@ -81,6 +81,11 @@ TogglesPanel::TogglesPanel(QWidget *parent) : QWidget(parent) {
                                   "../assets/offroad/icon_metric.png",
                                   this));
 #endif
+  toggles.append(new ParamControl("LqrTune",
+                                  "Use LQR Tune",
+                                  "Use LQR tuning values.",
+                                  "../assets/offroad/icon_openpilot.png",
+                                  this));
 
   bool record_lock = Params().getBool("RecordFrontLock");
   record_toggle->setEnabled(!record_lock);
