@@ -138,6 +138,11 @@ class CarInterface(CarInterfaceBase):
           ret.lateralTuning.lqr.scale = 1200.0
           ret.lateralTuning.lqr.ki = 0.1
 
+          # Use DPs LQR scale/ki if param is set
+          if Params().get_bool('LqrTuneDP'):
+            ret.lateralTuning.lqr.scale = 1500.0
+            ret.lateralTuning.lqr.ki = 0.05
+
           ret.lateralTuning.lqr.a = [0., 1., -0.22619643, 1.21822268]
           ret.lateralTuning.lqr.b = [-1.92006585e-04, 3.95603032e-05]
           ret.lateralTuning.lqr.c = [1., 0.]

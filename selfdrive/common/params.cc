@@ -207,6 +207,7 @@ std::unordered_map<std::string, uint32_t> keys = {
     {"JoystickDebugMode", CLEAR_ON_MANAGER_START | CLEAR_ON_IGNITION_OFF},
     {"LqrTune", PERSISTENT},
     {"UseFrameLimiter", PERSISTENT},
+    {"LqrTuneDP", PERSISTENT},
 };
 
 } // namespace
