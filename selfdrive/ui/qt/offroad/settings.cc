@@ -86,6 +86,11 @@ TogglesPanel::TogglesPanel(QWidget *parent) : QWidget(parent) {
                                   "Use LQR tuning values.",
                                   "../assets/offroad/icon_openpilot.png",
                                   this));
+  toggles.append(new ParamControl("UseFrameLimiter",
+                                "Use Frame Limiter",
+                                "Use frame limiter for apply_steer in carcontroller",
+                                "../assets/offroad/icon_openpilot.png",
+                                this));
 
   bool record_lock = Params().getBool("RecordFrontLock");
   record_toggle->setEnabled(!record_lock);

@@ -7,6 +7,7 @@ from selfdrive.car import create_gas_command
 from selfdrive.car.honda import hondacan
 from selfdrive.car.honda.values import CruiseButtons, VISUAL_HUD, HONDA_BOSCH, HONDA_NIDEC_ALT_PCM_ACCEL, CarControllerParams
 from opendbc.can.packer import CANPacker
+from common.params import Params
 
 VisualAlert = car.CarControl.HUDControl.VisualAlert
 LongCtrlState = car.CarControl.Actuators.LongControlState
@@ -106,6 +107,7 @@ class CarController():
     self.last_pump_ts = 0.
     self.packer = CANPacker(dbc_name)
     self.prev_act = 0.
+    self.use_frame_limiter = Params().get_bool("UseFrameLimiter")
 
     self.params = CarControllerParams(CP)
 
@@ -151,7 +153,9 @@ class CarController():
     lkas_active = enabled and not CS.steer_not_allowed and CS.lkasEnabled and ((CS.automaticLaneChange and not CS.belowLaneChangeSpeed) or ((not ((cur_time - self.signal_last) < 1) or not CS.belowLaneChangeSpeed) and not (CS.leftBlinkerOn or CS.rightBlinkerOn)))
 
     # **** process the car messages ****
-    percent_limit = 0.03 
+
+    # frame limiter
+    percent_limit = 0.03
     if actuators.steer < (self.prev_act - percent_limit):
       self.prev_act = self.prev_act - percent_limit
     elif actuators.steer > (self.prev_act + percent_limit):
@@ -160,7 +164,10 @@ class CarController():
       self.prev_act = actuators.steer
 
     # steer torque is converted back to CAN reference (positive when steering right)
-    apply_steer = int(interp(-self.prev_act * P.STEER_MAX, P.STEER_LOOKUP_BP, P.STEER_LOOKUP_V))
+    if self.use_frame_limiter:
+      apply_steer = int(interp(-self.prev_act * P.STEER_MAX, P.STEER_LOOKUP_BP, P.STEER_LOOKUP_V))
+    else:
+      apply_steer = int(interp(-actuators.steer * P.STEER_MAX, P.STEER_LOOKUP_BP, P.STEER_LOOKUP_V))
 
     # Send CAN commands.
     can_sends = []
