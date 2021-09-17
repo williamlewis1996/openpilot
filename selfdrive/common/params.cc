@@ -208,6 +208,8 @@ std::unordered_map<std::string, uint32_t> keys = {
     {"LqrTune", PERSISTENT},
     {"UseFrameLimiter", PERSISTENT},
     {"LqrTuneDP", PERSISTENT},
+    {"LqrTuneHighGain", PERSISTENT},
+    {"LqrTuneMediumGain", PERSISTENT},
 };
 
 } // namespace

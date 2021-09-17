@@ -91,6 +91,16 @@ TogglesPanel::TogglesPanel(QWidget *parent) : QWidget(parent) {
                                   "Use DPs LQR tuning values.",
                                   "../assets/offroad/icon_openpilot.png",
                                   this));
+  toggles.append(new ParamControl("LqrTuneMediumGain",
+                                "Use LQR Medium Gain",
+                                "Use a medium gain for the LQR tune.",
+                                "../assets/offroad/icon_openpilot.png",
+                                this));
+  toggles.append(new ParamControl("LqrTuneHighGain",
+                                "Use LQR High Gain",
+                                "Use a higher gain for the LQR tune.",
+                                "../assets/offroad/icon_openpilot.png",
+                                this));
   toggles.append(new ParamControl("UseFrameLimiter",
                                 "Use Frame Limiter",
                                 "Use frame limiter for apply_steer in carcontroller",

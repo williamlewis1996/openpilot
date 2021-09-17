@@ -149,6 +149,12 @@ class CarInterface(CarInterfaceBase):
           ret.lateralTuning.lqr.k = [-110.73572306, 451.22718255]
           ret.lateralTuning.lqr.l = [0.3233671, 0.3185757]
           ret.lateralTuning.lqr.dcGain = 0.002237852961363602
+
+          if Params().get_bool('LqrTuneMediumGain'):
+            ret.lateralTuning.lqr.dcGain = 0.002637852961363602
+
+          if Params().get_bool('LqrTuneHighGain'):
+            ret.lateralTuning.lqr.dcGain = 0.002837852961363602
         else:
           ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.3], [0.1]]
 
