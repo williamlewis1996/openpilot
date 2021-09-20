@@ -2,4 +2,9 @@
 cd "$(dirname "$0")"
 export LD_LIBRARY_PATH="/system/lib64:$LD_LIBRARY_PATH"
 export QT_PLUGIN_PATH="../../phonelibs/qt-plugins/$(uname -m)"
-exec ./_ui
+#exec ./_ui
+if [ -f /TICI ]; then
+  exec ./_ui_c3
+else
+  exec ./_ui
+fi

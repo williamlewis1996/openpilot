@@ -125,10 +125,20 @@ int battery_current() {
   return atoi(current_now_s.c_str());
 }
 
+bool has_no_battery() {
+  if (FILE *file = fopen("/data/params/d/dp_no_batt", "r")) {
+    fclose(file);
+    std::string has_no_batt = util::read_file("/data/params/d/dp_no_batt");
+    return atoi(has_no_batt.c_str()) == 1;
+  } else {
+    return false;
+  }
+}
+
 bool check_battery() {
   int bat_cap = battery_capacity();
   int current_now = battery_current();
-  return bat_cap > 35 || (current_now < 0 && bat_cap > 10);
+  return (has_no_battery())? true : bat_cap > 35 || (current_now < 0 && bat_cap > 10);
 }
 
 bool check_space() {

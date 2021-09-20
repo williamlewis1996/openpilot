@@ -72,6 +72,8 @@ class CarState(CarStateBase):
 
     ret.cruiseState.available = True
     ret.cruiseState.enabled = cp.vl["CRZ_CTRL"]["CRZ_ACTIVE"] == 1
+    # dp
+    ret.cruiseActualEnabled = ret.cruiseState.enabled
     ret.cruiseState.speed = self.cruise_speed
 
     if ret.cruiseState.enabled:
@@ -91,6 +93,9 @@ class CarState(CarStateBase):
 
     self.cam_lkas = cp_cam.vl["CAM_LKAS"]
     ret.steerError = cp_cam.vl["CAM_LKAS"]["ERR_BIT_1"] == 1
+
+    # dp - brake lights
+    ret.brakeLights = ret.brakePressed
 
     return ret
 

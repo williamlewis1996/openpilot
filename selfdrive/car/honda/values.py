@@ -76,6 +76,7 @@ class CAR:
   RIDGELINE = "HONDA RIDGELINE 2017"
   INSIGHT = "HONDA INSIGHT 2019"
   HONDA_E = "HONDA E 2020"
+  JADE = "HONDA JADE 2017"
 
 # diag message that in some Nidec cars only appear with 1s freq if VIN query is performed
 DIAG_MSGS = {1600: 5, 1601: 8}
@@ -113,6 +114,9 @@ FINGERPRINTS = {
   },
   {
     57: 3, 145: 8, 228: 5, 229: 4, 308: 5, 316: 8, 339: 7, 342: 6, 344: 8, 380: 8, 392: 6, 399: 7, 411: 5, 419: 8, 420: 8, 422: 8, 425: 8, 426: 8, 427: 3, 432: 7, 464: 8, 476: 4, 490: 8, 506: 8, 512: 6, 513: 6, 542: 7, 545: 5, 546: 3, 597: 8, 660: 8, 773: 7, 777: 8, 780: 8, 795: 8, 800: 8, 804: 8, 808: 8, 817: 4, 819: 7, 821: 5, 829: 5, 871: 8, 881: 8, 882: 2, 884: 7, 891: 8, 892: 8, 923: 2, 927: 8, 929: 8, 963: 8, 965: 8, 966: 8, 967: 8, 983: 8, 985: 3, 1027: 5, 1029: 8, 1039: 8, 1064: 7, 1088: 8, 1089: 8, 1092: 1, 1108: 8, 1125: 8, 1296: 8, 1424: 5, 1445: 8, 1600: 5, 1601: 8, 1612: 5, 1613: 5, 1616: 5, 1617: 8, 1618: 5, 1623: 5, 1668: 5
+  }],
+  CAR.JADE: [{
+    57: 3, 145: 8, 228: 5, 304: 8, 342: 6, 344: 8, 380: 8, 398: 3, 399: 7, 401: 8, 420: 8, 422: 8, 428: 8, 432: 7, 464: 8, 487: 4, 490: 8, 506: 8, 507: 1, 512: 6, 513: 6, 597: 8, 660: 8, 661: 4, 773: 7, 777: 8, 780: 8, 804: 8, 808: 8, 829: 5, 862: 8, 884: 7, 892: 8, 923: 2, 929: 4, 1057: 5, 1365: 5, 1424: 5, 1600: 5, 1601: 8
   }],
 }
 
@@ -776,6 +780,8 @@ FW_VERSIONS = {
       b'39990-TPA-G030\x00\x00',
       b'39990-TPG-A020\x00\x00',
       b'39990-TMA-H020\x00\x00',
+      b'39990-TMA,H020\x00\x00',
+      b'39990,TMA-H020\x00\x00',
     ],
     (Ecu.gateway, 0x18daeff1, None): [
       b'38897-TMA-H110\x00\x00',
@@ -1272,7 +1278,7 @@ DBC = {
   CAR.CRV: dbc_dict('honda_crv_touring_2016_can_generated', 'acura_ilx_2016_nidec'),
   CAR.CRV_5G: dbc_dict('honda_crv_ex_2017_can_generated', None, body_dbc='honda_crv_ex_2017_body_generated'),
   CAR.CRV_EU: dbc_dict('honda_crv_executive_2016_can_generated', 'acura_ilx_2016_nidec'),
-  CAR.CRV_HYBRID: dbc_dict('honda_crv_hybrid_2019_can_generated', None),
+  CAR.CRV_HYBRID: dbc_dict('honda_crv_hybrid_2019_can_generated', None, body_dbc='honda_crv_ex_2017_body_generated'),
   CAR.FIT: dbc_dict('honda_fit_ex_2018_can_generated', 'acura_ilx_2016_nidec'),
   CAR.HRV: dbc_dict('honda_fit_ex_2018_can_generated', 'acura_ilx_2016_nidec'),
   CAR.ODYSSEY: dbc_dict('honda_odyssey_exl_2018_generated', 'acura_ilx_2016_nidec'),
@@ -1282,6 +1288,7 @@ DBC = {
   CAR.RIDGELINE: dbc_dict('honda_ridgeline_black_edition_2017_can_generated', 'acura_ilx_2016_nidec'),
   CAR.INSIGHT: dbc_dict('honda_insight_ex_2019_can_generated', None),
   CAR.HONDA_E: dbc_dict('acura_rdx_2020_can_generated', None),
+  CAR.JADE: dbc_dict('honda_hrv_touring_2019_can_generated', 'acura_ilx_2016_nidec'),
 }
 
 STEER_THRESHOLD = {
@@ -1298,6 +1305,7 @@ SPEED_FACTOR = {
   CAR.CRV_EU: 1.025,
   CAR.CRV_HYBRID: 1.025,
   CAR.HRV: 1.025,
+  CAR.JADE: 1.05,
 }
 
 HONDA_NIDEC_ALT_PCM_ACCEL = set([CAR.ODYSSEY])
