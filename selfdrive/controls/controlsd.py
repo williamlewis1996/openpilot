@@ -703,6 +703,16 @@ class Controls:
     controlsState.angleSteers = CS.steeringAngleDeg
     controlsState.steeringAngleDesiredDeg = actuators.steeringAngleDeg
 
+    # 2018 Honda Civic Speed Offset
+    if self.v_cruise_kph != 255:
+      controlsState.vCruise = controlsState.vCruise * 1.0076 
+    # Civics convert to km/h to mph using weird rounding logic, this means speed is always slightly slower.
+    # The following offset is the smallest amount required to line things up on the actual car dash.
+    # Otherwise the car will go 59 set at 60, 69 set at 70, 79 set at 80, and so on.
+    # //
+    # Note: Openpilot MAX speed reading may be out of sync at higher speeds.
+    # This is a sacrifice to get the car back in alignment and does not actually affect the real set speed.
+
     if self.joystick_mode:
       controlsState.lateralControlState.debugState = lac_log
     elif self.CP.steerControlType == car.CarParams.SteerControlType.angle:
