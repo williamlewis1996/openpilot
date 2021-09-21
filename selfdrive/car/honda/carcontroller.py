@@ -159,11 +159,6 @@ class CarController():
     self.brake_last = rate_limit(pre_limit_brake, self.brake_last, -2., DT_CTRL)
 
     # vehicle hud display, wait for one update from 10Hz 0x304 msg
-    if hud_show_lanes and CS.lkMode:
-      hud_lanes = 1
-    else:
-      hud_lanes = 0
-
     if enabled:
       if hud_show_car:
         hud_car = 2
@@ -180,7 +175,7 @@ class CarController():
     # steer torque is converted back to CAN reference (positive when steering right)
     apply_steer = int(interp(-actuators.steer * P.STEER_MAX, P.STEER_LOOKUP_BP, P.STEER_LOOKUP_V))
 
-    lkas_active = enabled and not CS.steer_not_allowed and CS.lkMode
+    lkas_active = enabled and not CS.steer_not_allowed
 
     # Send CAN commands.
     can_sends = []
@@ -297,7 +292,7 @@ class CarController():
             can_sends.append(create_gas_command(self.packer, apply_gas, idx))
 
     hud = HUDData(int(pcm_accel), int(round(hud_v_cruise)), hud_car,
-                  hud_lanes, fcw_display, acc_alert, steer_required, CS.lkMode)
+                  hud_lanes, fcw_display, acc_alert, steer_required)
 
     # Send dashboard UI commands.
     if not dragonconf.dpAtl and (frame % 10) == 0:
