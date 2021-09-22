@@ -15,8 +15,12 @@ _PARAMS_UPDATE_PERIOD = 2.  # secs. Time between parameter updates.
 _TEMP_INACTIVE_GUARD_PERIOD = 1.  # secs. Time to wait after activation before considering temp deactivation signal.
 
 # Lookup table for speed limit percent offset depending on speed. Add your custom offset here.
-_LIMIT_PERC_OFFSET_V = [0., 0.12, 0.17, 0.15, 0.13, 0.14, 0.14, 0.1455, 0.1334, 0.124, 0.116] # 15 | 28 | 35 | 40 | 45 | 51 | 57 | 63 | 68 | 73 | 78 mph. Percentage added on top of MPH!
-_LIMIT_PERC_OFFSET_BP = [6.7, 11.2, 13.4, 15.6, 17.8, 20.1, 22.3, 24.6, 26.8, 29.1, 31.3]     # 15 | 25 | 30 | 35 | 40 | 45 | 50 | 55 | 60 | 65 | 70 mph. Meters/Second!
+_LIMIT_PERC_OFFSET_V = [0., 0.12, 0.17, 0.15, 0.13, 0.12, 0.105, 0.98, 0.9, 0.84, 0.78]  # 15 | 28 | 35 | 40 | 45 | 50 | 55 | 60 | 65 | 70 | 75 mph. Percentage added on top of MPH!
+_LIMIT_PERC_OFFSET_BP = [6.7, 11.2, 13.4, 15.6, 17.8, 20.1, 22.3, 24.6, 26.8, 29.1, 31.3] # 15 | 25 | 30 | 35 | 40 | 45 | 50 | 55 | 60 | 65 | 70 mph. Meters/Second!
+
+# Lookup table for speed limit percent offset depending on speed. Add your custom offset here. 8mph over chart
+#_LIMIT_PERC_OFFSET_V = [0., 0.12, 0.17, 0.15, 0.13, 0.14, 0.14, 0.1455, 0.1334, 0.124, 0.116] # 15 | 28 | 35 | 40 | 45 | 51 | 57 | 63 | 68 | 73 | 78 mph. Percentage added on top of MPH!
+#_LIMIT_PERC_OFFSET_BP = [6.7, 11.2, 13.4, 15.6, 17.8, 20.1, 22.3, 24.6, 26.8, 29.1, 31.3]     # 15 | 25 | 30 | 35 | 40 | 45 | 50 | 55 | 60 | 65 | 70 mph. Meters/Second!
 
 #_LIMIT_PERC_OFFSET_V = [0.28, 0.038]  # 55, 105, 135 km/h 96, 129
 #_LIMIT_PERC_OFFSET_BP = [13.9, 36.1]  # 50, 100, 130 km/h
