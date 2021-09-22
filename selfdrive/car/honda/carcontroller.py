@@ -294,7 +294,7 @@ class CarController():
             gas_mult = interp(CS.out.vEgo, [0., 10.], [0.4, 1.0])
             # send exactly zero if apply_gas is zero. Interceptor will send the max between read value and apply_gas.
             # This prevents unexpected pedal range rescaling
-            apply_gas = clip(gas_mult * gas, 0., 1.)
+            apply_gas = clip(gas_mult * gas + wind_brake, 0., 1.)
             if not CS.out.cruiseState.enabled:
               apply_gas = 0.
             if dragonconf.dpAtl and dragonconf.dpAtlOpLong and not CS.out.cruiseActualEnabled:
