@@ -62,7 +62,7 @@ def update_v_cruise(v_cruise_kph, buttonEvents, enabled, cur_time, accel_pressed
         if not b.pressed:
           if b.type == car.CarState.ButtonEvent.Type.accelCruise:
             if (not fastMode):
-              v_cruise_kph -= V_CRUISE_DELTA - ((V_CRUISE_DELTA - v_cruise_kph) % V_CRUISE_DELTA)
+              v_cruise_kph += V_CRUISE_DELTA - (v_cruise_kph % V_CRUISE_DELTA)
           elif b.type == car.CarState.ButtonEvent.Type.decelCruise:
             if (not fastMode):
               v_cruise_kph -= V_CRUISE_DELTA - ((V_CRUISE_DELTA - v_cruise_kph) % V_CRUISE_DELTA)
