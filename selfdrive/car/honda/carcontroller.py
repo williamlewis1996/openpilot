@@ -223,12 +223,12 @@ class CarController():
                       0.5]
     # The Honda ODYSSEY seems to have different PCM_ACCEL
     # msgs, is it other cars too?
-    if CS.CP.enableGasInterceptor or CS.CP.carFingerprint in HONDA_NIDEC_ALT_PCM_ACCEL:
+    if CS.CP.carFingerprint in HONDA_NIDEC_ALT_PCM_ACCEL:
       pcm_speed_V = [0.0,
-                     clip(CS.out.vEgo - 0.0, 0.0, 000.0),
-                     clip(CS.out.vEgo + 0.0, 0.0, 000.0),
-                     clip(CS.out.vEgo + 0.0, 0.0, 000.0)]
-      pcm_accel = int((0.0) * 0xc6)
+                     clip(CS.out.vEgo - 3.0, 0.0, 100.0),
+                     clip(CS.out.vEgo + 0.0, 0.0, 100.0),
+                     clip(CS.out.vEgo + 5.0, 0.0, 100.0)]
+      pcm_accel = int((1.0) * 0xc6)
     else:
       pcm_speed_V = [0.0,
                      clip(CS.out.vEgo - 2.0, 0.0, 100.0),
