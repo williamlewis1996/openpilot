@@ -223,12 +223,9 @@ class CarController():
                       0.5]
     # The Honda ODYSSEY seems to have different PCM_ACCEL
     # msgs, is it other cars too?
-    if CS.CP.carFingerprint in HONDA_NIDEC_ALT_PCM_ACCEL:
-      pcm_speed_V = [0.0,
-                     clip(CS.out.vEgo - 3.0, 0.0, 100.0),
-                     clip(CS.out.vEgo + 0.0, 0.0, 100.0),
-                     clip(CS.out.vEgo + 5.0, 0.0, 100.0)]
-      pcm_accel = int((1.0) * 0xc6)
+    if CS.CP.enableGasInterceptor:
+      #pcm_speed = pcm_speed
+      pcm_accel = int(clip(pcm_accel, 0, 0) * 0xc6)
     else:
       pcm_speed_V = [0.0,
                      clip(CS.out.vEgo - 2.0, 0.0, 100.0),
@@ -294,7 +291,7 @@ class CarController():
             gas_mult = interp(CS.out.vEgo, [0., 10.], [0.4, 1.0])
             # send exactly zero if apply_gas is zero. Interceptor will send the max between read value and apply_gas.
             # This prevents unexpected pedal range rescaling
-            apply_gas = clip(gas_mult * gas + wind_brake*3/4, 0., 1.)
+            apply_gas = clip(gas_mult * gas, 0., 1.)
             if not CS.out.cruiseState.enabled:
               apply_gas = 0.
             if dragonconf.dpAtl and dragonconf.dpAtlOpLong and not CS.out.cruiseActualEnabled:
