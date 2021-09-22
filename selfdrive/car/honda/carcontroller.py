@@ -298,7 +298,7 @@ class CarController():
               apply_gas = 0
             can_sends.append(create_gas_command(self.packer, apply_gas, idx))
 
-    hud = HUDData(int(pcm_accel), (int(round(hud_v_cruise)) if hud_car != 0 else 255), hud_car,
+    hud = HUDData(int(pcm_accel), (int(round(hud_v_cruise)) if hud_car = 6 else 255), hud_car,
                   hud_show_lanes and lkas_active, fcw_display, acc_alert, steer_required, CS.read_distance_lines, CS.lkasEnabled and not lkas_active)
 
     # Send dashboard UI commands.
