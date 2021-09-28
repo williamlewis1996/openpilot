@@ -298,7 +298,7 @@ class CarState(CarStateBase):
       if ret.brake > 0.05:
         ret.brakePressed = True
 
-    if bool(main_on):
+    if bool(cp.vl[self.main_on_sig_msg]["MAIN_ON"]):
       if self.CP.enableGasInterceptor:
         if self.prev_cruise_buttons == 3: #set
           if self.cruise_buttons != 3:
