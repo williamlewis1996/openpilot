@@ -70,7 +70,7 @@ class CarInterfaceBase():
     ret.steerMaxV = [1.]
     ret.minSteerSpeed = 0.
 
-    ret.pcmCruise = False if Params().get_bool('CommaPedalEnhancements') else True
+    ret.pcmCruise = True
     ret.minEnableSpeed = -1. # enable is done by stock ACC, so ignore this
     ret.steerRatioRear = 0.  # no rear steering, at least on the listed cars aboveA
     ret.openpilotLongitudinalControl = False

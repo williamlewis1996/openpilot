@@ -234,7 +234,7 @@ class CarController():
         if CS.CP.enableGasInterceptor:
           pcm_cancel_cmd = False
 
-          pcm_override = False
+          pcm_override = True
           can_sends.append(hondacan.create_brake_command(self.packer, apply_brake, pump_on,
             pcm_override, pcm_cancel_cmd, fcw_display, idx, CS.CP.carFingerprint, CS.stock_brake))
           self.apply_brake_last = apply_brake
