@@ -85,7 +85,7 @@ TogglesPanel::TogglesPanel(QWidget *parent) : QWidget(parent) {
                                 "This change behaves more like stock openpilot where you can use one button to enable everything. Note that once LKAS is on, it will remain on standby until manually disabled or the vehicle is shut off.",
                                 "../assets/offroad/icon_openpilot.png",
                                 this));
-                      
+
   toggles.append(new ParamControl("CommaPedalEnhancements",
                                 "Comma Pedal: Tuning Adjustments",
                                 "Specific adjustments to the comma pedal to optomize the tuning. Includes faster acceleration.",
@@ -126,6 +126,11 @@ TogglesPanel::TogglesPanel(QWidget *parent) : QWidget(parent) {
   toggles.append(new ParamControl("CivicSpeedAdjustment",
                                 "Nidec Honda Civic: Speedometer Rounding Fix",
                                 "In MPH, the civic rounds slightly too low. This feature makes openpilot accelerate an extra 0.76% so the two speeds on the dash line up. (No more staying at 69 when set at 70).",
+                                "../assets/offroad/icon_openpilot.png",
+                                this));
+  toggles.append(new ParamControl("LQRTune",
+                                "Lateral Tuning: Use LQR Tune",
+                                "This will enable LQR tuning for lateral control.",
                                 "../assets/offroad/icon_openpilot.png",
                                 this));
 
