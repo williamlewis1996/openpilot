@@ -85,6 +85,11 @@ TogglesPanel::TogglesPanel(QWidget *parent) : ListWidget(parent) {
                              this));
 
   }
+  addItem(new ParamControl("LQRTune",
+                             "Lateral Tuning: Use LQR Tune",
+                             "This will enable LQR tuning for lateral control.",
+                             "../assets/offroad/icon_openpilot.png",
+                             this));
 
   bool record_lock = params.getBool("RecordFrontLock");
   record_toggle->setEnabled(!record_lock);
